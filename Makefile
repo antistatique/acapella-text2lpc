@@ -14,3 +14,5 @@ stop:
 	docker-compose stop
 restart:
 	docker-compose stop && docker-compose up -d
+test:
+	docker-compose exec acapella-web vendor/bin/phpunit --debug

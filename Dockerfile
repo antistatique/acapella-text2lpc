@@ -11,5 +11,6 @@ WORKDIR /app
 COPY . /app
 RUN composer install
 RUN npm install
-CMD php artisan serve --host=0.0.0.0 --port=8181
+COPY wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
 EXPOSE 8181

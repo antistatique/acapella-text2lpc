@@ -1,0 +1,24 @@
+version: "2.1"
+
+services:
+  acapella-db:
+    image: mariadb:10.1
+    ports:
+      - "9999:3306"
+    container_name: acapella-db
+    environment:
+      MYSQL_ROOT_PASSWORD: acapella
+      MYSQL_DATABASE: acapella
+      MYSQL_USER: acapella
+      MYSQL_PASSWORD: acapella
+  acapella-web:
+    build:
+      context: .
+    image: php:7.3.1
+    ports:
+      - "8181:8181"
+    container_name: acapella-web
+    volumes:
+      - ./:/app
+      - /app/vendor
+      - /app/node_modules

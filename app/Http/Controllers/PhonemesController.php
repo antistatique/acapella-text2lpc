@@ -9,13 +9,13 @@ use Symfony\Component\Process\Process;
 class PhonemesController extends Controller
 {
     public function transformPhonemes(Request $request) {
-        $process = new Process(['python3', '../transform-phonemes.py', 'hello']);
+        $process = new Process(['python3', '../transform-phonemes.py', $request->input('sentence')]);
         $process->run();
 
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
         
-        dd($process->getOutput());
+        return view('phonemes_form', ['phonemes' => $process->getOutput()]);
     }
 }

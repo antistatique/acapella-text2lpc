@@ -12,6 +12,6 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('phonemes_form');
 });
-Route::get('/test-phonemes', 'PhonemesController@transformPhonemes');
+Route::post('/test-phonemes', 'PhonemesController@transformPhonemes');

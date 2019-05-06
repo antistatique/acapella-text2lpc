@@ -15,5 +15,9 @@
             {{ Form::textarea('sentence') }}
             {{ Form::submit('Click me!')}}
         {{ Form::close() }}
+
+        @if (isset($phonemes))
+            <p>{{ $phonemes }}</p>
+        @endif
     </body>
 </html>

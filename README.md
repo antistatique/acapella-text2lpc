@@ -32,3 +32,4 @@ To make life easier, there are other make commands to run different actions :
 * ``` make migrations ``` : Run the migrations
 * ``` make stop ``` : Stop the containers
 * ``` make restart ``` : Restart the containers
+* ``` make test ``` : Run PHP tests

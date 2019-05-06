@@ -11,7 +11,6 @@
     </head>
     <body>
         {{ Form::open(array('action' => 'PhonemesController@transformPhonemes')) }}
-            {{ Form::token() }}
             {{ Form::textarea('sentence') }}
             {{ Form::submit('Click me!')}}
         {{ Form::close() }}

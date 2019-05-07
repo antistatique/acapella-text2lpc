@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Forms extends Model
+class Form extends Model
 {
     /**
      * Define the relationship with the Key model

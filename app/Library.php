@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Libraries extends Model
+class Library extends Model
 {
     /**
      * Define relationship with User model

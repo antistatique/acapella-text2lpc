@@ -16,6 +16,6 @@ class PhonemesController extends Controller
             throw new ProcessFailedException($process);
         }
         
-        return view('phonemes_form', ['phonemes' => rtrim($process->getOutput())]);
+        return view('phonemes_form', ['phonemes' => str_replace('-', '', rtrim($process->getOutput()))]);
     }
 }

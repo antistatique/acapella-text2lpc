@@ -1,3 +1,6 @@
 - name: Running tests PHP
   service: acapella-web
-  command: ./wait-for-it.sh acapella-db:3306 -- vendor/bin/phpunit --debug
+  command: >-
+    bash -c "./wait-for-it.sh acapella-db:3306 &&
+    php artisan migrate &&
+    vendor/bin/phpunit --debug"

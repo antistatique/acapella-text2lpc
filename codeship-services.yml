@@ -1,0 +1,13 @@
+acapella-db:
+  image: mariadb:10.1
+  environment:
+    MYSQL_ROOT_PASSWORD: acapella
+    MYSQL_DATABASE: acapella
+    MYSQL_USER: acapella
+    MYSQL_PASSWORD: acapella
+acapella-web:
+  build:
+    context: .
+    dockerfile: Dockerfile
+  depends_on:
+    - "acapella-db"

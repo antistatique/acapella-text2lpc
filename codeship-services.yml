@@ -6,6 +6,7 @@ acapella-db:
     MYSQL_USER: acapella
     MYSQL_PASSWORD: acapella
 acapella-web:
+  cached: true
   build:
     context: .
     dockerfile: Dockerfile

@@ -9,6 +9,7 @@ RUN docker-php-ext-install pdo mbstring mysqli pdo_mysql
 RUN pip3 install joblib && pip3 install segments
 WORKDIR /app
 COPY . /app
+RUN if [ ! -f ".env" ]; then cp .env.example .env; fi
 RUN composer install
 RUN npm install
 COPY wait-for-it.sh /wait-for-it.sh

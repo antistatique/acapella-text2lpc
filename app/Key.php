@@ -7,6 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class Key extends Model
 {
     /**
+     * Define which fields can be fillable by the user
+     */
+    protected $fillable = [
+        'form_id',
+        'position_id',
+        'image'
+    ];
+
+    /**
+     * Define which fields are hidden to the user
+     */
+    protected $hidden = [
+        'id',
+    ];
+
+    /**
      * Define the relationship with the Form model
      */
     public function form() {

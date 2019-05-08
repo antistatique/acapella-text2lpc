@@ -15,13 +15,12 @@ class CreateKeysTable extends Migration
     {
         Schema::create('keys', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('form_id')->nullable(false);
-            $table->unsignedBigInteger('position_id')->nullable(false);
-            $table->string('image')->nullable(false);
+            $table->string('key')->nullable(false);
+            $table->string('position')->nullable(false);
+            $table->unsignedBigInteger('library_id')->nullable(false);
             $table->timestamps();
 
-            $table->foreign('form_id')->references('id')->on('forms');
-            $table->foreign('position_id')->references('id')->on('positions');
+            $table->foreign('library_id')->references('id')->on('libraries');
         });
     }
 

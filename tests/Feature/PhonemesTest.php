@@ -24,7 +24,7 @@ class PhonemesTest extends TestCase
         ]);
 
         $response->assertStatus(200, $response->getStatusCode());
-        $response->assertViewHas('phonemes', 'la- kɔʁal də- mɔ̃n ami ʃɑ̃t œ̃n aɡʁeabl ʃɑ̃');
+        $response->assertViewHas('phonemes', 'la kɔʁal də mɔ̃n ami ʃɑ̃t œ̃n aɡʁeabl ʃɑ̃');
     }
 
     /**
@@ -60,7 +60,7 @@ class PhonemesTest extends TestCase
         ]);
 
         $response->assertStatus(200, $response->getStatusCode());
-        $response->assertViewHas('phonemes', 'lə- pətit ami də- ma- sœʁ ɛ sɛ̃pa');
+        $response->assertViewHas('phonemes', 'lə pətit ami də ma sœʁ ɛ sɛ̃pa');
     }
 
     /**
@@ -132,7 +132,7 @@ class PhonemesTest extends TestCase
         ]);
 
         $response->assertStatus(200, $response->getStatusCode());
-        $response->assertViewHas('phonemes', 'le- nyaʒ sɔ̃t ɑ̃ fɔʁm də- ljɔ̃');
+        $response->assertViewHas('phonemes', 'le nyaʒ sɔ̃t ɑ̃ fɔʁm də ljɔ̃');
     }
 
     /**
@@ -150,6 +150,6 @@ class PhonemesTest extends TestCase
         ]);
 
         $response->assertStatus(200, $response->getStatusCode());
-        $response->assertViewHas('phonemes', 'le- muɛt vɔlt odəsy də- la- mɛʁ');
+        $response->assertViewHas('phonemes', 'le muɛt vɔlt odəsy də la mɛʁ');
     }
 }

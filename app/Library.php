@@ -19,6 +19,7 @@ class Library extends Model
     protected $hidden = [
         'id',
         'user_id',
+        'default'
     ];
 
     /**
@@ -32,6 +33,6 @@ class Library extends Model
      * Define the many-to-many relationship with Key model
      */
     public function keys() {
-        return $this->belongsToMany('App\Key');
+        return $this->hasMany('App\Key');
     }
 }

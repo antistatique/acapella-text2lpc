@@ -12,15 +12,15 @@ class FormsAndPositions
     static public function getKeyName($phoneme) {
         switch ($phoneme) {
             case 'm':
-                return 'fantôme';
+                return 'fantome';
             case 't':
-                return 'fantôme';
+                return 'fantome';
             case 'f':
-                return 'fantôme';
+                return 'fantome';
             case 'b':
-                return 'béni';
+                return 'beni';
             case 'n':
-                return 'béni';
+                return 'beni';
             case 'ɡ':
                 return 'gare';
             case 'v':
@@ -81,15 +81,15 @@ class FormsAndPositions
             case 'ɑ̃':
                 return 'pigeon_blanc';
             case 'u':
-                return 'où_est_paul';
+                return 'ou_est_paul';
             case 'ɛ':
-                return 'où_est_paul';
+                return 'ou_est_paul';
             case 'ɔ':
-                return 'où_est_paul';
+                return 'ou_est_paul';
             case 'y':
-                return 'un_zébu';
+                return 'un_zebu';
             case 'e':
-                return 'un_zébu';
+                return 'un_zebu';
             default:
                 throw new PhonemeNotFoundException();
                 break;

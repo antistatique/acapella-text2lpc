@@ -13,63 +13,63 @@ class KeyTableSeeder extends Seeder
     public function run()
     {
         Key::create([
-            'key' => 'fantôme',
+            'key' => 'fantome',
             'position' => 'oh_le_lac',
-            'image' => asset('storage/fantôme_oh_le_lac_default.jpg'),
+            'image' => asset('storage/fantome_oh_le_lac_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
-            'key' => 'fantôme',
+            'key' => 'fantome',
             'position' => 'bain_bleu',
-            'image' => asset('storage/fantôme_bain_bleau_default.jpg'),
+            'image' => asset('storage/fantome_bain_bleau_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
-            'key' => 'fantôme',
+            'key' => 'fantome',
             'position' => 'pigeon_blanc',
-            'image' => asset('storage/fantôme_pigeon_blanc_default.jpg'),
+            'image' => asset('storage/fantome_pigeon_blanc_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
-            'key' => 'fantôme',
-            'position' => 'où_est_paul',
-            'image' => asset('storage/fantôme_où_est_paul_default.jpg'),
+            'key' => 'fantome',
+            'position' => 'ou_est_paul',
+            'image' => asset('storage/fantome_ou_est_paul_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
-            'key' => 'fantôme',
-            'position' => 'un_zébu',
-            'image' => asset('storage/fantôme_un_zébu_default.jpg'),
+            'key' => 'fantome',
+            'position' => 'un_zebu',
+            'image' => asset('storage/fantôme_un_zebu_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
-            'key' => 'béni',
+            'key' => 'beni',
             'position' => 'oh_le_lac',
-            'image' => asset('storage/béni_oh_le_lac_default.jpg'),
+            'image' => asset('storage/beni_oh_le_lac_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
-            'key' => 'béni',
+            'key' => 'beni',
             'position' => 'bain_bleu',
-            'image' => asset('storage/béni_bain_bleu_default.jpg'),
+            'image' => asset('storage/beni_bain_bleu_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
-            'key' => 'béni',
+            'key' => 'beni',
             'position' => 'pigeon_blanc',
-            'image' => asset('storage/béni_pigeon_blanc_default.jpg'),
+            'image' => asset('storage/beni_pigeon_blanc_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
-            'key' => 'béni',
-            'position' => 'où_est_paul',
-            'image' => asset('storage/béni_où_est_paul_default.jpg'),
+            'key' => 'beni',
+            'position' => 'ou_est_paul',
+            'image' => asset('storage/beni_ou_est_paul_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
-            'key' => 'béni',
-            'position' => 'un_zébu',
-            'image' => asset('storage/béni_un_zébu_default.jpg'),
+            'key' => 'beni',
+            'position' => 'un_zebu',
+            'image' => asset('storage/beni_un_zebu_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
@@ -93,13 +93,13 @@ class KeyTableSeeder extends Seeder
         Key::create([
             'key' => 'gare',
             'position' => 'où_est_paul',
-            'image' => asset('storage/gare_où_est_paul_default.jpg'),
+            'image' => asset('storage/gare_ou_est_paul_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
             'key' => 'gare',
-            'position' => 'un_zébu',
-            'image' => asset('storage/gare_un_zébu_default.jpg'),
+            'position' => 'un_zebu',
+            'image' => asset('storage/gare_un_zebu_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
@@ -122,14 +122,14 @@ class KeyTableSeeder extends Seeder
         ]);
         Key::create([
             'key' => 'vos_cases',
-            'position' => 'où_est_paul',
-            'image' => asset('storage/vos_cases_où_est_paul_default.jpg'),
+            'position' => 'ou_est_paul',
+            'image' => asset('storage/vos_cases_ou_est_paul_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
             'key' => 'vos_cases',
-            'position' => 'un_zébu',
-            'image' => asset('storage/vos_cases_un_zébu_default.jpg'),
+            'position' => 'un_zebu',
+            'image' => asset('storage/vos_cases_un_zebu_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
@@ -152,14 +152,14 @@ class KeyTableSeeder extends Seeder
         ]);
         Key::create([
             'key' => 'rance',
-            'position' => 'où_est_paul',
-            'image' => asset('storage/rance_où_est_paul_default.jpg'),
+            'position' => 'ou_est_paul',
+            'image' => asset('storage/rance_ou_est_paul_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
             'key' => 'rance',
-            'position' => 'un_zébu',
-            'image' => asset('storage/rance_un_zébu_default.jpg'),
+            'position' => 'un_zebu',
+            'image' => asset('storage/rance_un_zebu_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
@@ -182,14 +182,14 @@ class KeyTableSeeder extends Seeder
         ]);
         Key::create([
             'key' => 'champignon',
-            'position' => 'où_est_paul',
-            'image' => asset('storage/champignon_où_est_paul_default.jpg'),
+            'position' => 'ou_est_paul',
+            'image' => asset('storage/champignon_ou_est_paul_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
             'key' => 'champignon',
-            'position' => 'un_zébu',
-            'image' => asset('storage/champignon_un_zébu_default.jpg'),
+            'position' => 'un_zebu',
+            'image' => asset('storage/champignon_un_zebu_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
@@ -212,14 +212,14 @@ class KeyTableSeeder extends Seeder
         ]);
         Key::create([
             'key' => 'fille',
-            'position' => 'où_est_paul',
-            'image' => asset('storage/fille_où_est_paul_default.jpg'),
+            'position' => 'ou_est_paul',
+            'image' => asset('storage/fille_ou_est_paul_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
             'key' => 'fille',
-            'position' => 'un_zébu',
-            'image' => asset('storage/fille_un_zébu_default.jpg'),
+            'position' => 'un_zebu',
+            'image' => asset('storage/fille_un_zebu_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
@@ -242,14 +242,14 @@ class KeyTableSeeder extends Seeder
         ]);
         Key::create([
             'key' => 'des_jupes',
-            'position' => 'où_est_paul',
-            'image' => asset('storage/des_jupes_où_est_paul_default.jpg'),
+            'position' => 'ou_est_paul',
+            'image' => asset('storage/des_jupes_ou_est_paul_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([
             'key' => 'des_jupes',
-            'position' => 'un_zébu',
-            'image' => asset('storage/des_jupes_un_zébu_default.jpg'),
+            'position' => 'un_zebu',
+            'image' => asset('storage/des_jupes_un_zebu_default.jpg'),
             'library_id' => 1,
         ]);
     }

@@ -2,6 +2,12 @@
 
 Project to transform a French sentence to LPC keys.
 
+## Tools used
+
+### Phonemizer
+
+Phonemizer was used in this project, the repository for this library can be found [here](https://github.com/bootphon/phonemizer/tree/v1.0.1). The library is under a GPL licence.
+
 ## Project Setup
 
 This project runs on Docker, if you don't have it installed you can get it [here]((https://www.docker.com/get-started)).

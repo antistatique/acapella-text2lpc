@@ -3,8 +3,6 @@ version: "3.5"
 services:
   acapella-db:
     image: mariadb:10.1
-    ports:
-      - "9999:3306"
     container_name: acapella-db
     environment:
       MYSQL_ROOT_PASSWORD: acapella
@@ -15,8 +13,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "8181:8181"
+    # ports are defined in `docker-compose.override.yml`
     container_name: acapella-web
     volumes:
       - ./:/app

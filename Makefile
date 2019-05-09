@@ -1,4 +1,5 @@
 setup:
+	cp docker-compose.override.yml.example docker-compose.override.yml && \
 	docker-compose build --no-cache && \
 	docker-compose up -d && \
 	cp .env.example .env && \

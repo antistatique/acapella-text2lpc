@@ -1,0 +1,10 @@
+version: '3.5'
+
+services:
+  acapella-db:
+    ports:
+      - "9999:3306"
+
+  acapella-web:
+    ports:
+      - "8181:8181"

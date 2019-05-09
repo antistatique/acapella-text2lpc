@@ -4,7 +4,8 @@ setup:
 	docker-compose up -d && \
 	cp .env.example .env && \
 	docker-compose exec acapella-web php artisan key:generate && \
-	docker-compose exec acapella-web php artisan migrate
+	docker-compose exec acapella-web php artisan migrate && \
+	docker-compose exec acapella-web php artisan db:seed
 build:
 	docker-compose build
 up:
@@ -17,3 +18,5 @@ restart:
 	docker-compose stop && docker-compose up -d
 test:
 	docker-compose exec acapella-web vendor/bin/phpunit --debug
+db-seed:
+	docker-compose exec acapella-web php artisan db:seed

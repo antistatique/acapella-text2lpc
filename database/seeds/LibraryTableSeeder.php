@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Library;
 
 class LibraryTableSeeder extends Seeder
 {
@@ -11,6 +12,10 @@ class LibraryTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Library::create([
+            'public' => true,
+            'default' => true,
+            'user_id' => 1,
+        ]);
     }
 }

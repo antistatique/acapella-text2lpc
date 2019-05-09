@@ -5,17 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use App\LPC\LPC;
 
 class PhonemesController extends Controller
 {
     public function transformPhonemes(Request $request) {
-        $process = new Process(['python3', env('APP_ENV') != 'testing' ? '../phonemizer/transform-phonemes.py' : './phonemizer/transform-phonemes.py', $request->input('sentence')]);
-        $process->run();
+        $phonemes = LPC::transformToPhonemes($request->input('sentence'));
 
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-        
-        return view('phonemes_form', ['phonemes' => str_replace('-', '', rtrim($process->getOutput()))]);
+        return view('phonemes_form', ['phonemes' => $phonemes]);
     }
 }

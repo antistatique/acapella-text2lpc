@@ -19,7 +19,7 @@ The Laravel project will be available on localhost with the port 8181 and if you
 The credentials for the development database are :
 
 |Database|User|Password|
-|---|---|---|---|---|
+|---|---|---|
 |acapella|acapealla|acapealla|
 
 ## Other make commands

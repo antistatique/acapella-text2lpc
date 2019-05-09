@@ -9,7 +9,7 @@ use Symfony\Component\Process\Process;
 class PhonemesController extends Controller
 {
     public function transformPhonemes(Request $request) {
-        $process = new Process(['python3', env('APP_ENV') != 'testing' ? '../transform-phonemes.py' : './transform-phonemes.py', $request->input('sentence')]);
+        $process = new Process(['python3', env('APP_ENV') != 'testing' ? '../phonemizer/transform-phonemes.py' : './phonemizer/transform-phonemes.py', $request->input('sentence')]);
         $process->run();
 
         if (!$process->isSuccessful()) {

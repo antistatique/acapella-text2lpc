@@ -1,0 +1,34 @@
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      language: python
+      python: "2.7"
+      sudo: false
+    - os: linux
+      dist: trusty
+      language: python
+      python: "3.6"
+      sudo: false
+
+addons:
+  apt:
+    packages:
+      - festival festvox-us1 festlex-cmu festlex-poslex espeak
+
+install:
+  - pip install --upgrade pip
+  - pip install .[test]
+
+script:
+  - festival --version
+  - espeak --version
+  - python -c 'import segments; print("segments-{}".format(segments.__version__))'
+  - phonemize --version
+  - pytest ./test -v
+
+cache:
+  - pip
+
+notifications:
+  email: false

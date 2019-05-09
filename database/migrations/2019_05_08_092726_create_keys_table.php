@@ -17,6 +17,7 @@ class CreateKeysTable extends Migration
             $table->bigIncrements('id');
             $table->string('key')->nullable(false);
             $table->string('position')->nullable(false);
+            $table->string('image')->nullable(false);
             $table->unsignedBigInteger('library_id')->nullable(false);
             $table->timestamps();
 

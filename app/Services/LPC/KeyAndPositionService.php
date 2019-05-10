@@ -2,7 +2,9 @@
 
 namespace App\Services\LPC;
 
-class FormsAndPositions
+use App\Exceptions\PhonemeNotFoundException;
+
+class KeyAndPositionService
 {
     /**
      * Method to get the key for a phoneme

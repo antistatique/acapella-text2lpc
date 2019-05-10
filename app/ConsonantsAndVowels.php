@@ -3,10 +3,11 @@
 namespace App;
 
 class ConsonantsAndVowels {
+    
     /**
      * Associative array with all phonemes and if they're consonants or vowels
      */
-    const CONSTONANTSANDVOWELS = [
+    const CONSONANTSANDVOWELS = [
         'm' => 'consonant', 'a' => 'vowel',
         't' => 'consonant', 'œ' => 'vowel',
         'f' => 'consonant', 'o' => 'vowel',
@@ -36,6 +37,6 @@ class ConsonantsAndVowels {
      * @return string
      */
     static public function getKey($phoneme) {
-        return CONSTONANTSANDVOWELS[$phoneme];
+        return self::CONSONANTSANDVOWELS[$phoneme];
     }
 }

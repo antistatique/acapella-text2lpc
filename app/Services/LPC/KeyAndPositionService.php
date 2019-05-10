@@ -41,7 +41,7 @@ class FormsAndPositions
                 return 'champignon';
             case 'ɲ':
                 return 'champignon';
-            case 'f':
+            case 'ŋ':
                 return 'fille';
             case 'j':
                 return 'fille';

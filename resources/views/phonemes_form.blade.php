@@ -10,7 +10,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
     <body>
-        {{ Form::open(array('action' => 'PhonemesController@transformPhonemes')) }}
+        {{ Form::open(array('action' => 'LPCController@getLPCKeys')) }}
             {{ Form::textarea('sentence') }}
             {{ Form::submit('Click me!')}}
         {{ Form::close() }}

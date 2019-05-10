@@ -14,4 +14,4 @@
 Route::get('/', function () {
     return view('phonemes_form');
 });
-Route::post('/test-phonemes', 'PhonemesController@transformPhonemes');
+Route::post('/test-phonemes', 'LPCController@getLPCKeys');

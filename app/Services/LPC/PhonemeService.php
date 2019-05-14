@@ -20,6 +20,6 @@ class PhonemeService
             throw new ProcessFailedException($process);
         }
 
-        return str_replace('-', '', rtrim($process->getOutput()));
+        return rtrim($process->getOutput());
     }
 }

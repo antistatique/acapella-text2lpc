@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Services\LPC\KeyAndPositionService;
+use App\Statics\KeyAndPosition;
 
 class GetPositionNameTest extends TestCase
 {
@@ -16,11 +16,10 @@ class GetPositionNameTest extends TestCase
      */
     public function testOhLeLac()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['a', 'œ', 'o'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getPositionName($phoneme) === 'oh_le_lac');
+            $this->assertTrue(KeyAndPosition::getPositionName($phoneme) === 'oh_le_lac');
         }
     }
 
@@ -31,11 +30,10 @@ class GetPositionNameTest extends TestCase
      */
     public function testBainBleu()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['ɛ̃', 'ø'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getPositionName($phoneme) === 'bain_bleu');
+            $this->assertTrue(KeyAndPosition::getPositionName($phoneme) === 'bain_bleu');
         }
     }
 
@@ -46,11 +44,10 @@ class GetPositionNameTest extends TestCase
      */
     public function testPigeonBlanc()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['i', 'ɔ̃', 'ɑ̃'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getPositionName($phoneme) === 'pigeon_blanc');
+            $this->assertTrue(KeyAndPosition::getPositionName($phoneme) === 'pigeon_blanc');
         }
     }
 
@@ -61,11 +58,10 @@ class GetPositionNameTest extends TestCase
      */
     public function testOuEstPaul()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['u', 'ɛ', 'ɔ'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getPositionName($phoneme) === 'ou_est_paul');
+            $this->assertTrue(KeyAndPosition::getPositionName($phoneme) === 'ou_est_paul');
         }
     }
 
@@ -76,11 +72,10 @@ class GetPositionNameTest extends TestCase
      */
     public function testUnZebu()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['y', 'e'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getPositionName($phoneme) === 'un_zebu');
+            $this->assertTrue(KeyAndPosition::getPositionName($phoneme) === 'un_zebu');
         }
     }
 
@@ -92,8 +87,7 @@ class GetPositionNameTest extends TestCase
      */
     public function testNotFound()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $this->expectException(\App\Exceptions\PhonemeNotFoundException::class);
-        $keyAndPositionService->getPositionName('m');
+        KeyAndPosition::getPositionName('m');
     }
 }

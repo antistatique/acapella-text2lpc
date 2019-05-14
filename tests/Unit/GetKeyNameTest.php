@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Services\LPC\KeyAndPositionService;
+use App\Statics\KeyAndPosition;
 
 class GetKeyNameTest extends TestCase
 {
@@ -16,11 +16,10 @@ class GetKeyNameTest extends TestCase
      */
     public function testFantome()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['m', 't', 'f'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getKeyName($phoneme) === 'fantome');
+            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'fantome');
         }
     }
 
@@ -31,11 +30,10 @@ class GetKeyNameTest extends TestCase
      */
     public function testBeni()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['b', 'n'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getKeyName($phoneme) === 'beni');
+            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'beni');
         }
     }
 
@@ -46,8 +44,7 @@ class GetKeyNameTest extends TestCase
      */
     public function testGare()
     {
-        $keyAndPositionService = new KeyAndPositionService();
-        $this->assertTrue($keyAndPositionService->getKeyName('ɡ') === 'gare');
+        $this->assertTrue(KeyAndPosition::getKeyName('ɡ') === 'gare');
     }
 
     /**
@@ -57,11 +54,10 @@ class GetKeyNameTest extends TestCase
      */
     public function testVosCases()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['v', 'k', 'z'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getKeyName($phoneme) === 'vos_cases');
+            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'vos_cases');
         }
     }
 
@@ -72,11 +68,10 @@ class GetKeyNameTest extends TestCase
      */
     public function testRance()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['ʁ', 's'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getKeyName($phoneme) === 'rance');
+            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'rance');
         }
     }
     
@@ -87,11 +82,10 @@ class GetKeyNameTest extends TestCase
      */
     public function testChampignon()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['w', 'l', 'ʃ', 'ɲ'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getKeyName($phoneme) === 'champignon');
+            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'champignon');
         }
     }
 
@@ -102,11 +96,10 @@ class GetKeyNameTest extends TestCase
      */
     public function testFille()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['ŋ', 'j'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getKeyName($phoneme) === 'fille');
+            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'fille');
         }
     }
 
@@ -117,11 +110,10 @@ class GetKeyNameTest extends TestCase
      */
     public function testDesJupes()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $phonemes = ['d', 'ʒ', 'p'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue($keyAndPositionService->getKeyName($phoneme) === 'des_jupes');
+            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'des_jupes');
         }
     }
 
@@ -133,8 +125,7 @@ class GetKeyNameTest extends TestCase
      */
     public function testNotFound()
     {
-        $keyAndPositionService = new KeyAndPositionService();
         $this->expectException(\App\Exceptions\PhonemeNotFoundException::class);
-        $keyAndPositionService->getKeyName('a');
+        KeyAndPosition::getKeyName('a');
     }
 }

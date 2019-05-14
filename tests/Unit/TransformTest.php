@@ -19,7 +19,7 @@ class TransformTest extends TestCase
         $phonemeService = new PhonemeService();
 
         $result = $phonemeService->transform('la chorale de mon ami chante un agréable chant');
-        $this->assertTrue($result === 'la kɔʁal də mɔ̃n ami ʃɑ̃t œ̃n aɡʁeabl ʃɑ̃');
+        $this->assertTrue($result === 'l;a k;ɔ;ʁ;a;l d;ə m;ɔ̃;n a;m;i ʃ;ɑ̃;t œ̃;n a;ɡ;ʁ;e;a;b;l ʃ;ɑ̃');
     }
 
     /**
@@ -32,7 +32,7 @@ class TransformTest extends TestCase
         $phonemeService = new PhonemeService();
 
         $result = $phonemeService->transform('il était une fois trois amis');
-        $this->assertTrue($result === 'il etɛt yn fwa tʁwaz ami');
+        $this->assertTrue($result === 'i;l e;t;ɛ;t y;n f;w;a t;ʁ;w;a;z a;m;i');
     }
 
     /**
@@ -45,7 +45,7 @@ class TransformTest extends TestCase
         $phonemeService = new PhonemeService();
 
         $result = $phonemeService->transform('le petit ami de ma soeur est sympa');
-        $this->assertTrue($result === 'lə pətit ami də ma sœʁ ɛ sɛ̃pa');
+        $this->assertTrue($result === 'l;ə p;ə;t;i;t a;m;i d;ə m;a s;œ;ʁ ɛ s;ɛ̃;p;a');
     }
 
     /**
@@ -58,7 +58,7 @@ class TransformTest extends TestCase
         $phonemeService = new PhonemeService();
 
         $result = $phonemeService->transform('il était à pied');
-        $this->assertTrue($result === 'il etɛt a pje');
+        $this->assertTrue($result === 'i;l e;t;ɛ;t a p;j;e');
     }
 
     /**
@@ -71,7 +71,7 @@ class TransformTest extends TestCase
         $phonemeService = new PhonemeService();
 
         $result = $phonemeService->transform('plus il en fait moins il réussit');
-        $this->assertTrue($result === 'plyz il ɑ̃ fɛ mwɛ̃z il ʁeysi');
+        $this->assertTrue($result === 'p;l;y;z i;l ɑ̃ f;ɛ m;w;ɛ̃;z i;l ʁ;e;y;s;i');
     }
 
     /**
@@ -84,7 +84,7 @@ class TransformTest extends TestCase
         $phonemeService = new PhonemeService();
 
         $result = $phonemeService->transform('c’est un ogre gigantesque');
-        $this->assertTrue($result === 'sɛt œ̃n ɔɡʁ ʒiɡɑ̃tɛsk');
+        $this->assertTrue($result === 's;ɛ;t œ̃;n ɔ;ɡ;ʁ ʒ;i;ɡ;ɑ̃;t;ɛ;s;k');
     }
 
     /**
@@ -97,7 +97,7 @@ class TransformTest extends TestCase
         $phonemeService = new PhonemeService();
 
         $result = $phonemeService->transform('les nuages sont en forme de lion');
-        $this->assertTrue($result === 'le nyaʒ sɔ̃t ɑ̃ fɔʁm də ljɔ̃');
+        $this->assertTrue($result === 'l;e n;y;a;ʒ s;ɔ̃;t ɑ̃ f;ɔ;ʁ;m d;ə l;j;ɔ̃');
     }
 
     /**
@@ -110,6 +110,6 @@ class TransformTest extends TestCase
         $phonemeService = new PhonemeService();
 
         $result = $phonemeService->transform('les mouettes volent au-dessus de la mer');
-        $this->assertTrue($result === 'le muɛt vɔlt odəsy də la mɛʁ');
+        $this->assertTrue($result === 'l;e m;u;ɛ;t v;ɔ;l;t o;d;ə;s;y d;ə l;a m;ɛ;ʁ');
     }
 }

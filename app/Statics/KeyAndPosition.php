@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Services\LPC;
+namespace App\Statics;
 
 use App\Exceptions\PhonemeNotFoundException;
 
-class KeyAndPositionService
+class KeyAndPosition
 {
     /**
      * Method to get the key for a phoneme
      * 
      * @return string
      */
-    public function getKeyName($phoneme) {
+    static public function getKeyName($phoneme) {
         switch ($phoneme) {
             case 'm':
                 return 'fantome';
@@ -64,9 +64,11 @@ class KeyAndPositionService
      * 
      * @return string
      */
-    public function getPositionName($phoneme) {
+    static public function getPositionName($phoneme) {
         switch ($phoneme) {
             case 'a':
+                return 'oh_le_lac';
+            case 'ɑ':
                 return 'oh_le_lac';
             case 'œ':
                 return 'oh_le_lac';
@@ -91,6 +93,10 @@ class KeyAndPositionService
             case 'y':
                 return 'un_zebu';
             case 'e':
+                return 'un_zebu';
+            case 'œ̃':
+                return 'un_zebu';
+            case 'ə':
                 return 'un_zebu';
             default:
                 throw new PhonemeNotFoundException();

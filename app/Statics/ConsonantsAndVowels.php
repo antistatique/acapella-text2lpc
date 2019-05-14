@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Statics;
 
-class ConsonantsAndVowels {
+class ConsonantsAndVowels
+{
     
     /**
      * Associative array with all phonemes and if they're consonants or vowels
@@ -20,10 +21,10 @@ class ConsonantsAndVowels {
         'ʁ' => 'consonant', 'ɛ' => 'vowel',
         's' => 'consonant', 'ɔ' => 'vowel',
         'w' => 'consonant', 'y' => 'vowel',
-        'l' => 'consonant', 'e' => 'vowel',
-        'ʃ' => 'consonant',
-        'ɲ' => 'consonant',
-        'ŋ' => 'consonant',
+        'l' => 'consonant', 'ə' => 'vowel',
+        'ʃ' => 'consonant', 'e' => 'vowel',
+        'ɲ' => 'consonant', 'ɑ' => 'vowel',
+        'ŋ' => 'consonant', 'œ̃' => 'vowel',
         'j' => 'consonant',
         'd' => 'consonant',
         'ʒ' => 'consonant',

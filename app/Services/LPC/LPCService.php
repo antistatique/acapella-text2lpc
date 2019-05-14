@@ -36,7 +36,7 @@ class LPCService
                         Check if the phoneme is a consonant or a vowel and get the key and position accordingly
                         Since there's only 1 phoneme, we can get the key or position because which ones represent a blank
                     */
-                    list($key, $position) = $this->getKeyAndPositionSinglePhoneme($groupExploded);
+                    list($key, $position) = $this->getKeyAndPositionSinglePhoneme($groupsExploded);
                 } else {
                     // Check the pattern of the group. Get the key and position if it's a consonant and a vowel
                     if (
@@ -87,7 +87,7 @@ class LPCService
                             Check if the phoneme is a consonant or a vowel and get the key and position accordingly
                             Since there's only 1 phoneme, we can get the key or position because which ones represent a blank
                         */
-                        list($key, $position) = $this->getKeyAndPositionSinglePhoneme($groupExploded);
+                        list($key, $position) = $this->getKeyAndPositionSinglePhoneme($groupsExploded);
                     }
                 }
                 array_push($images, $this->getImageFromModel($key, $position, $library_id));
@@ -100,11 +100,11 @@ class LPCService
     /**
      * Method to get the key and position in case of a single phoneme
      * 
-     * @param array $groupExploded : The 2 phonemes in the group
+     * @param array $groupsExploded : The 2 phonemes in the group
      * 
      * @return array
      */
-    private function getKeyAndPositionSinglePhoneme($groupExploded) {
+    private function getKeyAndPositionSinglePhoneme($groupsExploded) {
         $keyAndPosition = [];
         if (ConsonantsAndVowels::getKey($groupsExploded[0]) === 'consonant') {
             $key = KeyAndPosition::getKeyName($groupsExploded[0]);

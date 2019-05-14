@@ -94,7 +94,7 @@ class LPCService
                 $index++;
             }
         }
-        dd($images);
+        return $images;
     }
 
     /**

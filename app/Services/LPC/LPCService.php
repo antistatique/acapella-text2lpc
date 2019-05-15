@@ -64,17 +64,14 @@ class LPCService
                             // Get the phonemes of the current group and the previous one
                             $currentGroup = explode(';', $groups[$tempIndex]);
                             $previousGroup = explode(';', $groups[$tempIndex - 1]);
-                            // If it's the last group
-                            if ($tempIndex === sizeof($groups) - 1) {
-                                // And the last group is composed of 2 phonemes
-                                if (sizeof($currentGroup) === 2) {
-                                    // Push the last phoneme into a new group
-                                    array_push($groups, $currentGroup[1]);
-                                    // And only put the first phoneme in the group that is now the one before the last
-                                    $groups[$tempIndex] = $currentGroup[0];
-                                }
+                            // If it's the last group and the last group is composed of 2 phonemes
+                            if ($tempIndex === sizeof($groups) - 1 && sizeof($currentGroup) === 2) {
+                                // Push the last phoneme into a new group
+                                array_push($groups, $currentGroup[1]);
+                                // And only put the first phoneme in the group that is now the one before the last
+                                $groups[$tempIndex] = $currentGroup[0];
                             }
-                            // Add this condition in case if the first group with this kind of the pattern is the first one in the word, so there's no previous one
+                            // Add this condition in case if the first group with this kind of pattern is the first one in the word, so there's no previous one
                             if ($tempIndex > $index) {
                                 // The current group is the second from the previous phoneme and the first of the current one
                                 $groups[$tempIndex] = $previousGroup[1] . ';' . $currentGroup[0];

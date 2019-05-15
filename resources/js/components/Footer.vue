@@ -34,6 +34,11 @@ export default {
 
         & a {
             color: white;
+            text-decoration: underline;
+
+            &:hover {
+                color: #b2d539;
+            }
         }
     }
 </style>

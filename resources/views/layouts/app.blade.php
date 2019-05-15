@@ -13,7 +13,9 @@
     </head>
     <body>
         <div id="app">
+            <header-component></header-component>
             @yield('content')
+            <footer-component></footer-component>
         </div>
     </body>
     <script type="text/javascript" src="js/app.js"></script>

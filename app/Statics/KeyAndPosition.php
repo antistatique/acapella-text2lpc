@@ -1,11 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Statics;
 
-class FormsAndPositions
+use App\Exceptions\PhonemeNotFoundException;
+
+class KeyAndPosition
 {
     /**
-     * Static method to get the key for a phoneme
+     * Method to get the key for a phoneme
      * 
      * @return string
      */
@@ -41,7 +43,7 @@ class FormsAndPositions
                 return 'champignon';
             case 'ɲ':
                 return 'champignon';
-            case 'f':
+            case 'ŋ':
                 return 'fille';
             case 'j':
                 return 'fille';
@@ -58,13 +60,15 @@ class FormsAndPositions
     }
 
     /**
-     * Static method to get the position name for a phoneme
+     * Method to get the position name for a phoneme
      * 
      * @return string
      */
     static public function getPositionName($phoneme) {
         switch ($phoneme) {
             case 'a':
+                return 'oh_le_lac';
+            case 'ɑ':
                 return 'oh_le_lac';
             case 'œ':
                 return 'oh_le_lac';
@@ -89,6 +93,10 @@ class FormsAndPositions
             case 'y':
                 return 'un_zebu';
             case 'e':
+                return 'un_zebu';
+            case 'œ̃':
+                return 'un_zebu';
+            case 'ə':
                 return 'un_zebu';
             default:
                 throw new PhonemeNotFoundException();

@@ -10,7 +10,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        Hello
+                        <a class="nav-link" href="#">Login</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="#">S'enregistrer</a>
                     </li>
                 </ul>
             </div>
@@ -31,7 +34,35 @@ export default {
         max-width: 140px;
     }
 
-    header {
-        border-bottom: 2px solid $acapella-purple
+    .nav-link {
+        color: $acapella-purple;
+
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -moz-osx-font-smoothing: grayscale;
+        position: relative;
+        overflow: hidden;
+        &:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            left: 50%;
+            right: 50%;
+            bottom: 0;
+            background: orange;
+            height: 2px;
+            -webkit-transition-property: left right;
+            transition-property: left right;
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+        &:hover:before {
+            left: 0;
+            right: 0;
+        }
     }
 </style>

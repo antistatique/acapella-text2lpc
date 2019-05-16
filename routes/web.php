@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('home');
 });
-Route::post('/test-phonemes', 'LPCController@getLPCKeys');

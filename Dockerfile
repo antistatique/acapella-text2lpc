@@ -32,7 +32,12 @@ RUN set -ex; \
       mbstring \
       mysqli \
       pdo_mysql \
+    ; \
+    \
+    composer global require \
+    friendsofphp/php-cs-fixer \
     ;
+ENV PATH="root/.composer/vendor/bin:${PATH}"
 # Set Workdir
 WORKDIR /app
 # Install dependencies before copying project

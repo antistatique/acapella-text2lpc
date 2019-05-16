@@ -11,8 +11,10 @@ use App\Services\LPC\LPCService;
 class LPCController extends Controller
 {
     public function getLPCKeys(Request $request, PhonemeService $phonemeService, LPCService $lpcService) {
-        $phonemes = $phonemeService->transform($request->input('sentence'));
-        $result = $lpcService->getLPCImages($phonemes, 1);
-        return view('phonemes_form', ['phonemes' => $phonemes]);
+        if ($request->has('sentence')) {
+            $phonemes = $phonemeService->transform($request->input('sentence'));
+            $images = $lpcService->getLPCImages($phonemes, 1);
+            return response()->json([ 'images' => $images ]);
+        }
     }
 }

@@ -39,7 +39,7 @@ class KeyTableSeeder extends Seeder
         Key::create([
             'key' => 'fantome',
             'position' => 'un_zebu',
-            'image' => asset('storage/fantôme_un_zebu_default.jpg'),
+            'image' => asset('storage/fantome_un_zebu_default.jpg'),
             'library_id' => 1,
         ]);
         Key::create([

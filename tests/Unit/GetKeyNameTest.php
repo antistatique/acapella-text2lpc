@@ -2,125 +2,106 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Statics\KeyAndPosition;
+use Tests\TestCase;
 
 class GetKeyNameTest extends TestCase
 {
     /**
-     * Test if phonemes that should return fantome returns fantome
-     *
-     * @return void
+     * Test if phonemes that should return fantome returns fantome.
      */
     public function testFantome()
     {
         $phonemes = ['m', 't', 'f'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'fantome');
+            $this->assertTrue('fantome' === KeyAndPosition::getKeyName($phoneme));
         }
     }
 
     /**
-     * Test if phonemes that should return beni returns beni
-     * 
-     * @return void
+     * Test if phonemes that should return beni returns beni.
      */
     public function testBeni()
     {
         $phonemes = ['b', 'n'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'beni');
+            $this->assertTrue('beni' === KeyAndPosition::getKeyName($phoneme));
         }
     }
 
     /**
-     * Test if phonemes that should return gare returns gare
-     * 
-     * @return void
+     * Test if phonemes that should return gare returns gare.
      */
     public function testGare()
     {
-        $this->assertTrue(KeyAndPosition::getKeyName('ɡ') === 'gare');
+        $this->assertTrue('gare' === KeyAndPosition::getKeyName('ɡ'));
     }
 
     /**
-     * Test if phonemes that should return vos_cases returns vos_cases
-     * 
-     * @return void
+     * Test if phonemes that should return vos_cases returns vos_cases.
      */
     public function testVosCases()
     {
         $phonemes = ['v', 'k', 'z'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'vos_cases');
+            $this->assertTrue('vos_cases' === KeyAndPosition::getKeyName($phoneme));
         }
     }
 
     /**
-     * Test if phonemes that should return rance returns rance
-     * 
-     * @return void
+     * Test if phonemes that should return rance returns rance.
      */
     public function testRance()
     {
         $phonemes = ['ʁ', 's'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'rance');
+            $this->assertTrue('rance' === KeyAndPosition::getKeyName($phoneme));
         }
     }
-    
+
     /**
-     * Test if phonemes that should return champignon returns champignon
-     * 
-     * @return void
+     * Test if phonemes that should return champignon returns champignon.
      */
     public function testChampignon()
     {
         $phonemes = ['w', 'l', 'ʃ', 'ɲ'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'champignon');
+            $this->assertTrue('champignon' === KeyAndPosition::getKeyName($phoneme));
         }
     }
 
     /**
-     * Test if phonemes that should return fille returns fille
-     * 
-     * @return void
+     * Test if phonemes that should return fille returns fille.
      */
     public function testFille()
     {
         $phonemes = ['ŋ', 'j'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'fille');
+            $this->assertTrue('fille' === KeyAndPosition::getKeyName($phoneme));
         }
     }
 
     /**
-     * Test if phonemes that should return des_jupes returns des_jupes
-     * 
-     * @return void
+     * Test if phonemes that should return des_jupes returns des_jupes.
      */
     public function testDesJupes()
     {
         $phonemes = ['d', 'ʒ', 'p'];
 
         foreach ($phonemes as $phoneme) {
-            $this->assertTrue(KeyAndPosition::getKeyName($phoneme) === 'des_jupes');
+            $this->assertTrue('des_jupes' === KeyAndPosition::getKeyName($phoneme));
         }
     }
 
     /**
-     * Test if returns right exception in case no key was found
-     * 
-     * @return void
+     * Test if returns right exception in case no key was found.
+     *
      * @​expectedException App\Exceptions\PhonemeNotFoundException
      */
     public function testNotFound()

@@ -7,11 +7,12 @@ use App\Exceptions\PhonemeNotFoundException;
 class KeyAndPosition
 {
     /**
-     * Method to get the key for a phoneme
-     * 
+     * Method to get the key for a phoneme.
+     *
      * @return string
      */
-    static public function getKeyName($phoneme) {
+    public static function getKeyName($phoneme)
+    {
         switch ($phoneme) {
             case 'm':
                 return 'fantome';
@@ -60,11 +61,12 @@ class KeyAndPosition
     }
 
     /**
-     * Method to get the position name for a phoneme
-     * 
+     * Method to get the position name for a phoneme.
+     *
      * @return string
      */
-    static public function getPositionName($phoneme) {
+    public static function getPositionName($phoneme)
+    {
         switch ($phoneme) {
             case 'a':
                 return 'oh_le_lac';

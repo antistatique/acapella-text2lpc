@@ -4,9 +4,8 @@ namespace App\Statics;
 
 class ConsonantsAndVowels
 {
-    
     /**
-     * Associative array with all phonemes and if they're consonants or vowels
+     * Associative array with all phonemes and if they're consonants or vowels.
      */
     const CONSONANTSANDVOWELS = [
         'm' => 'consonant', 'a' => 'vowel',
@@ -28,16 +27,17 @@ class ConsonantsAndVowels
         'j' => 'consonant',
         'd' => 'consonant',
         'ʒ' => 'consonant',
-        'p' => 'consonant'
+        'p' => 'consonant',
     ];
 
     /**
      * Static method to get the key from the constant
-     * Will return if the phoneme is a consonant or a vowel
-     * 
+     * Will return if the phoneme is a consonant or a vowel.
+     *
      * @return string
      */
-    static public function getKey($phoneme) {
+    public static function getKey($phoneme)
+    {
         return self::CONSONANTSANDVOWELS[$phoneme];
     }
 }

@@ -7,11 +7,10 @@ use Exception;
 class PhonemeNotFoundException extends Exception
 {
     /**
-     * Log the exception
-     *
-     * @return void
+     * Log the exception.
      */
-    public function report() {
+    public function report()
+    {
         \Log::debug('Phoneme not found');
     }
 }

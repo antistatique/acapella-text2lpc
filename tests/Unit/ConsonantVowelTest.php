@@ -2,17 +2,13 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Statics\ConsonantsAndVowels;
+use Tests\TestCase;
 
 class ConsonantVowelTest extends TestCase
 {
     /**
-     * Test check consonant static method
-     *
-     * @return void
+     * Test check consonant static method.
      */
     public function testConsonants()
     {
@@ -40,32 +36,33 @@ class ConsonantVowelTest extends TestCase
         ];
 
         foreach ($consonants as $consonant) {
-            $this->assertTrue(ConsonantsAndVowels::getKey($consonant) === 'consonant');
+            $this->assertTrue('consonant' === ConsonantsAndVowels::getKey($consonant));
         }
     }
 
     /**
-     * Test check vowel static method
+     * Test check vowel static method.
      */
-    public function testVowels() {
+    public function testVowels()
+    {
         $vowels = [
-            'a', 
-            'œ', 
-            'o', 
+            'a',
+            'œ',
+            'o',
             'ɛ̃',
-            'ø', 
-            'i', 
+            'ø',
+            'i',
             'ɔ̃',
             'ɑ̃',
-            'u', 
-            'ɛ', 
-            'ɔ', 
-            'y', 
+            'u',
+            'ɛ',
+            'ɔ',
+            'y',
             'e',
         ];
 
         foreach ($vowels as $vowel) {
-            $this->assertTrue(ConsonantsAndVowels::getKey($vowel) === 'vowel');
+            $this->assertTrue('vowel' === ConsonantsAndVowels::getKey($vowel));
         }
     }
 }

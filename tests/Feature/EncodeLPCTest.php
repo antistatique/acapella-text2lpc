@@ -41,7 +41,7 @@ class EncodeLPCTest extends TestCase
         $images = $lpcService->getLPCImages('i;l e;t;ɛ;t y;n f;w;a t;ʁ;w;a;z a;m;i', 1);
         $imagesExpected = [
             "http://localhost:8181/storage/champignon_pigeon_blanc_default.jpg",
-            "http://localhost:8181/storage/fantôme_un_zebu_default.jpg",
+            "http://localhost:8181/storage/fantome_un_zebu_default.jpg",
             "http://localhost:8181/storage/fantome_ou_est_paul_default.jpg",
             "http://localhost:8181/storage/beni_un_zebu_default.jpg",
             "http://localhost:8181/storage/fantome_oh_le_lac_default.jpg",
@@ -84,7 +84,7 @@ class EncodeLPCTest extends TestCase
         $images = $lpcService->getLPCImages('i;l e;t;ɛ;t a p;j;e', 1);
         $imagesExpected = [
             "http://localhost:8181/storage/champignon_pigeon_blanc_default.jpg",
-            "http://localhost:8181/storage/fantôme_un_zebu_default.jpg",
+            "http://localhost:8181/storage/fantome_un_zebu_default.jpg",
             "http://localhost:8181/storage/fantome_ou_est_paul_default.jpg",
             "http://localhost:8181/storage/fantome_oh_le_lac_default.jpg",
             "http://localhost:8181/storage/des_jupes_oh_le_lac_default.jpg",
@@ -168,7 +168,7 @@ class EncodeLPCTest extends TestCase
             "http://localhost:8181/storage/fantome_oh_le_lac_default.jpg",
             "http://localhost:8181/storage/des_jupes_oh_le_lac_default.jpg",
             "http://localhost:8181/storage/rance_un_zebu_default.jpg",
-            "http://localhost:8181/storage/fantôme_un_zebu_default.jpg",
+            "http://localhost:8181/storage/fantome_un_zebu_default.jpg",
             "http://localhost:8181/storage/des_jupes_un_zebu_default.jpg",
             "http://localhost:8181/storage/champignon_oh_le_lac_default.jpg",
             "http://localhost:8181/storage/fantome_ou_est_paul_default.jpg",

@@ -7,8 +7,12 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        Hello
+                    </li>
+                </ul>
             </div>
         </nav>
     </header>
@@ -20,8 +24,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import '../../sass/_variables.scss';
+
     #logo {
         max-width: 140px;
+    }
+
+    header {
+        border-bottom: 2px solid $acapella-purple
     }
 </style>

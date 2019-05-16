@@ -23,8 +23,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    @import '../../sass/_variables.scss';
+    
     footer {
-        background-color: #702281;
+        background-color: $acapella-purple;
         color: white;
         height: 50px;
 
@@ -37,7 +39,7 @@ export default {
             text-decoration: underline;
 
             &:hover {
-                color: #b2d539;
+                color: $primary;
             }
         }
     }

@@ -40,7 +40,7 @@ export default {
     },
     methods: {
         async getLPCKeys() {
-            const response = await window.axios.get(`http://localhost:8181/api/encode?sentence=${this.userSentence}`)
+            const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
             this.images = response.data.images
             this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0
         }

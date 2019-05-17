@@ -12,8 +12,12 @@ acapella-web:
     dockerfile: Dockerfile
   depends_on:
     - "acapella-db"
+node-build:
+  build:
+    context: .
+    dockerfile: .codeship/Dockerfile.node
   volumes:
-    - ./.codeship/build:/app/.codeship/build
+    - ./public/build:public/build
 deploy:
   build:
     context: .
@@ -22,5 +26,4 @@ deploy:
   default_cache_branch: develop
   encrypted_env_file: .codeship/env.encrypted
   volumes:
-    - ./.codeship/build/js:/app/public/js
-    - ./.codeship/build/css:/app/public/css
+    - ./public/build:public/build

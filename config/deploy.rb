@@ -39,6 +39,8 @@ after 'laravel:storage_link', 'laravel:migrate'
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 5
 
-#namespace :deploy do
- # after :finishing, 'deploy:cleanup'
-#end
+namespace :deploy do
+  after :updated, 'assets:deploy_build'
+  before 'assets:deploy_build', 'assets:build_local' unless ENV['CI_NAME']
+  after :finishing, 'deploy:cleanup'
+end

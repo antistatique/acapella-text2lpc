@@ -1,19 +1,22 @@
 <template>
-    <footer class="fixed-bottom">
-        <div class="container-fluid d-flex h-100 flex-column">
-            <div class="row text-center flex-grow-1">
-                <div class="col-md-4 col-sm-12 align-self-center">
-                    <a href="/">Signaler un problème</a>
-                </div>
-                <div class="col-md-4 col-sm-12 align-self-center">
-                    Site réalisé par <a href="http://antistatique.net/" target="_blank">Antistatique</a> 
-                </div>
-                <div class="col-md-4 col-sm-12 align-self-center">
-                    <a href="https://a-capella.ch/">Fondation A-Capella</a>
-                </div>
-            </div>
+  <footer class="fixed-bottom">
+    <div class="container-fluid d-flex h-100 flex-column">
+      <div class="row text-center flex-grow-1">
+        <div class="col-md-4 col-sm-12 align-self-center">
+          <a href="/">Signaler un problème</a>
         </div>
-    </footer>
+        <div class="col-md-4 col-sm-12 align-self-center">
+          Site réalisé par <a
+            href="http://antistatique.net/"
+            target="_blank"
+          >Antistatique</a> 
+        </div>
+        <div class="col-md-4 col-sm-12 align-self-center">
+          <a href="https://a-capella.ch/">Fondation A-Capella</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script>

@@ -10,7 +10,7 @@
   type: serial
   steps:
     - name: Build styles
-      service: acapella-web
+      service: node-build
       command: npm run production && cp -R /app/public/js /app/.codeship/build/js && cp -R /app/public/css /app/.codeship/build/css
     - name: Deploy to Production
       service: deploy

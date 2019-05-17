@@ -11,7 +11,7 @@
   steps:
     - name: Build styles
       service: node-build
-      command: npm run production && cp -R /app/public/js /app/.codeship/build/js && cp -R /app/public/css /app/.codeship/build/css
+      command: npm run production
     - name: Deploy to Production
       service: deploy
       tag: develop

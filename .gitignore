@@ -1,3 +1,4 @@
+/docker-compose.override.yml
 /node_modules
 /public/hot
 /public/storage
@@ -10,3 +11,8 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .editorconfig
+/phonemizer/__pycache__
+.php_cs.cache
+# Ignore Codeship tmp files
+/.codeship/*/*
+!/.codeship/*/.gitkeep

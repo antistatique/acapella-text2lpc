@@ -41,6 +41,7 @@ set :keep_releases, 5
 
 namespace :deploy do
   after :updated, 'assets:deploy_build'
+  after :updated, 'python_requirements:install_requirements'
   before 'assets:deploy_build', 'assets:build_local' unless ENV['CI_NAME']
   after :finishing, 'deploy:cleanup'
 end

@@ -22,9 +22,8 @@ RUN set -ex; \
       python3-pip \
     ; \
     \
-    pip3 install \
-      joblib \
-      segments \
+    # Create requirements.txt
+    pip3 install -r phonemizer/requirements.txt \
     ; \
     \
     docker-php-ext-install \

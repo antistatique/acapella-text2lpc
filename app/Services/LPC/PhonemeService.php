@@ -14,7 +14,7 @@ class PhonemeService
      */
     public function transform($userText)
     {
-        $process = new Process(['python3', base_path('phonemizer/transform-phonemes.py'), $userText]);
+        $process = new Process([env('PYTHON_BIN', 'python'), base_path('phonemizer/transform-phonemes.py'), $userText]);
         $process->run();
 
         if (! $process->isSuccessful()) {

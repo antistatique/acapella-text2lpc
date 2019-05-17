@@ -2,6 +2,19 @@
 
 Project to transform a French sentence to LPC keys.
 
+## Dev Requirements
+
+* PHP - 7.3.1
+* Node - 10
+* Python - 3.5
+* MariaDB - 10.1
+* Composer
+* Docker
+
+# Prod requirements
+
+* Ruby and bundler for Capistrano
+
 ## Tools used
 
 ### Phonemizer

@@ -14,5 +14,4 @@
       command: npm run production
     - name: Deploy to Production
       service: deploy
-      tag: develop
       command: cap production deploy

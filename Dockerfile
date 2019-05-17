@@ -22,11 +22,6 @@ RUN set -ex; \
       python3-pip \
     ; \
     \
-    pip3 install \
-      joblib \
-      segments \
-    ; \
-    \
     docker-php-ext-install \
       pdo \
       mbstring \
@@ -40,6 +35,10 @@ RUN set -ex; \
 ENV PATH="root/.composer/vendor/bin:${PATH}"
 # Set Workdir
 WORKDIR /app
+ADD ./phonemizer/requirements.txt ./
+RUN set -eux; \
+  \
+  pip3 install -r requirements.txt
 # Install dependencies before copying project
 ADD ./composer.json ./composer.lock ./
 RUN set -eux; \

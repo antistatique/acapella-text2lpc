@@ -5,3 +5,14 @@
     php artisan migrate &&
     php artisan db:seed &&
     vendor/bin/phpunit --debug"
+
+- name: Deploy
+  type: serial
+  tag: master
+  steps:
+    - name: Build styles
+      service: node-build
+      command: npm run production
+    - name: Deploy to Production
+      service: deploy
+      command: cap production deploy

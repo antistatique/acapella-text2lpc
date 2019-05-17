@@ -8,6 +8,7 @@
 
 - name: Deploy
   type: serial
+  tag: master
   steps:
     - name: Build styles
       service: node-build

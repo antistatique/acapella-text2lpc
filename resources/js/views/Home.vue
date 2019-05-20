@@ -35,7 +35,7 @@
         <img
           v-for="(image, index) in images"
           :key="index"
-          :src="image"
+          :src="`${$appURL}${image}`"
         >
       </carousel>
     </div>

@@ -1,5 +1,6 @@
 FROM node:10-alpine
 
+ENV MIX_APP_URL="text2lpc.a-capella.ch/"
 WORKDIR /app
 COPY . /app
 

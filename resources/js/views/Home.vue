@@ -38,6 +38,18 @@
           :src="`${$appURL}${image}`"
         >
       </carousel>
+      <div class="row justify-content-center mt-3 text-center mx-auto">
+        <div class="col-md-2 col-sm-10">
+          <a
+            class="btn btn-secondary"
+            role="button"
+            :href="`/print?sentence=${this.printSentence}`"
+            target="_blank"
+          >
+            Imprimer
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -60,7 +72,8 @@ export default {
             userSentence: '',
             images: [],
             mediaQuery: window.matchMedia('(max-width: 600px)'),
-            carouselUpdate: 0
+            carouselUpdate: 0,
+            printSentence: ''
         }
     },
     async created() {
@@ -74,7 +87,8 @@ export default {
             const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
             this.images = response.data.images
             this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0
-        }
+            this.printSentence = this.userSentence
+        },
     }
 }
 </script>

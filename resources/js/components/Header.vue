@@ -12,7 +12,7 @@
         >
       </a>
       <button
-        class="navbar-toggler"
+        class="navbar-toggler navbar-light"
         type="button"
         data-toggle="collapse"
         data-target="#navbarSupportedContent"

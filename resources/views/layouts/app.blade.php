@@ -14,7 +14,9 @@
     <body>
         <div id="app">
             <header-component></header-component>
-            @yield('content')
+            <main>
+                @yield('content')
+            </main>
             <footer-component></footer-component>
         </div>
     </body>

@@ -1,7 +1,7 @@
 <template>
-  <footer class="fixed-bottom">
-    <div class="container-fluid d-flex h-100 flex-column">
-      <div class="row text-center flex-grow-1">
+  <footer class="mt-5">
+    <div class="container-fluid">
+      <div class="row text-center">
         <div class="col-md-4 col-sm-12 align-self-center">
           <a href="/">Signaler un problème</a>
         </div>
@@ -31,13 +31,16 @@ export default {
     footer {
         background-color: $acapella-purple;
         color: white;
-        height: 50px;
 
-        @media (max-width: 600px) {
+        .row {
+          height: 50px;
+
+          @media (max-width: 600px) {
             height: 100px;
+          }
         }
 
-        & a {
+        a {
             color: white;
             text-decoration: underline;
 

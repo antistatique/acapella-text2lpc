@@ -85,7 +85,10 @@ class LPCService
                         list($key, $position) = $this->getKeyAndPositionSinglePhoneme($groupsExploded);
                     }
                 }
-                array_push($images, $this->getImageFromModel($key, $position, $library_id));
+                array_push($images, [
+                    'phoneme' => $groupsExploded[0] . (sizeof($groupsExploded) > 1 ? $groupsExploded[1] : ''),
+                    'image' => $this->getImageFromModel($key, $position, $library_id)
+                ]);
                 ++$index;
             }
         }

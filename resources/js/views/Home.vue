@@ -35,7 +35,7 @@
         <img
           v-for="(image, index) in images"
           :key="index"
-          :src="`${$appURL}${image}`"
+          :src="`${appurl}${image}`"
         >
       </carousel>
     </div>
@@ -52,6 +52,10 @@ export default {
     props: {
         sentence: {
           default: '',
+          type: String
+        },
+        appurl: {
+          default: 'http://localhost:8181',
           type: String
         }
     },
@@ -78,3 +82,4 @@ export default {
     }
 }
 </script>
+

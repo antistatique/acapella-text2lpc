@@ -27,23 +27,35 @@
       v-if="images.length > 0"
       class="container mt-5"
     >
-      <carousel
-        :key="carouselUpdate"
-        :items="mediaQuery.matches ? 1 : 2"
-        :margin="10"
-      >
-        <img
-          v-for="(image, index) in images"
-          :key="index"
-          :src="`${appurl}${image}`"
-        >
-      </carousel>
+      <div class="row">
+        <div class="col-md-2">
+          Test
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="images.length > 0"
+      class="container mt-5"
+    >
+      <div class="row justify-content-center text-center mx-auto">
+        <div class="col-md-6">
+          <carousel
+            :key="carouselUpdate"
+          >
+            <img
+              v-for="(image, index) in images"
+              :key="index"
+              :src="`${image}`"
+            >
+          </carousel>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
-import Carousel from 'vue-owl-carousel'
+import Carousel from '../components/Carousel'
 
 export default {
     components: {
@@ -52,10 +64,6 @@ export default {
     props: {
         sentence: {
           default: '',
-          type: String
-        },
-        appurl: {
-          default: 'http://localhost:8181',
           type: String
         }
     },

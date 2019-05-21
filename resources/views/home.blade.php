@@ -3,5 +3,5 @@
 @section('title', 'Encodage LPC')
 
 @section('content')
-    <home sentence={{ rawurlencode(app('request')->input('sentence')) }}></home>
+    <home appurl={{ env('APP_URL')}} sentence={{ rawurlencode(app('request')->input('sentence')) }}></home>
 @endsection

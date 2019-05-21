@@ -1,8 +1,8 @@
 @page {
-    size: auto;
+    size: A4;
     margin-left: 0;
     margin-right: 0;
-    margin-top: 1.8cm;
+    margin-top: 2.2cm;
 }
 
 body {
@@ -17,11 +17,10 @@ body {
     .tags-column {
         display: inline-block;
         max-height: 3.8cm;
+        max-width: 6.3cm;
         width: 6.3cm;
         margin-left: 0.15cm;
-        margin-right: 0.15cm;
         text-align: center;
-        vertical-align: middle;
     
         img {
             max-width: 6.3cm;

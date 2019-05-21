@@ -14,3 +14,4 @@
 Route::get('/home', function () {
     return view('home');
 });
+Route::get('/print', 'LPCController@printTags');

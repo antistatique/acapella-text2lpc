@@ -119,8 +119,7 @@ export default {
             animateOut: 'fadeOut',
             autoplayTimeout: this.playSpeed,
             mouseDrag: false,
-            touchDrag: false
-
+            touchDrag: false,
         })
     },
     methods: {

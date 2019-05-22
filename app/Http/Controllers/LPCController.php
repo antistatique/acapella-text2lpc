@@ -12,9 +12,9 @@ class LPCController extends Controller
     {
         if ($request->has('sentence')) {
             $phonemes = $phonemeService->transform($request->input('sentence'));
-            $images = $lpcService->getLPCImages($phonemes, 1);
+            $lpcKeys = $lpcService->getLPCImages($phonemes, 1);
 
-            return response()->json(['images' => $images]);
+            return response()->json(['lpcKeys' => $lpcKeys]);
         }
     }
 }

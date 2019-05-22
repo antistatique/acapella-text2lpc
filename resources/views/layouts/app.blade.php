@@ -9,14 +9,16 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="build/css/app.css">
+        <link rel="stylesheet" href="{{ mix('build/css/app.css') }}">
     </head>
     <body>
         <div id="app">
             <header-component></header-component>
-            @yield('content')
+            <main>
+                @yield('content')
+            </main>
             <footer-component></footer-component>
         </div>
     </body>
-    <script type="text/javascript" src="build/js/app.js"></script>
+    <script type="text/javascript" src="{{ mix('build/js/app.js') }}"></script>
 </html>

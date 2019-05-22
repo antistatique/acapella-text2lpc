@@ -4,9 +4,9 @@
       <div class="row justify-content-center mx-auto">
         <div class="col-md-5 col-sm-10">
           <textarea
-            id="exampleFormControlTextarea1"
             v-model="userSentence"
-            class="form-control"
+            name="sentence"
+            class="form-control sentence"
             rows="3"
           />
         </div>
@@ -18,36 +18,132 @@
             class="btn btn-primary"
             @click="getLPCKeys"
           >
-            Encoder
+            <template v-if="!loading">
+              Encoder
+            </template>
+            <div
+              v-if="loading"
+              class="spinner-border spinner-grow-sm"
+              role="status"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
           </button>
         </div>
       </div>
     </div>
-    <div
-      v-if="images.length > 0"
-      class="container mt-5"
-    >
-      <carousel
-        :key="carouselUpdate"
-        :items="mediaQuery.matches ? 1 : 2"
-        :margin="10"
+    <transition name="fade">
+      <div
+        v-if="lpcKeys.length > 0"
+        class="container-fluid mt-5 options-container"
       >
-        <img
-          v-for="(image, index) in images"
-          :key="index"
-          :src="`${image}`"
-        >
-      </carousel>
-    </div>
+        <div class="row justify-content-center text-center">
+          <div class="col-6 my-auto">
+            <div class="form-check form-check-inline">
+              <input
+                id="phonemesCheckbox"
+                v-model="phonemeCheck"
+                class="form-check-input"
+                type="checkbox"
+              >
+              <label
+                class="form-check-label"
+                for="phonemesCheckbox"
+              >Phonèmes affichés sous l'image</label>
+            </div>
+          </div>
+          <div class="col-6 my-auto">
+            Vue : <button
+              type="button"
+              class="btn view-btn view-btn-active"
+              disabled
+              @click="changeView($event, 'carousel')"
+            >
+              <font-awesome-icon icon="stop" />
+            </button>
+            <button
+              type="button"
+              class="btn view-btn"
+              @click="changeView($event, 'grid')"
+            >
+              <font-awesome-icon icon="grip-horizontal" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div
+        v-if="lpcKeys.length > 0 && view === 'carousel'"
+        class="container mt-5"
+      >
+        <div class="row justify-content-center text-center mx-auto">
+          <div
+            class="col-md-6"
+          >
+            <carousel
+              v-if="phonemeCheck"
+              :key="carouselPhonemeUpdate"
+            >
+              <card-image
+                v-for="(lpcKey, index) in lpcKeys"
+                :key="index"
+                :image="lpcKey.image"
+                :phoneme="lpcKey.phoneme"
+                :nb-image="index + 1"
+              />
+            </carousel>
+            <carousel
+              v-if="!phonemeCheck"
+              :key="carouselUpdate"
+            >
+              <img
+                v-for="(lpcKey, index) in lpcKeys"
+                :key="index"
+                :src="lpcKey.image"
+              >
+            </carousel>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div
+        v-if="lpcKeys.length > 0 && view === 'grid'"
+        class="container-fluid mt-5"
+      >
+        <div class="row justify-content-center text-center mx-auto">
+          <div
+            v-for="(lpcKey, index) in lpcKeys"
+            :key="index"
+            class="col-md-3 col-sm-12 mt-2"
+          >
+            <card-image
+              v-if="phonemeCheck"
+              :image="lpcKey.image"
+              :phoneme="lpcKey.phoneme"
+              :nb-image="index + 1"
+            />
+            <img
+              v-if="!phonemeCheck"
+              :src="lpcKey.image"
+              class="grid-image"
+            >
+          </div>
+        </div>
+      </div>
+    </transition>
   </section>
 </template>
 
 <script>
-import Carousel from 'vue-owl-carousel'
+import Carousel from '../components/Carousel'
+import CardImage from '../components/CardImage'
 
 export default {
     components: {
         Carousel,
+        CardImage,
     },
     props: {
         sentence: {
@@ -58,9 +154,14 @@ export default {
     data() {
         return {
             userSentence: '',
-            images: [],
+            lpcKeys: [],
             mediaQuery: window.matchMedia('(max-width: 600px)'),
-            carouselUpdate: 0
+            carouselUpdate: 0,
+            carouselPhonemeUpdate: 0,
+            phonemeCheck: true,
+            layoutSwitch: true,
+            view: 'carousel',
+            loading: false,
         }
     },
     async created() {
@@ -71,11 +172,64 @@ export default {
     },
     methods: {
         async getLPCKeys() {
-            const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
-            this.images = response.data.images
-            this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0
+          this.loading = true
+          const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
+          this.lpcKeys = response.data.lpcKeys
+          this.phonemeCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
+          this.loading = false
+        },
+        changeView(event, view) {
+          const oldSelectedView = document.querySelector('.view-btn-active')
+          oldSelectedView.classList.remove('view-btn-active')
+          oldSelectedView.disabled = false
+          event.target.classList.add('view-btn-active')
+          event.target.disabled = true
+          this.view = view
         }
     }
 }
 </script>
+
+<style lang="scss" scoped>
+  .sentence {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  button > * {
+    pointer-events: none;
+  }
+
+  .view-btn {
+    &:hover {
+      color: orange;
+    }
+  }
+
+  .grid-image {
+    max-width: 100%;
+  }
+
+  .view-btn-active {
+    color: orange;
+  }
+
+  .options-container {
+    background-color: rgb(226, 226, 226);
+    height: 50px;
+
+    .row {
+      height: 50px;
+    }
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .7s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+</style>
+
+
 

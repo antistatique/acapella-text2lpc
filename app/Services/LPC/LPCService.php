@@ -37,6 +37,7 @@ class LPCService
                         Since there's only 1 phoneme, we can get the key or position because which ones represent a blank
                     */
                     list($key, $position) = $this->getKeyAndPositionSinglePhoneme($groupsExploded);
+                    $phoneme = $groupsExploded[0];
                 } else {
                     // Check the pattern of the group. Get the key and position if it's a consonant and a vowel
                     if (
@@ -44,11 +45,13 @@ class LPCService
                         'vowel' === ConsonantsAndVowels::getKey($groupsExploded[1])) {
                         $key = KeyAndPosition::getKeyName($groupsExploded[0]);
                         $position = KeyAndPosition::getPositionName($groupsExploded[1]);
+                        $phoneme = $groupsExploded[0] . $groupsExploded[1];
                     } elseif (
                         'vowel' === ConsonantsAndVowels::getKey($groupsExploded[0]) &&
                         'consonant' === ConsonantsAndVowels::getKey($groupsExploded[1])) {
                         $key = KeyAndPosition::getKeyName($groupsExploded[1]);
                         $position = KeyAndPosition::getPositionName($groupsExploded[0]);
+                        $phoneme = $groupsExploded[0] . $groupsExploded[1];
                     /*
                         If it's not, we have to push the second phoneme to the next group and so on
                         To do so, we go from the last group and push to the "right" of the array, and do so until we go to the current group
@@ -83,9 +86,13 @@ class LPCService
                             Since there's only 1 phoneme, we can get the key or position because which ones represent a blank
                         */
                         list($key, $position) = $this->getKeyAndPositionSinglePhoneme($groupsExploded);
+                        $phoneme = $groupsExploded[0];
                     }
                 }
-                array_push($images, $this->getImageFromModel($key, $position, $library_id));
+                array_push($images, [
+                    'phoneme' => $phoneme,
+                    'image' => $this->getImageFromModel($key, $position, $library_id)
+                ]);
                 ++$index;
             }
         }

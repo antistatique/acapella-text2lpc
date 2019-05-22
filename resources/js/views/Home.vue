@@ -18,7 +18,16 @@
             class="btn btn-primary"
             @click="getLPCKeys"
           >
-            Encoder
+            <template v-if="!loading">
+              Encoder
+            </template>
+            <div
+              v-if="loading"
+              class="spinner-border spinner-grow-sm"
+              role="status"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
           </button>
         </div>
       </div>
@@ -152,6 +161,7 @@ export default {
             phonemeCheck: true,
             layoutSwitch: true,
             view: 'carousel',
+            loading: false,
         }
     },
     async created() {
@@ -162,9 +172,11 @@ export default {
     },
     methods: {
         async getLPCKeys() {
-            const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
-            this.lpcKeys = response.data.lpcKeys
-            this.phonemeCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
+          this.loading = true
+          const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
+          this.lpcKeys = response.data.lpcKeys
+          this.phonemeCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
+          this.loading = false
         },
         changeView(event, view) {
           const oldSelectedView = document.querySelector('.view-btn-active')

@@ -94,11 +94,27 @@
         </div>
       </div>
     </div>
-    <div v-if="lpcKeys.length > 0 && view === 'grid'" class="container-fluid mt-5">
+    <div
+      v-if="lpcKeys.length > 0 && view === 'grid'"
+      class="container-fluid mt-5"
+    >
       <div class="row justify-content-center text-center mx-auto">
-        <div v-for="(lpcKey, index) in lpcKeys" :key="index" class="col-md-3 col-sm-12">
-          <card-image v-if="phonemeCheck" :image="lpcKey.image" :phoneme="lpcKey.phoneme" :nb-image="index + 1"></card-image>
-          <img v-if="!phonemeCheck" :src="lpcKey.image" class="grid-image">
+        <div
+          v-for="(lpcKey, index) in lpcKeys"
+          :key="index"
+          class="col-md-3 col-sm-12"
+        >
+          <card-image
+            v-if="phonemeCheck"
+            :image="lpcKey.image"
+            :phoneme="lpcKey.phoneme"
+            :nb-image="index + 1"
+          />
+          <img
+            v-if="!phonemeCheck"
+            :src="lpcKey.image"
+            class="grid-image"
+          >
         </div>
       </div>
     </div>

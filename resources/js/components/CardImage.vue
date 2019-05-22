@@ -6,10 +6,10 @@
     >
     <div class="card-body">
       <div class="row">
-        <div class="col-6 text-center">
+        <div class="col-6 phoneme">
           {{ phoneme }}
         </div>
-        <div class="col-6 text-center">
+        <div class="col-6 number-paginator">
           {{ nbImage }}
         </div>
       </div>
@@ -38,11 +38,10 @@ export default {
 
 <style lang="scss" scoped>
     .card-body {
-        height: 20px;
-        padding: 0;
+        padding: 0.3rem;
 
-        .row {
-            height: 20px;
+        .number-paginator {
+          text-align: right;
         }
     }
 </style>

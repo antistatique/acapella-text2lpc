@@ -43,21 +43,32 @@
           </div>
         </div>
         <div class="col-6 my-auto">
-          Vue : <button @click="changeView($event, 'carousel')" type="button" class="btn view-btn view-btn-active" disabled>
-            <font-awesome-icon icon="stop"></font-awesome-icon>
+          Vue : <button
+            type="button"
+            class="btn view-btn view-btn-active"
+            disabled
+            @click="changeView($event, 'carousel')"
+          >
+            <font-awesome-icon icon="stop" />
           </button>
-          <button @click="changeView($event, 'grid')" type="button" class="btn view-btn">
-            <font-awesome-icon icon="grip-horizontal"></font-awesome-icon>
+          <button
+            type="button"
+            class="btn view-btn"
+            @click="changeView($event, 'grid')"
+          >
+            <font-awesome-icon icon="grip-horizontal" />
           </button>
         </div>
       </div>
     </div>
     <div
-      v-if="lpcKeys.length > 0"
+      v-if="lpcKeys.length > 0 && view === 'carousel'"
       class="container mt-5"
     >
       <div class="row justify-content-center text-center mx-auto">
-        <div v-if="view === 'carousel'" class="col-md-6">
+        <div
+          class="col-md-6"
+        >
           <carousel
             v-if="phonemeCheck"
             :key="carouselPhonemeUpdate"
@@ -80,6 +91,14 @@
               :src="lpcKey.image"
             >
           </carousel>
+        </div>
+      </div>
+    </div>
+    <div v-if="lpcKeys.length > 0 && view === 'grid'" class="container-fluid mt-5">
+      <div class="row justify-content-center text-center mx-auto">
+        <div v-for="(lpcKey, index) in lpcKeys" :key="index" class="col-md-3 col-sm-12">
+          <card-image v-if="phonemeCheck" :image="lpcKey.image" :phoneme="lpcKey.phoneme" :nb-image="index + 1"></card-image>
+          <img v-if="!phonemeCheck" :src="lpcKey.image" class="grid-image">
         </div>
       </div>
     </div>
@@ -131,6 +150,7 @@ export default {
           oldSelectedView.disabled = false
           event.target.classList.add('view-btn-active')
           event.target.disabled = true
+          this.view = view
         }
     }
 }
@@ -150,6 +170,10 @@ export default {
     &:hover {
       color: orange;
     }
+  }
+
+  .grid-image {
+    max-width: 100%;
   }
 
   .view-btn-active {

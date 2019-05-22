@@ -10,6 +10,24 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {
+    faGripHorizontal,
+    faStop,
+    faPlay,
+    faArrowLeft,
+    faArrowRight
+} from '@fortawesome/free-solid-svg-icons'
+
+library.add([
+    faGripHorizontal,
+    faStop,
+    faPlay,
+    faArrowLeft,
+    faArrowRight
+])
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -21,7 +39,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('octicon', require('vue-octicon/components/Octicon.vue').default);
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('header-component', require('./components/Header.vue').default);
 Vue.component('footer-component', require('./components/Footer.vue').default);
 Vue.component('home', require('./views/Home.vue').default);

@@ -17,65 +17,46 @@
           class="btn btn-secondary"
           @click="previous"
         >
-          <octicon
-            name="arrow-left"
-            scale="1.2"
-          />
+          <font-awesome-icon icon="arrow-left" />
         </button>
       </div>
-      <div class="col-4 dropup">
-        <button
-          id="dropdownSpeed"
+      <div class="input-group col-8">
+        <select
           :disabled="!stopped"
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
+          class="custom-select"
+          @change="changeSpeed"
         >
-          Vitesse
-        </button>
-        <div
-          class="dropdown-menu"
-          aria-labelledby="dropdownSpeed"
-        >
-          <a
-            class="dropdown-item"
-            @click="changeSpeed('slow')"
-          >Lent</a>
-          <a
-            class="dropdown-item"
-            @click="changeSpeed('normal')"
-          >Normal</a>
-          <a
-            class="dropdown-item"
-            @click="changeSpeed('fast')"
-          >Rapide</a>
+          <option value="slow">
+            Lent
+          </option>
+          <option
+            value="normal"
+            selected
+          >
+            Normal
+          </option>
+          <option value="fast">
+            Rapide
+          </option>
+        </select>
+        <div class="input-group-append">
+          <button
+            v-if="!stopped"
+            type="button"
+            class="btn btn-secondary"
+            @click="stop"
+          >
+            <font-awesome-icon icon="stop" />
+          </button>
+          <button
+            v-if="stopped"
+            type="button"
+            class="btn btn-secondary"
+            @click="start"
+          >
+            <font-awesome-icon icon="play" />
+          </button>
         </div>
-      </div>
-      <div class="col-4">
-        <button
-          v-if="!stopped"
-          type="button"
-          class="btn btn-secondary play-control"
-          @click="stop"
-        >
-          <octicon
-            name="primitive-square"
-            scale="1.3"
-          />
-        </button>
-        <button
-          v-if="stopped"
-          type="button"
-          class="btn btn-secondary play-control"
-          @click="start"
-        >
-          <octicon
-            name="triangle-right"
-            scale="1.3"
-          />
-        </button>
       </div>
       <div class="col-2">
         <button
@@ -83,10 +64,7 @@
           class="btn btn-secondary"
           @click="next"
         >
-          <octicon
-            name="arrow-right"
-            scale="1.2"
-          />
+          <font-awesome-icon icon="arrow-right" />
         </button>
       </div>
     </div>
@@ -138,8 +116,8 @@ export default {
         next() {
             this.owl.trigger('next.owl.carousel')
         },
-        changeSpeed(speed) {
-            switch (speed) {
+        changeSpeed(event) {
+            switch (event.target.value) {
                 case 'slow':
                     this.playSpeed = 3000
                     break

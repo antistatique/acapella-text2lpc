@@ -4,8 +4,8 @@
       <div class="row justify-content-center mx-auto">
         <div class="col-md-5 col-sm-10">
           <textarea
-            name="sentence"
             v-model="userSentence"
+            name="sentence"
             class="form-control sentence"
             rows="3"
           />
@@ -32,9 +32,9 @@
           <div class="form-check form-check-inline">
             <input
               id="phonemesCheckbox"
+              v-model="phonemeCheck"
               class="form-check-input"
               type="checkbox"
-              v-model="phonemeCheck"
             >
             <label
               class="form-check-label"
@@ -43,7 +43,12 @@
           </div>
         </div>
         <div class="col-6 my-auto">
-          
+          Vue : <button @click="changeView($event, 'carousel')" type="button" class="btn view-btn view-btn-active" disabled>
+            <font-awesome-icon icon="stop"></font-awesome-icon>
+          </button>
+          <button @click="changeView($event, 'grid')" type="button" class="btn view-btn">
+            <font-awesome-icon icon="grip-horizontal"></font-awesome-icon>
+          </button>
         </div>
       </div>
     </div>
@@ -52,24 +57,28 @@
       class="container mt-5"
     >
       <div class="row justify-content-center text-center mx-auto">
-        <div class="col-md-6">
+        <div v-if="view === 'carousel'" class="col-md-6">
           <carousel
-            :key="carouselPhonemeUpdate"
             v-if="phonemeCheck"
+            :key="carouselPhonemeUpdate"
           >
-              <card-image
-                v-for="(lpcKey, index) in lpcKeys"
-                :key="index"
-                :image="lpcKey.image"
-                :phoneme="lpcKey.phoneme"
-                :nb-image="index + 1"
-              />
+            <card-image
+              v-for="(lpcKey, index) in lpcKeys"
+              :key="index"
+              :image="lpcKey.image"
+              :phoneme="lpcKey.phoneme"
+              :nb-image="index + 1"
+            />
           </carousel>
           <carousel
-            :key="carouselUpdate"
             v-if="!phonemeCheck"
+            :key="carouselUpdate"
           >
-              <img v-for="(lpcKey, index) in lpcKeys" :key="index" :src="lpcKey.image">
+            <img
+              v-for="(lpcKey, index) in lpcKeys"
+              :key="index"
+              :src="lpcKey.image"
+            >
           </carousel>
         </div>
       </div>
@@ -100,7 +109,8 @@ export default {
             carouselUpdate: 0,
             carouselPhonemeUpdate: 0,
             phonemeCheck: true,
-            layoutSwitch: true
+            layoutSwitch: true,
+            view: 'carousel',
         }
     },
     async created() {
@@ -114,6 +124,13 @@ export default {
             const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
             this.lpcKeys = response.data.lpcKeys
             this.phonemeCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
+        },
+        changeView(event, view) {
+          const oldSelectedView = document.querySelector('.view-btn-active')
+          oldSelectedView.classList.remove('view-btn-active')
+          oldSelectedView.disabled = false
+          event.target.classList.add('view-btn-active')
+          event.target.disabled = true
         }
     }
 }
@@ -123,6 +140,20 @@ export default {
   .sentence {
     font-size: 24px;
     font-weight: bold;
+  }
+
+  button > * {
+    pointer-events: none;
+  }
+
+  .view-btn {
+    &:hover {
+      color: orange;
+    }
+  }
+
+  .view-btn-active {
+    color: orange;
   }
 
   .options-container {

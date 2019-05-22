@@ -74,10 +74,6 @@
 <script>
 import 'owl.carousel/dist/assets/owl.carousel.css'
 import 'owl.carousel'
-import 'vue-octicon/icons/primitive-square'
-import 'vue-octicon/icons/triangle-right'
-import 'vue-octicon/icons/arrow-left'
-import 'vue-octicon/icons/arrow-right'
 
 export default {
     data() {

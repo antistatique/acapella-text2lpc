@@ -28,8 +28,19 @@
       class="container mt-5"
     >
       <div class="row">
-        <div class="col-md-2">
-          Test
+        <div class="col-md-3">
+          <div class="form-check form-check-inline">
+            <input
+              id="phonemesCheckbox"
+              v-model="phonemeCheck"
+              class="form-check-input"
+              type="checkbox"
+            >
+            <label
+              class="form-check-label"
+              for="phonemesCheckbox"
+            >Phonèmes affichés sous l'image</label>
+          </div>
         </div>
       </div>
     </div>
@@ -76,7 +87,8 @@ export default {
             userSentence: '',
             lpcKeys: [],
             mediaQuery: window.matchMedia('(max-width: 600px)'),
-            carouselUpdate: 0
+            carouselUpdate: 0,
+            phonemeCheck: true,
         }
     },
     async created() {

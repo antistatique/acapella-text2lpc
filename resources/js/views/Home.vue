@@ -4,9 +4,9 @@
       <div class="row justify-content-center mx-auto">
         <div class="col-md-5 col-sm-10">
           <textarea
-            id="exampleFormControlTextarea1"
+            name="sentence"
             v-model="userSentence"
-            class="form-control"
+            class="form-control sentence"
             rows="3"
           />
         </div>
@@ -25,22 +25,25 @@
     </div>
     <div
       v-if="lpcKeys.length > 0"
-      class="container mt-5"
+      class="container-fluid mt-5 options-container"
     >
-      <div class="row">
-        <div class="col-md-3">
+      <div class="row justify-content-center text-center">
+        <div class="col-6 my-auto">
           <div class="form-check form-check-inline">
             <input
               id="phonemesCheckbox"
-              v-model="phonemeCheck"
               class="form-check-input"
               type="checkbox"
+              v-model="phonemeCheck"
             >
             <label
               class="form-check-label"
               for="phonemesCheckbox"
             >Phonèmes affichés sous l'image</label>
           </div>
+        </div>
+        <div class="col-6 my-auto">
+          
         </div>
       </div>
     </div>
@@ -51,15 +54,22 @@
       <div class="row justify-content-center text-center mx-auto">
         <div class="col-md-6">
           <carousel
-            :key="carouselUpdate"
+            :key="carouselPhonemeUpdate"
+            v-if="phonemeCheck"
           >
-            <card-image
-              v-for="(lpcKey, index) in lpcKeys"
-              :key="index"
-              :image="lpcKey.image"
-              :phoneme="lpcKey.phoneme"
-              :nb-image="index + 1"
-            />
+              <card-image
+                v-for="(lpcKey, index) in lpcKeys"
+                :key="index"
+                :image="lpcKey.image"
+                :phoneme="lpcKey.phoneme"
+                :nb-image="index + 1"
+              />
+          </carousel>
+          <carousel
+            :key="carouselUpdate"
+            v-if="!phonemeCheck"
+          >
+              <img v-for="(lpcKey, index) in lpcKeys" :key="index" :src="lpcKey.image">
           </carousel>
         </div>
       </div>
@@ -88,7 +98,9 @@ export default {
             lpcKeys: [],
             mediaQuery: window.matchMedia('(max-width: 600px)'),
             carouselUpdate: 0,
+            carouselPhonemeUpdate: 0,
             phonemeCheck: true,
+            layoutSwitch: true
         }
     },
     async created() {
@@ -101,9 +113,27 @@ export default {
         async getLPCKeys() {
             const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
             this.lpcKeys = response.data.lpcKeys
-            this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0
+            this.phonemeCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
         }
     }
 }
 </script>
+
+<style lang="scss" scoped>
+  .sentence {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .options-container {
+    background-color: rgb(226, 226, 226);
+    height: 50px;
+
+    .row {
+      height: 50px;
+    }
+  }
+</style>
+
+
 

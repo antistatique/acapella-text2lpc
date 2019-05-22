@@ -24,7 +24,7 @@
       </div>
     </div>
     <div
-      v-if="images.length > 0"
+      v-if="lpcKeys.length > 0"
       class="container mt-5"
     >
       <div class="row">
@@ -34,7 +34,7 @@
       </div>
     </div>
     <div
-      v-if="images.length > 0"
+      v-if="lpcKeys.length > 0"
       class="container mt-5"
     >
       <div class="row justify-content-center text-center mx-auto">
@@ -42,11 +42,13 @@
           <carousel
             :key="carouselUpdate"
           >
-            <img
-              v-for="(image, index) in images"
+            <card-image
+              v-for="(lpcKey, index) in lpcKeys"
               :key="index"
-              :src="`${image}`"
-            >
+              :image="lpcKey.image"
+              :phoneme="lpcKey.phoneme"
+              :nb-image="index + 1"
+            />
           </carousel>
         </div>
       </div>
@@ -56,10 +58,12 @@
 
 <script>
 import Carousel from '../components/Carousel'
+import CardImage from '../components/CardImage'
 
 export default {
     components: {
         Carousel,
+        CardImage,
     },
     props: {
         sentence: {
@@ -70,7 +74,7 @@ export default {
     data() {
         return {
             userSentence: '',
-            images: [],
+            lpcKeys: [],
             mediaQuery: window.matchMedia('(max-width: 600px)'),
             carouselUpdate: 0
         }
@@ -84,7 +88,7 @@ export default {
     methods: {
         async getLPCKeys() {
             const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
-            this.images = response.data.images
+            this.lpcKeys = response.data.lpcKeys
             this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0
         }
     }

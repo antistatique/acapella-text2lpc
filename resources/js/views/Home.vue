@@ -42,9 +42,10 @@
             <div class="form-check form-check-inline">
               <input
                 id="phonemesCheckbox"
-                v-model="phonemeCheck"
                 class="form-check-input"
                 type="checkbox"
+                :checked="phonemeCheck"
+                @change="checkPhoneme"
               >
               <label
                 class="form-check-label"
@@ -55,16 +56,16 @@
           <div class="col-6 my-auto">
             Vue : <button
               type="button"
-              class="btn view-btn view-btn-active"
+              class="btn view-btn view-btn-active view-carousel"
               disabled
-              @click="changeView($event, 'carousel')"
+              @click="changeView('carousel')"
             >
               <font-awesome-icon icon="stop" />
             </button>
             <button
               type="button"
-              class="btn view-btn"
-              @click="changeView($event, 'grid')"
+              class="btn view-btn view-grid"
+              @click="changeView('grid')"
             >
               <font-awesome-icon icon="grip-horizontal" />
             </button>
@@ -116,7 +117,7 @@
           <div
             v-for="(lpcKey, index) in lpcKeys"
             :key="index"
-            class="col-md-3 col-sm-12 mt-2"
+            class="col-md-4 col-sm-12 mt-2"
           >
             <card-image
               v-if="phonemeCheck"
@@ -159,15 +160,27 @@ export default {
             carouselUpdate: 0,
             carouselPhonemeUpdate: 0,
             phonemeCheck: true,
-            layoutSwitch: true,
             view: 'carousel',
             loading: false,
+            location: new URL(window.location.href)
         }
     },
     async created() {
         if (this.sentence !== '') {
             this.userSentence = decodeURI(this.sentence)
             await this.getLPCKeys()
+        }
+        if (this.location.searchParams.has('view')) {
+          if (this.location.searchParams.get('view') === 'carousel' || this.location.searchParams.get('view') === 'grid') {
+            this.changeView(this.location.searchParams.get('view'))
+          }
+        }
+        if (this.location.searchParams.has('displayPhonemes')) {
+          if (this.location.searchParams.get('displayPhonemes') === 'true') {
+            this.phonemeCheck = true
+          } else if (this.location.searchParams.get('displayPhonemes') === 'false') {
+            this.phonemeCheck = false
+          }
         }
     },
     methods: {
@@ -177,14 +190,55 @@ export default {
           this.lpcKeys = response.data.lpcKeys
           this.phonemeCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
           this.loading = false
+          if (this.location.searchParams.has('sentence')) {
+            this.location.searchParams.set('sentence', this.userSentence)
+          } else {
+            this.location.searchParams.append('sentence', this.userSentence)
+          }
+          history.pushState({}, null, this.location.href)
         },
-        changeView(event, view) {
-          const oldSelectedView = document.querySelector('.view-btn-active')
-          oldSelectedView.classList.remove('view-btn-active')
-          oldSelectedView.disabled = false
-          event.target.classList.add('view-btn-active')
-          event.target.disabled = true
+        changeView(view) {
+          const carousel = document.querySelector('.view-carousel')
+          const grid = document.querySelector('.view-grid')
+          if (view === 'carousel') {
+            if (!carousel.classList.contains('view-btn-active')) {
+              carousel.classList.add('view-btn-active')
+              carousel.disabled = true
+              grid.classList.remove('view-btn-active')
+              grid.disabled = false
+            }
+          } else if (view === 'grid') {
+            if (!grid.classList.contains('view-btn-active')) {
+              grid.classList.add('view-btn-active')
+              grid.disabled = true
+              carousel.classList.remove('view-btn-active')
+              carousel.disabled = false
+            }
+          }
+          if (this.location.searchParams.has('view')) {
+            this.location.searchParams.set('view', view)
+          } else {
+            this.location.searchParams.append('view', view)
+          }
+          history.pushState({}, null, this.location.href)
           this.view = view
+        },
+        checkPhoneme() {
+          this.phonemeCheck = !this.phonemeCheck
+          if (this.location.searchParams.has('displayPhonemes')) {
+            if (this.phonemeCheck) {
+              this.location.searchParams.set('displayPhonemes', 'true')
+            } else {
+              this.location.searchParams.set('displayPhonemes', 'false')
+            }
+          } else {
+            if (this.phonemeCheck) {
+              this.location.searchParams.append('displayPhonemes', 'true')
+            } else {
+              this.location.searchParams.append('displayPhonemes', 'false')
+            }
+          }
+          history.pushState({}, null, this.location.href)
         }
     }
 }
@@ -230,6 +284,3 @@ export default {
     opacity: 0;
   }
 </style>
-
-
-

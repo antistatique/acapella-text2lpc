@@ -13,6 +13,7 @@
     <div class="row mt-4">
       <div class="col-2">
         <button
+          v-if="prevButton"
           type="button"
           class="btn btn-secondary"
           @click="previous"
@@ -22,7 +23,7 @@
       </div>
       <div class="input-group col-8">
         <select
-          :disabled="!stopped"
+          :disabled="disabledSpeed"
           class="custom-select"
           @change="changeSpeed"
         >
@@ -41,7 +42,7 @@
         </select>
         <div class="input-group-append">
           <button
-            v-if="!stopped"
+            v-if="!stopped && !finished"
             type="button"
             class="btn btn-secondary"
             @click="stop"
@@ -49,17 +50,26 @@
             <font-awesome-icon icon="stop" />
           </button>
           <button
-            v-if="stopped"
+            v-if="stopped && !finished"
             type="button"
             class="btn btn-secondary"
             @click="start"
           >
             <font-awesome-icon icon="play" />
           </button>
+          <button
+            v-if="finished"
+            type="button"
+            class="btn btn-secondary"
+            @click="replay"
+          >
+            <font-awesome-icon icon="redo" />
+          </button>
         </div>
       </div>
       <div class="col-2">
         <button
+          v-if="nextButton"
           type="button"
           class="btn btn-secondary"
           @click="next"
@@ -80,7 +90,19 @@ export default {
         return {
             owl: null,
             stopped: false,
-            playSpeed: 2000
+            playSpeed: 2000,
+            finished: false,
+            prevButton: false,
+            nextButton: true,
+        }
+    },
+    computed: {
+        disabledSpeed() {
+            if (this.finished || this.stopped) {
+                return false
+            } else {
+                return true
+            }
         }
     },
     mounted() {
@@ -95,22 +117,39 @@ export default {
             mouseDrag: false,
             touchDrag: false,
         })
+        this.owl.on('changed.owl.carousel', () => {
+            if (this.owl.data('owl.carousel')._current == (this.owl.data('owl.carousel')._items.length - 1)) {
+                this.finished = true
+                this.nextButton = false
+            } else if (this.owl.data('owl.carousel')._current < (this.owl.data('owl.carousel')._items.length - 1)) {
+                this.owl.data('owl.carousel')._current == 0 ? this.prevButton = false : this.prevButton = true
+                this.finished = false
+            }
+        })
     },
     methods: {
+        replay() {
+            this.owl.trigger('to.owl.carousel', [0, 400])
+            this.finished = false
+            this.nextButton = true
+            this.prevButton = false
+            this.stop()
+        },
         stop() {
             this.owl.trigger('stop.owl.autoplay')
             this.stopped = true
         },
-
         start() {
             this.owl.trigger('play.owl.autoplay')
             this.stopped = false
         },
         previous() {
             this.owl.trigger('prev.owl.carousel')
+            this.nextButton = true
         },
         next() {
             this.owl.trigger('next.owl.carousel')
+            this.prevButton = true
         },
         changeSpeed(event) {
             switch (event.target.value) {

@@ -55,7 +55,7 @@
             <label
               class="form-check-label"
               for="phonemesCheckbox"
-            >Phonèmes affichés sous l'image</label>
+            >Phonèmes</label>
           </div>
         </div>
         <div class="col-3 my-auto">
@@ -70,7 +70,7 @@
             <label
               class="form-check-label"
               for="phoneticsCheckbox"
-            >Phonétiques affichés sous l'image</label>
+            >Phonétiques</label>
           </div>
         </div>
         <div class="col-6 my-auto">
@@ -197,11 +197,19 @@ export default {
             this.changeView(this.location.searchParams.get('view'))
           }
         }
-        if (this.location.searchParams.has('displayPhonemes')) {
+        if (this.location.searchParams.has('displayPhonemes') && !this.location.searchParams.has('displayPhonetics')) {
+          this.phoneticCheck = false
           if (this.location.searchParams.get('displayPhonemes') === 'true') {
             this.phonemeCheck = true
           } else if (this.location.searchParams.get('displayPhonemes') === 'false') {
             this.phonemeCheck = false
+          }
+        } else if (!this.location.searchParams.has('displayPhonemes') && this.location.searchParams.has('displayPhonetics')) {
+          this.phonemeCheck = false
+          if (this.location.searchParams.get('displayPhonetics') === 'true') {
+            this.phoneticCheck = true
+          } else if (this.location.searchParams.get('displayPhonetics') === 'false') {
+            this.phoneticCheck = false
           }
         }
     },
@@ -248,6 +256,7 @@ export default {
         checkPhoneme() {
           this.phonemeCheck = !this.phonemeCheck
           this.phonemeCheck ? this.phoneticCheck = false : null
+          this.location.searchParams.delete('displayPhonetics')
           if (this.location.searchParams.has('displayPhonemes')) {
             if (this.phonemeCheck) {
               this.location.searchParams.set('displayPhonemes', 'true')
@@ -266,6 +275,7 @@ export default {
         checkPhonetic() {
           this.phoneticCheck = !this.phoneticCheck
           this.phoneticCheck ? this.phonemeCheck = false : null
+          this.location.searchParams.delete('displayPhonemes')
           if (this.location.searchParams.has('displayPhonetics')) {
             if (this.phoneticCheck) {
               this.location.searchParams.set('displayPhonetics', 'true')

@@ -22,7 +22,7 @@
       </div>
       <div class="input-group col-8">
         <select
-          :disabled="!stopped"
+          :disabled="disabledSpeed"
           class="custom-select"
           @change="changeSpeed"
         >
@@ -41,7 +41,7 @@
         </select>
         <div class="input-group-append">
           <button
-            v-if="!stopped"
+            v-if="!stopped && !finished"
             type="button"
             class="btn btn-secondary"
             @click="stop"
@@ -49,12 +49,20 @@
             <font-awesome-icon icon="stop" />
           </button>
           <button
-            v-if="stopped"
+            v-if="stopped && !finished"
             type="button"
             class="btn btn-secondary"
             @click="start"
           >
             <font-awesome-icon icon="play" />
+          </button>
+          <button
+            v-if="finished"
+            type="button"
+            class="btn btn-secondary"
+            @click="replay"
+          >
+            <font-awesome-icon icon="redo" />
           </button>
         </div>
       </div>
@@ -80,7 +88,17 @@ export default {
         return {
             owl: null,
             stopped: false,
-            playSpeed: 2000
+            playSpeed: 2000,
+            finished: false,
+        }
+    },
+    computed: {
+        disabledSpeed() {
+            if (this.finished || this.stopped) {
+                return false
+            } else {
+                return true
+            }
         }
     },
     mounted() {
@@ -95,13 +113,22 @@ export default {
             mouseDrag: false,
             touchDrag: false,
         })
+        this.owl.on('changed.owl.carousel', () => {
+            if (this.owl.data('owl.carousel')._current == (this.owl.data('owl.carousel')._items.length - 1)) {
+                this.finished = true
+            } 
+        })
     },
     methods: {
+        replay() {
+            this.owl.trigger('to.owl.carousel', [0, 400])
+            this.finished = false
+            this.stop()
+        },
         stop() {
             this.owl.trigger('stop.owl.autoplay')
             this.stopped = true
         },
-
         start() {
             this.owl.trigger('play.owl.autoplay')
             this.stopped = false

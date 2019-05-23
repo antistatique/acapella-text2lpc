@@ -33,108 +33,102 @@
         </div>
       </div>
     </div>
-    <transition name="fade">
-      <div
-        v-if="lpcKeys.length > 0"
-        class="container-fluid mt-5 options-container"
-      >
-        <div class="row justify-content-center text-center">
-          <div class="col-6 my-auto">
-            <div class="form-check form-check-inline">
-              <input
-                id="phonemesCheckbox"
-                class="form-check-input"
-                type="checkbox"
-                :checked="phonemeCheck"
-                @change="checkPhoneme"
-              >
-              <label
-                class="form-check-label"
-                for="phonemesCheckbox"
-              >Phonèmes affichés sous l'image</label>
-            </div>
-          </div>
-          <div class="col-6 my-auto">
-            Vue : <button
-              type="button"
-              class="btn view-btn view-btn-active view-carousel"
-              disabled
-              @click="changeView('carousel')"
+    <div
+      v-if="lpcKeys.length > 0"
+      class="container-fluid mt-5 options-container"
+    >
+      <div class="row justify-content-center text-center">
+        <div class="col-6 my-auto">
+          <div class="form-check form-check-inline">
+            <input
+              id="phonemesCheckbox"
+              class="form-check-input"
+              type="checkbox"
+              :checked="phonemeCheck"
+              @change="checkPhoneme"
             >
-              <font-awesome-icon icon="stop" />
-            </button>
-            <button
-              type="button"
-              class="btn view-btn view-grid"
-              @click="changeView('grid')"
-            >
-              <font-awesome-icon icon="grip-horizontal" />
-            </button>
+            <label
+              class="form-check-label"
+              for="phonemesCheckbox"
+            >Phonèmes affichés sous l'image</label>
           </div>
         </div>
-      </div>
-    </transition>
-    <transition name="fade">
-      <div
-        v-if="lpcKeys.length > 0 && view === 'carousel'"
-        class="container mt-5"
-      >
-        <div class="row justify-content-center text-center mx-auto">
-          <div
-            class="col-md-6"
+        <div class="col-6 my-auto">
+          Vue : <button
+            type="button"
+            class="btn view-btn view-btn-active view-carousel"
+            disabled
+            @click="changeView('carousel')"
           >
-            <carousel
-              v-if="phonemeCheck"
-              :key="carouselPhonemeUpdate"
-            >
-              <card-image
-                v-for="(lpcKey, index) in lpcKeys"
-                :key="index"
-                :image="lpcKey.image"
-                :phoneme="lpcKey.phoneme"
-                :nb-image="index + 1"
-              />
-            </carousel>
-            <carousel
-              v-if="!phonemeCheck"
-              :key="carouselUpdate"
-            >
-              <img
-                v-for="(lpcKey, index) in lpcKeys"
-                :key="index"
-                :src="lpcKey.image"
-              >
-            </carousel>
-          </div>
+            <font-awesome-icon icon="stop" />
+          </button>
+          <button
+            type="button"
+            class="btn view-btn view-grid"
+            @click="changeView('grid')"
+          >
+            <font-awesome-icon icon="grip-horizontal" />
+          </button>
         </div>
       </div>
-    </transition>
-    <transition name="fade">
-      <div
-        v-if="lpcKeys.length > 0 && view === 'grid'"
-        class="container-fluid mt-5"
-      >
-        <div class="row justify-content-center text-center mx-auto">
-          <div
-            v-for="(lpcKey, index) in lpcKeys"
-            :key="index"
-            class="col-md-4 col-sm-12 mt-2"
+    </div>
+    <div
+      v-if="lpcKeys.length > 0 && view === 'carousel'"
+      class="container mt-5"
+    >
+      <div class="row justify-content-center text-center mx-auto">
+        <div
+          class="col-md-6"
+        >
+          <carousel
+            v-if="phonemeCheck"
+            :key="carouselPhonemeUpdate"
           >
             <card-image
-              v-if="phonemeCheck"
+              v-for="(lpcKey, index) in lpcKeys"
+              :key="index"
               :image="lpcKey.image"
               :phoneme="lpcKey.phoneme"
               :nb-image="index + 1"
             />
+          </carousel>
+          <carousel
+            v-if="!phonemeCheck"
+            :key="carouselUpdate"
+          >
             <img
-              v-if="!phonemeCheck"
+              v-for="(lpcKey, index) in lpcKeys"
+              :key="index"
               :src="lpcKey.image"
-              class="grid-image"
             >
-          </div>
+          </carousel>
         </div>
       </div>
-    </transition>
+    </div>
+    <div
+      v-if="lpcKeys.length > 0 && view === 'grid'"
+      class="container-fluid mt-5"
+    >
+      <div class="row justify-content-center text-center mx-auto">
+        <div
+          v-for="(lpcKey, index) in lpcKeys"
+          :key="index"
+          class="col-md-4 col-sm-12 mt-2"
+        >
+          <card-image
+            v-if="phonemeCheck"
+            :image="lpcKey.image"
+            :phoneme="lpcKey.phoneme"
+            :nb-image="index + 1"
+          />
+          <img
+            v-if="!phonemeCheck"
+            :src="lpcKey.image"
+            class="grid-image"
+          >
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -276,12 +270,5 @@ export default {
     .row {
       height: 50px;
     }
-  }
-
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .7s;
-  }
-  .fade-enter, .fade-leave-to {
-    opacity: 0;
   }
 </style>

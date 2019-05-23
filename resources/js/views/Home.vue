@@ -3,6 +3,10 @@
     <div class="container mt-5">
       <div class="row justify-content-center mx-auto">
         <div class="col-md-5 col-sm-10">
+          <label
+            for="sentence"
+            class="sentence-label"
+          >Phrase à encoder</label>
           <textarea
             v-model="userSentence"
             name="sentence"
@@ -242,6 +246,11 @@ export default {
 <style lang="scss" scoped>
   .sentence {
     font-size: 24px;
+    font-weight: bold;
+  }
+
+  .sentence-label {
+    font-size: 20px;
     font-weight: bold;
   }
 

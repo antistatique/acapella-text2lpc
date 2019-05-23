@@ -21,6 +21,7 @@
           <button
             type="button"
             class="btn btn-primary"
+            style="font-weight: bold;"
             @click="getLPCKeys"
           >
             <template v-if="!loading">
@@ -247,6 +248,10 @@ export default {
   .sentence {
     font-size: 24px;
     font-weight: bold;
+
+    &::placeholder {
+      color: rgb(192, 191, 191);
+    }
   }
 
   .sentence-label {

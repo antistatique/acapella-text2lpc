@@ -6,8 +6,17 @@
     >
     <div class="card-body">
       <div class="row">
-        <div class="col-6 phoneme">
+        <div
+          v-if="phonemeCheck"
+          class="col-6"
+        >
           {{ phoneme }}
+        </div>
+        <div
+          v-if="phoneticCheck"
+          class="col-6"
+        >
+          {{ phonetic }}
         </div>
         <div class="col-6 number-paginator">
           {{ nbImage }}
@@ -27,6 +36,18 @@ export default {
         phoneme: {
             default: '',
             type: String
+        },
+        phonetic: {
+          default: '',
+          type: String
+        },
+        phonemeCheck: {
+          default: true,
+          type: Boolean
+        },
+        phoneticCheck: {
+          default: false,
+          type: Boolean
         },
         nbImage: {
             default: 0,

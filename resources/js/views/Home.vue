@@ -43,7 +43,7 @@
       class="container-fluid mt-5 options-container"
     >
       <div class="row justify-content-center text-center">
-        <div class="col-6 my-auto">
+        <div class="col-3 my-auto">
           <div class="form-check form-check-inline">
             <input
               id="phonemesCheckbox"
@@ -56,6 +56,21 @@
               class="form-check-label"
               for="phonemesCheckbox"
             >Phonèmes affichés sous l'image</label>
+          </div>
+        </div>
+        <div class="col-3 my-auto">
+          <div class="form-check form-check-inline">
+            <input
+              id="phoneticsCheckbox"
+              class="form-check-input"
+              type="checkbox"
+              :checked="phoneticCheck"
+              @change="checkPhonetic"
+            >
+            <label
+              class="form-check-label"
+              for="phoneticsCheckbox"
+            >Phonétiques affichés sous l'image</label>
           </div>
         </div>
         <div class="col-6 my-auto">
@@ -86,7 +101,7 @@
           class="col-md-6"
         >
           <carousel
-            v-if="phonemeCheck"
+            v-if="phonemeCheck || phoneticCheck"
             :key="carouselPhonemeUpdate"
           >
             <card-image
@@ -94,11 +109,14 @@
               :key="index"
               :image="lpcKey.image"
               :phoneme="lpcKey.phoneme"
+              :phonetic="lpcKey.phonetic"
+              :phoneme-check="phonemeCheck"
+              :phonetic-check="phoneticCheck"
               :nb-image="index + 1"
             />
           </carousel>
           <carousel
-            v-if="!phonemeCheck"
+            v-if="!phonemeCheck && !phoneticCheck"
             :key="carouselUpdate"
           >
             <img
@@ -121,13 +139,16 @@
           class="col-md-4 col-sm-12 mt-2"
         >
           <card-image
-            v-if="phonemeCheck"
+            v-if="phonemeCheck || phoneticCheck"
             :image="lpcKey.image"
             :phoneme="lpcKey.phoneme"
+            :phonetic="lpcKey.phonetic"
+            :phoneme-check="phonemeCheck"
+            :phonetic-check="phoneticCheck"
             :nb-image="index + 1"
           />
           <img
-            v-if="!phonemeCheck"
+            v-if="!phonemeCheck && !phoneticCheck"
             :src="lpcKey.image"
             class="grid-image"
           >
@@ -160,6 +181,7 @@ export default {
             carouselUpdate: 0,
             carouselPhonemeUpdate: 0,
             phonemeCheck: true,
+            phoneticCheck: false,
             view: 'carousel',
             loading: false,
             location: new URL(window.location.href)
@@ -225,6 +247,7 @@ export default {
         },
         checkPhoneme() {
           this.phonemeCheck = !this.phonemeCheck
+          this.phonemeCheck ? this.phoneticCheck = false : null
           if (this.location.searchParams.has('displayPhonemes')) {
             if (this.phonemeCheck) {
               this.location.searchParams.set('displayPhonemes', 'true')
@@ -236,6 +259,24 @@ export default {
               this.location.searchParams.append('displayPhonemes', 'true')
             } else {
               this.location.searchParams.append('displayPhonemes', 'false')
+            }
+          }
+          history.pushState({}, null, this.location.href)
+        },
+        checkPhonetic() {
+          this.phoneticCheck = !this.phoneticCheck
+          this.phoneticCheck ? this.phonemeCheck = false : null
+          if (this.location.searchParams.has('displayPhonetics')) {
+            if (this.phoneticCheck) {
+              this.location.searchParams.set('displayPhonetics', 'true')
+            } else {
+              this.location.searchParams.set('displayPhonetics', 'false')
+            }
+          } else {
+            if (this.phoneticCheck) {
+              this.location.searchParams.append('displayPhonetics', 'true')
+            } else {
+              this.location.searchParams.append('displayPhonetics', 'false')
             }
           }
           history.pushState({}, null, this.location.href)

@@ -8,6 +8,7 @@
             name="sentence"
             class="form-control sentence"
             rows="3"
+            placeholder="Saisissez votre phrase"
           />
         </div>
       </div>

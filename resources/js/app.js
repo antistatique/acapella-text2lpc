@@ -17,7 +17,8 @@ import {
     faStop,
     faPlay,
     faArrowLeft,
-    faArrowRight
+    faArrowRight,
+    faRedo
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add([
@@ -25,7 +26,8 @@ library.add([
     faStop,
     faPlay,
     faArrowLeft,
-    faArrowRight
+    faArrowRight,
+    faRedo
 ])
 
 /**

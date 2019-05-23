@@ -219,6 +219,7 @@ export default {
           const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
           this.lpcKeys = response.data.lpcKeys
           this.phonemeCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
+          this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
           this.loading = false
           if (this.location.searchParams.has('sentence')) {
             this.location.searchParams.set('sentence', this.userSentence)

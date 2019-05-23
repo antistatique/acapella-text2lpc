@@ -3,11 +3,16 @@
     <div class="container mt-5">
       <div class="row justify-content-center mx-auto">
         <div class="col-md-5 col-sm-10">
+          <label
+            for="sentence"
+            class="sentence-label"
+          >Phrase à encoder</label>
           <textarea
             v-model="userSentence"
             name="sentence"
             class="form-control sentence"
             rows="3"
+            placeholder="Saisissez votre phrase"
           />
         </div>
       </div>
@@ -16,6 +21,7 @@
           <button
             type="button"
             class="btn btn-primary"
+            style="font-weight: bold;"
             @click="getLPCKeys"
           >
             <template v-if="!loading">
@@ -32,107 +38,102 @@
         </div>
       </div>
     </div>
-    <transition name="fade">
-      <div
-        v-if="lpcKeys.length > 0"
-        class="container-fluid mt-5 options-container"
-      >
-        <div class="row justify-content-center text-center">
-          <div class="col-6 my-auto">
-            <div class="form-check form-check-inline">
-              <input
-                id="phonemesCheckbox"
-                v-model="phonemeCheck"
-                class="form-check-input"
-                type="checkbox"
-              >
-              <label
-                class="form-check-label"
-                for="phonemesCheckbox"
-              >Phonèmes affichés sous l'image</label>
-            </div>
-          </div>
-          <div class="col-6 my-auto">
-            Vue : <button
-              type="button"
-              class="btn view-btn view-btn-active"
-              disabled
-              @click="changeView($event, 'carousel')"
+    <div
+      v-if="lpcKeys.length > 0"
+      class="container-fluid mt-5 options-container"
+    >
+      <div class="row justify-content-center text-center">
+        <div class="col-6 my-auto">
+          <div class="form-check form-check-inline">
+            <input
+              id="phonemesCheckbox"
+              class="form-check-input"
+              type="checkbox"
+              :checked="phonemeCheck"
+              @change="checkPhoneme"
             >
-              <font-awesome-icon icon="stop" />
-            </button>
-            <button
-              type="button"
-              class="btn view-btn"
-              @click="changeView($event, 'grid')"
-            >
-              <font-awesome-icon icon="grip-horizontal" />
-            </button>
+            <label
+              class="form-check-label"
+              for="phonemesCheckbox"
+            >Phonèmes affichés sous l'image</label>
           </div>
         </div>
-      </div>
-    </transition>
-    <transition name="fade">
-      <div
-        v-if="lpcKeys.length > 0 && view === 'carousel'"
-        class="container mt-5"
-      >
-        <div class="row justify-content-center text-center mx-auto">
-          <div
-            class="col-md-6"
+        <div class="col-6 my-auto">
+          Vue : <button
+            type="button"
+            class="btn view-btn view-btn-active view-carousel"
+            disabled
+            @click="changeView('carousel')"
           >
-            <carousel
-              v-if="phonemeCheck"
-              :key="carouselPhonemeUpdate"
-            >
-              <card-image
-                v-for="(lpcKey, index) in lpcKeys"
-                :key="index"
-                :image="lpcKey.image"
-                :phoneme="lpcKey.phoneme"
-                :nb-image="index + 1"
-              />
-            </carousel>
-            <carousel
-              v-if="!phonemeCheck"
-              :key="carouselUpdate"
-            >
-              <img
-                v-for="(lpcKey, index) in lpcKeys"
-                :key="index"
-                :src="lpcKey.image"
-              >
-            </carousel>
-          </div>
+            <font-awesome-icon icon="stop" />
+          </button>
+          <button
+            type="button"
+            class="btn view-btn view-grid"
+            @click="changeView('grid')"
+          >
+            <font-awesome-icon icon="grip-horizontal" />
+          </button>
         </div>
       </div>
-    </transition>
-    <transition name="fade">
-      <div
-        v-if="lpcKeys.length > 0 && view === 'grid'"
-        class="container-fluid mt-5"
-      >
-        <div class="row justify-content-center text-center mx-auto">
-          <div
-            v-for="(lpcKey, index) in lpcKeys"
-            :key="index"
-            class="col-md-3 col-sm-12 mt-2"
+    </div>
+    <div
+      v-if="lpcKeys.length > 0 && view === 'carousel'"
+      class="container mt-5"
+    >
+      <div class="row justify-content-center text-center mx-auto">
+        <div
+          class="col-md-6"
+        >
+          <carousel
+            v-if="phonemeCheck"
+            :key="carouselPhonemeUpdate"
           >
             <card-image
-              v-if="phonemeCheck"
+              v-for="(lpcKey, index) in lpcKeys"
+              :key="index"
               :image="lpcKey.image"
               :phoneme="lpcKey.phoneme"
               :nb-image="index + 1"
             />
+          </carousel>
+          <carousel
+            v-if="!phonemeCheck"
+            :key="carouselUpdate"
+          >
             <img
-              v-if="!phonemeCheck"
+              v-for="(lpcKey, index) in lpcKeys"
+              :key="index"
               :src="lpcKey.image"
-              class="grid-image"
             >
-          </div>
+          </carousel>
         </div>
       </div>
-    </transition>
+    </div>
+    <div
+      v-if="lpcKeys.length > 0 && view === 'grid'"
+      class="container-fluid mt-5"
+    >
+      <div class="row justify-content-center text-center mx-auto">
+        <div
+          v-for="(lpcKey, index) in lpcKeys"
+          :key="index"
+          class="col-md-4 col-sm-12 mt-2"
+        >
+          <card-image
+            v-if="phonemeCheck"
+            :image="lpcKey.image"
+            :phoneme="lpcKey.phoneme"
+            :nb-image="index + 1"
+          />
+          <img
+            v-if="!phonemeCheck"
+            :src="lpcKey.image"
+            class="grid-image"
+          >
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -159,15 +160,27 @@ export default {
             carouselUpdate: 0,
             carouselPhonemeUpdate: 0,
             phonemeCheck: true,
-            layoutSwitch: true,
             view: 'carousel',
             loading: false,
+            location: new URL(window.location.href)
         }
     },
     async created() {
         if (this.sentence !== '') {
             this.userSentence = decodeURI(this.sentence)
             await this.getLPCKeys()
+        }
+        if (this.location.searchParams.has('view')) {
+          if (this.location.searchParams.get('view') === 'carousel' || this.location.searchParams.get('view') === 'grid') {
+            this.changeView(this.location.searchParams.get('view'))
+          }
+        }
+        if (this.location.searchParams.has('displayPhonemes')) {
+          if (this.location.searchParams.get('displayPhonemes') === 'true') {
+            this.phonemeCheck = true
+          } else if (this.location.searchParams.get('displayPhonemes') === 'false') {
+            this.phonemeCheck = false
+          }
         }
     },
     methods: {
@@ -177,14 +190,55 @@ export default {
           this.lpcKeys = response.data.lpcKeys
           this.phonemeCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
           this.loading = false
+          if (this.location.searchParams.has('sentence')) {
+            this.location.searchParams.set('sentence', this.userSentence)
+          } else {
+            this.location.searchParams.append('sentence', this.userSentence)
+          }
+          history.pushState({}, null, this.location.href)
         },
-        changeView(event, view) {
-          const oldSelectedView = document.querySelector('.view-btn-active')
-          oldSelectedView.classList.remove('view-btn-active')
-          oldSelectedView.disabled = false
-          event.target.classList.add('view-btn-active')
-          event.target.disabled = true
+        changeView(view) {
+          const carousel = document.querySelector('.view-carousel')
+          const grid = document.querySelector('.view-grid')
+          if (view === 'carousel') {
+            if (!carousel.classList.contains('view-btn-active')) {
+              carousel.classList.add('view-btn-active')
+              carousel.disabled = true
+              grid.classList.remove('view-btn-active')
+              grid.disabled = false
+            }
+          } else if (view === 'grid') {
+            if (!grid.classList.contains('view-btn-active')) {
+              grid.classList.add('view-btn-active')
+              grid.disabled = true
+              carousel.classList.remove('view-btn-active')
+              carousel.disabled = false
+            }
+          }
+          if (this.location.searchParams.has('view')) {
+            this.location.searchParams.set('view', view)
+          } else {
+            this.location.searchParams.append('view', view)
+          }
+          history.pushState({}, null, this.location.href)
           this.view = view
+        },
+        checkPhoneme() {
+          this.phonemeCheck = !this.phonemeCheck
+          if (this.location.searchParams.has('displayPhonemes')) {
+            if (this.phonemeCheck) {
+              this.location.searchParams.set('displayPhonemes', 'true')
+            } else {
+              this.location.searchParams.set('displayPhonemes', 'false')
+            }
+          } else {
+            if (this.phonemeCheck) {
+              this.location.searchParams.append('displayPhonemes', 'true')
+            } else {
+              this.location.searchParams.append('displayPhonemes', 'false')
+            }
+          }
+          history.pushState({}, null, this.location.href)
         }
     }
 }
@@ -193,6 +247,15 @@ export default {
 <style lang="scss" scoped>
   .sentence {
     font-size: 24px;
+    font-weight: bold;
+
+    &::placeholder {
+      color: rgb(192, 191, 191);
+    }
+  }
+
+  .sentence-label {
+    font-size: 20px;
     font-weight: bold;
   }
 
@@ -222,14 +285,4 @@ export default {
       height: 50px;
     }
   }
-
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .7s;
-  }
-  .fade-enter, .fade-leave-to {
-    opacity: 0;
-  }
 </style>
-
-
-

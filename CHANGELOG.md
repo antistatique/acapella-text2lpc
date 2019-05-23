@@ -2,6 +2,15 @@
 
 Every changes made to the project will be documented here.
 
+## [0.2.1] - 23-05-2019
+## Added
+ - Phonetics were added in the cards
+ - Replay button in carousel
+
+## Changed
+ - Arrows in carousel are now hidden if not possible to go next or back
+ - Texts for better mobile design
+
 ## [0.2.0] - 22-05-2019
 ### Added
  - Grid view for images

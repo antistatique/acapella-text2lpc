@@ -121,6 +121,7 @@ export default {
             if (this.owl.data('owl.carousel')._current == (this.owl.data('owl.carousel')._items.length - 1)) {
                 this.finished = true
                 this.nextButton = false
+                this.prevButton = true
             } else if (this.owl.data('owl.carousel')._current < (this.owl.data('owl.carousel')._items.length - 1)) {
                 this.owl.data('owl.carousel')._current == 0 ? this.prevButton = false : this.prevButton = true
                 this.finished = false

@@ -13,6 +13,7 @@
     <div class="row mt-4">
       <div class="col-2">
         <button
+          v-if="prevButton"
           type="button"
           class="btn btn-secondary"
           @click="previous"
@@ -68,6 +69,7 @@
       </div>
       <div class="col-2">
         <button
+          v-if="nextButton"
           type="button"
           class="btn btn-secondary"
           @click="next"
@@ -90,6 +92,8 @@ export default {
             stopped: false,
             playSpeed: 2000,
             finished: false,
+            prevButton: false,
+            nextButton: true,
         }
     },
     computed: {
@@ -116,13 +120,19 @@ export default {
         this.owl.on('changed.owl.carousel', () => {
             if (this.owl.data('owl.carousel')._current == (this.owl.data('owl.carousel')._items.length - 1)) {
                 this.finished = true
-            } 
+                this.nextButton = false
+            } else if (this.owl.data('owl.carousel')._current < (this.owl.data('owl.carousel')._items.length - 1)) {
+                this.owl.data('owl.carousel')._current == 0 ? this.prevButton = false : this.prevButton = true
+                this.finished = false
+            }
         })
     },
     methods: {
         replay() {
             this.owl.trigger('to.owl.carousel', [0, 400])
             this.finished = false
+            this.nextButton = true
+            this.prevButton = false
             this.stop()
         },
         stop() {
@@ -135,9 +145,11 @@ export default {
         },
         previous() {
             this.owl.trigger('prev.owl.carousel')
+            this.nextButton = true
         },
         next() {
             this.owl.trigger('next.owl.carousel')
+            this.prevButton = true
         },
         changeSpeed(event) {
             switch (event.target.value) {

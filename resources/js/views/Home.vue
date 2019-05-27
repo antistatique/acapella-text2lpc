@@ -116,7 +116,7 @@
             />
           </carousel>
           <carousel
-            v-if="!phonemeCheck && !phoneticCheck"
+            v-else
             :key="carouselUpdate"
           >
             <img
@@ -192,7 +192,7 @@ export default {
             mediaQuery: window.matchMedia('(max-width: 600px)'),
             carouselUpdate: 0,
             printSentence: '',
-            carouselPhonemeUpdate: 0,
+            carouselPhonemeUpdate: 2,
             phonemeCheck: true,
             phoneticCheck: false,
             view: 'carousel',
@@ -232,8 +232,8 @@ export default {
           this.printSentence = this.userSentence
           const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
           this.lpcKeys = response.data.lpcKeys
-          this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
           this.loading = false
+          this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 2 ? this.carouselPhonemeUpdate = 3 : this.carouselPhonemeUpdate = 2) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
           if (this.location.searchParams.has('sentence')) {
             this.location.searchParams.set('sentence', this.userSentence)
           } else {

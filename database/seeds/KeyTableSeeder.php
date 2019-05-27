@@ -193,7 +193,7 @@ class KeyTableSeeder extends Seeder
         Key::create([
             'key'        => 'fille',
             'position'   => 'oh_le_lac',
-            'image'      => asset('storage/fille_oh_le_lac_default.jpg'),
+            'image'      => 'storage/fille_oh_le_lac_default.jpg',
             'library_id' => 1,
         ]);
         Key::create([

@@ -155,6 +155,18 @@
         </div>
       </div>
     </div>
+    <div
+      v-if="lpcKeys.length > 0"
+      class="container mt-5"
+    >
+      <div class="row justify-content-center text-center mx-auto">
+        <a
+          role="button"
+          class="btn btn-primary"
+          :href="`/print?sentence=${printSentence}`"
+        >Imprimer</a>
+      </div>
+    </div>
   </section>
 </template>
 

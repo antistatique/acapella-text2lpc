@@ -2,31 +2,31 @@
     size: A4;
     margin-left: 0;
     margin-right: 0;
-    margin-top: 2.2cm;
+    margin-top: 1.6cm;
 }
 
 body {
-    margin-left: 0.55cm;
-    margin-right: 0.55cm;
+    margin-left: 1.1cm;
+    margin-right: 0;
 }
 
 .tags-row {
-    height: 3.8cm;
-    width: 20.7cm;
+    height: 4cm;
+    width: 18.4cm;
+    margin-top: 0.6cm;
 
     .tags-column {
         display: inline-block;
-        max-height: 3.8cm;
-        max-width: 6.3cm;
-        width: 6.3cm;
-        margin-left: 0.15cm;
-        text-align: center;
+        max-height: 4cm;
+        max-width: 4cm;
+        width: 4cm;
+        margin-left: 0.5cm;
     
         img {
-            max-width: 6.3cm;
-            max-height: 3.8cm;
-            width: auto;
-            height: auto;
+            max-width: 4cm;
+            max-height: 4cm;
+            width: 4cm;
+            height: 4cm;
         }
     }
 }

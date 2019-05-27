@@ -11,16 +11,16 @@
             $x = 0;
             $y = 0;
         @endphp
-        @for ($i = 1; $i <= floor((sizeof($images)/20) + 1); $i++)
-            @while ($x <= (20 * $i) && $x < sizeof($images))
+        @for ($i = 1; $i <= floor((sizeof($images)/24) + 1); $i++)
+            @while ($x <= (24 * $i) && $x < sizeof($images))
                 @php
                     $y = $x;
-                    $x += 3;
+                    $x += 4;
                 @endphp
                 <section class="tags-row">
                     @while ($y < sizeof($images) && $y < $x)
                         <div class="tags-column">
-                            <img src="{{ $images[$y] }}" >
+                            <img src="{{ $images[$y]['image'] }}" >
                         </div>
                         @php
                             $y++;
@@ -28,7 +28,7 @@
                     @endwhile
                 </section>
             @endwhile
-            @if ($i < floor((sizeof($images)/20) + 1))
+            @if ($i < floor((sizeof($images)/24) + 1))
                 <div class="page-break"></div>
             @endif
             @php

@@ -13,6 +13,11 @@ yarn-error.log
 .editorconfig
 /phonemizer/__pycache__
 .php_cs.cache
+*.DS_Store*
+/public/build
+/public/mix-manifest.json
+/log/capistrano.log
+/public/images/vendor
 # Ignore Codeship tmp files
 /.codeship/*/*
 !/.codeship/*/.gitkeep

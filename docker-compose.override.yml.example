@@ -4,7 +4,19 @@ services:
   acapella-db:
     ports:
       - "9999:3306"
+    networks:
+      - acapella_default
 
   acapella-web:
     ports:
       - "8181:8181"
+    networks:
+      - acapella_default
+      - acapella
+
+# Création de networks customisés pour la communication avec le Drupal 7 d'a-capella.ch
+networks:
+  acapella:
+    name: acapella_network
+  acapella_default:
+    name: acapella_default

@@ -13,7 +13,7 @@
     </head>
     <body>
         <div id="app">
-            <header-component loggedin={{ Auth::check() }} username={{ Auth::user()->name }}></header-component>
+            <header-component loggedin={{ Auth::check() }}></header-component>
             <main>
                 @yield('content')
             </main>

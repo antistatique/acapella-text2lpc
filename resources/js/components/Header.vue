@@ -31,7 +31,7 @@
             <li class="nav-item">
               <a
                 class="nav-link"
-                href="#"
+                href="/loginOAuth"
               >Login</a>
             </li>
             <li class="nav-item">
@@ -49,9 +49,10 @@
               >Bibliothèques</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">
-                {{ username }}
-              </a>
+              <a
+                class="nav-link"
+                href="/logout"
+              >Se déconnecter</a>
             </li>
           </template>
         </ul>

@@ -53,4 +53,20 @@ class LoginController extends Controller
         // Redirect to the home page
         return redirect('/');
     }
+
+    /**
+     * Function to logout an user
+     */
+    public function logout(OAuthProviderService $oauthService, Request $request) {
+        // Get the access token from OAuth
+        $auth = $request->session()->get(config('oauth2login.session_key'));
+
+        // If it exists, remove it
+        if ($auth) {
+            $request->session()->remove(config('oauth2login.session_key'));
+        }
+
+        Auth::logout();
+        return redirect('/');
+    }
 }

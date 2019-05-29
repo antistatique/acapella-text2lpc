@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('home');
 });
 Route::get('loginOAuth', 'LoginController@loginOAuth')->middleware('guest');
+Route::get('logout', 'LoginController@logout')->middleware('auth');

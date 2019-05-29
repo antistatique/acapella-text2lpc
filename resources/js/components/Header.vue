@@ -32,7 +32,7 @@
               <a
                 class="nav-link"
                 href="/loginOAuth"
-              >Login</a>
+              >Se connecter</a>
             </li>
             <li class="nav-item">
               <a

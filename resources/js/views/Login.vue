@@ -27,36 +27,57 @@
               <label for="nomInput">Nom</label>
               <input
                 id="nomInput"
+                v-validate.initial="'required|min:2'"
                 name="name"
                 type="text"
                 class="form-control"
+                :class="{ 'is-valid': !errors.first('name'), 'is-invalid': errors.first('name') }"
                 aria-describedby="nameHelp"
               >
               <small
+                v-if="!nameError"
                 id="nameHelp"
                 class="form-text text-muted"
               >
-                Saisissez votre nom d'utilisateur.
+                Saisissez votre nom d'utilisateur. (au moins 2 caractères)
+              </small>
+              <small
+                v-else
+                id="nameHelp"
+                class="form-text validation-error"
+              >
+                {{ nameError }}
               </small>
             </div>
             <div class="form-group">
               <label for="passwordInput">Mot de passe</label>
               <input
                 id="passwordInput"
+                v-validate.initial="'required|min:6'"
                 name="password"
                 type="password"
                 class="form-control"
+                :class="{ 'is-valid': !errors.first('password'), 'is-invalid': errors.first('password') }"
                 aria-describedby="passwordHelp"
               >
               <small
+                v-if="!passwordError"
                 id="passwordHelp"
                 class="form-text text-muted"
               >
-                Saisissez le mot de passe correspondant à votre nom d'utilisateur.
+                Saisissez votre mot de passe. (au moins 6 caractères)
+              </small>
+              <small
+                v-else
+                id="passwordHelp"
+                class="form-text validation-error"
+              >
+                {{ passwordError }}
               </small>
             </div>
             <div class="form-group">
               <button
+                :disabled="errors.any()"
                 type="submit"
                 class="btn btn-primary"
               >
@@ -96,14 +117,15 @@ export default {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         }
-    },
-    mounted() {
-        console.log(this.nameError)
     }
 }
 </script>
 
 <style lang="scss" scoped>
+    .validation-error {
+        color: red;
+    }
+
     input {
         background-color: #f5f3f1;
 

@@ -2,7 +2,7 @@
 
 namespace App\Services\LPC;
 
-use Symfony\Component\Process\Exception\ProcessFailedException;
+use App\Exceptions\PhonemeNotFoundException;
 use Symfony\Component\Process\Process;
 
 class PhonemeService
@@ -14,11 +14,12 @@ class PhonemeService
      */
     public function transform($userText)
     {
+        throw new PhonemeNotFoundException();
         $process = new Process([env('PYTHON_BIN', 'python'), base_path('phonemizer/transform-phonemes.py'), $userText]);
         $process->run();
 
         if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
+            throw new PhonemeNotFoundException();
         }
 
         return rtrim($process->getOutput());

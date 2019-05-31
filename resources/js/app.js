@@ -10,6 +10,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import VeeValidate from 'vee-validate'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
@@ -29,6 +30,8 @@ library.add([
     faArrowRight,
     faRedo
 ])
+
+Vue.use(VeeValidate)
 
 /**
  * The following block of code may be used to automatically register your

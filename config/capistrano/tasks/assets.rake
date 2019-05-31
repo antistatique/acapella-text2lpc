@@ -19,6 +19,7 @@ namespace :assets do
             to = release_path.join(fetch(:build_path))
             info "Upload from local: \e[35m#{from}\e[0m to remote \e[35m#{to}\e[0m"
             upload! from, to, recursive: true
+            upload! 'public/mix-manifest.json', release_path.join('public'), recursive: false
         end
     end
 end

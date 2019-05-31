@@ -4,14 +4,14 @@ namespace App\Exceptions;
 
 use Exception;
 
-class PhonemeNotFoundException extends Exception
+class KeyNotFound extends Exception
 {
     /**
      * Log the exception.
      */
     public function report()
     {
-        \Log::debug('Phoneme not found');
+        \Log::debug('Key not found');
     }
 
     /**
@@ -19,7 +19,7 @@ class PhonemeNotFoundException extends Exception
      */
     public function render() {
         return response()->json([
-            'message' => 'La phrase n\'a pas pu être encoder en phonèmes',
+            'message' => 'La clé n\'a pas pu être identifié pour un des phonèmes de la phrase',
         ], 500);
     }
 }

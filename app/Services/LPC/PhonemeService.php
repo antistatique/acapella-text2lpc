@@ -2,7 +2,7 @@
 
 namespace App\Services\LPC;
 
-use Symfony\Component\Process\Exception\ProcessFailedException;
+use App\Exceptions\PhonemeNotFoundException;
 use Symfony\Component\Process\Process;
 
 class PhonemeService
@@ -18,7 +18,7 @@ class PhonemeService
         $process->run();
 
         if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
+            throw new PhonemeNotFoundException();
         }
 
         return rtrim($process->getOutput());

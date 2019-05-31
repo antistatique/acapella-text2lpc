@@ -10,6 +10,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import VeeValidate from 'vee-validate'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
@@ -30,6 +31,8 @@ library.add([
     faRedo
 ])
 
+Vue.use(VeeValidate)
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -45,6 +48,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('header-component', require('./components/Header.vue').default);
 Vue.component('footer-component', require('./components/Footer.vue').default);
 Vue.component('home', require('./views/Home.vue').default);
+Vue.component('login', require('./views/Login.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

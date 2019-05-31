@@ -155,6 +155,25 @@
         </div>
       </div>
     </div>
+    <div
+      v-if="error"
+      class="container mt-5"
+    >
+      <div
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+      >
+        {{ error }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -184,7 +203,8 @@ export default {
             phoneticCheck: false,
             view: 'carousel',
             loading: false,
-            location: new URL(window.location.href)
+            location: new URL(window.location.href),
+            error: ""
         }
     },
     async created() {
@@ -215,18 +235,24 @@ export default {
     },
     methods: {
         async getLPCKeys() {
-          this.loading = true
-          const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
-          this.lpcKeys = response.data.lpcKeys
-          this.phonemeCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
-          this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
-          this.loading = false
-          if (this.location.searchParams.has('sentence')) {
-            this.location.searchParams.set('sentence', this.userSentence)
-          } else {
-            this.location.searchParams.append('sentence', this.userSentence)
+          try {
+            this.error = ""
+            this.loading = true
+            const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
+            this.lpcKeys = response.data.lpcKeys
+            this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
+            this.loading = false
+            if (this.location.searchParams.has('sentence')) {
+              this.location.searchParams.set('sentence', this.userSentence)
+            } else {
+              this.location.searchParams.append('sentence', this.userSentence)
+            }
+            history.pushState({}, null, this.location.href)
+          } catch (err) {
+            this.loading = false
+            this.lpcKeys = []
+            this.error = err.response.data.message
           }
-          history.pushState({}, null, this.location.href)
         },
         changeView(view) {
           const carousel = document.querySelector('.view-carousel')
@@ -317,7 +343,7 @@ export default {
 
   .view-btn {
     &:hover {
-      color: orange;
+      color: #f04894;
     }
   }
 
@@ -326,7 +352,7 @@ export default {
   }
 
   .view-btn-active {
-    color: orange;
+    color: #f04894;
   }
 
   .options-container {

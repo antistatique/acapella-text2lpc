@@ -27,18 +27,34 @@
         class="collapse navbar-collapse"
       >
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="#"
-            >Login</a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="#"
-            >S'enregistrer</a>
-          </li>
+          <template v-if="!loggedin">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="/login"
+              >Se connecter</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+              >S'enregistrer</a>
+            </li>
+          </template>
+          <template v-else>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+              >Bibliothèques</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="/logout"
+              >Se déconnecter</a>
+            </li>
+          </template>
         </ul>
       </div>
     </nav>
@@ -47,7 +63,16 @@
 
 <script>
 export default {
-
+  props: {
+    loggedin: {
+      default: false,
+      type: String,
+    },
+    username: {
+      default: "",
+      type: String,
+    }
+  }
 }
 </script>
 
@@ -59,7 +84,7 @@ export default {
     }
 
     .nav-link {
-        color: $acapella-purple;
+        color: $primary;
 
         -webkit-transform: translateZ(0);
         transform: translateZ(0);

@@ -16,3 +16,7 @@ Route::get('/', function () {
 });
 Route::get('loginOAuth', 'LoginController@loginOAuth')->middleware('guest');
 Route::get('logout', 'LoginController@logout')->middleware('auth');
+Route::get('login', function () {
+    return view('login');
+})->middleware('guest');
+Route::post('login', 'LoginController@login')->middleware('guest');

@@ -9,6 +9,7 @@ return [
         'urlAccessToken' => env('OAUTH2_HOST') . 'oauth2/token',
         'urlResourceOwnerDetails' => env('OAUTH2_HOST') . 'oauth2/UserInfo',
         'scopes' => ['basic', 'openid', 'profile', 'email'],
+        'scopeSeparator' => ' ',
     ],
     'provider' => \Kronthto\LaravelOAuth2Login\OAuthProvider::class,
 

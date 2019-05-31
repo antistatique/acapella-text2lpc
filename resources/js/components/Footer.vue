@@ -29,7 +29,7 @@ export default {
     @import '../../sass/_variables.scss';
     
     footer {
-        background-color: $acapella-purple;
+        background-color: $primary;
         color: white;
 
         .row {
@@ -45,7 +45,7 @@ export default {
             text-decoration: underline;
 
             &:hover {
-                color: $primary;
+                color: $secondary;
             }
         }
     }

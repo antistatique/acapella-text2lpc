@@ -316,7 +316,7 @@ export default {
 
   .view-btn {
     &:hover {
-      color: orange;
+      color: #f04894;
     }
   }
 
@@ -325,7 +325,7 @@ export default {
   }
 
   .view-btn-active {
-    color: orange;
+    color: #f04894;
   }
 
   .options-container {

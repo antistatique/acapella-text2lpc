@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Kronthto\LaravelOAuth2Login\OAuthProviderService;
+use App\Http\Requests\LoginRequest;
 use App\User;
 
 class LoginController extends Controller
@@ -74,8 +75,10 @@ class LoginController extends Controller
     /**
      * Function to login user that was created from the app
      */
-    public function login(Request $request) {
-        if (Auth::attempt(['name' => $request->input('name'), 'password' => $request->input('password'), 'drupal_id' => null])) {
+    public function login(LoginRequest $request) {
+        $validated = $request->validated();
+
+        if (Auth::attempt(['name' => $validated['name'], 'password' => $validated['password'], 'drupal_id' => null])) {
             return redirect('/');
         }
     }

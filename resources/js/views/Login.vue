@@ -82,10 +82,23 @@
 
 <script>
 export default {
+    props: {
+        nameError: {
+            default: null,
+            type: String,
+        },
+        passwordError: {
+            default: null,
+            type: String,
+        },
+    },
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         }
+    },
+    mounted() {
+        console.log(this.nameError)
     }
 }
 </script>

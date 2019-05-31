@@ -4,14 +4,14 @@ namespace App\Exceptions;
 
 use Exception;
 
-class PhonemeNotFoundException extends Exception
+class ConsonantOrVowelsNotFound extends Exception
 {
     /**
      * Log the exception.
      */
     public function report()
     {
-        \Log::debug('Phoneme not found');
+        \Log::debug('Couldn\'t check if phoneme was consonant or vowel');
     }
 
     /**
@@ -19,7 +19,7 @@ class PhonemeNotFoundException extends Exception
      */
     public function render() {
         return response()->json([
-            'message' => 'La phrase n\'a pas pu être encoder en phonèmes',
+            'message' => 'Il y a eu un problème durant l\'identification du phonème',
         ], 500);
     }
 }

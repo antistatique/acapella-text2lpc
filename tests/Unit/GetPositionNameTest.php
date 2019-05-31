@@ -74,7 +74,7 @@ class GetPositionNameTest extends TestCase
      */
     public function testNotFound()
     {
-        $this->expectException(\App\Exceptions\PhonemeNotFoundException::class);
+        $this->expectException(\App\Exceptions\PositionNotFound::class);
         KeyAndPosition::getPositionName('m');
     }
 }

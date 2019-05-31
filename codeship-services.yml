@@ -17,7 +17,7 @@ node-build:
     context: .
     dockerfile: .codeship/Dockerfile.node
   volumes:
-    - ./public/build:/app/public/build
+    - ./public:/app/public
 deploy:
   build:
     context: .
@@ -26,4 +26,4 @@ deploy:
   default_cache_branch: develop
   encrypted_env_file: .codeship/env.encrypted
   volumes:
-    - ./public/build:/app/public/build
+    - ./public:/app/public

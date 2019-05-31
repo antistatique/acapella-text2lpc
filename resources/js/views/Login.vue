@@ -27,6 +27,7 @@
               <label for="nomInput">Nom</label>
               <input
                 id="nomInput"
+                name="name"
                 type="text"
                 class="form-control"
                 aria-describedby="nameHelp"
@@ -42,6 +43,7 @@
               <label for="passwordInput">Mot de passe</label>
               <input
                 id="passwordInput"
+                name="password"
                 type="password"
                 class="form-control"
                 aria-describedby="passwordHelp"

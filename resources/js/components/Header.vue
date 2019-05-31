@@ -31,7 +31,7 @@
             <li class="nav-item">
               <a
                 class="nav-link"
-                href="/loginOAuth"
+                href="/login"
               >Se connecter</a>
             </li>
             <li class="nav-item">
@@ -84,7 +84,7 @@ export default {
     }
 
     .nav-link {
-        color: $acapella-purple;
+        color: $primary;
 
         -webkit-transform: translateZ(0);
         transform: translateZ(0);

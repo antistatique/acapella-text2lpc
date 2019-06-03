@@ -31,6 +31,7 @@
       <div class="row justify-content-center mt-3 text-center mx-auto">
         <div class="col-md-2 col-sm-10">
           <button
+            :disabled="disableEncodeButton"
             type="button"
             class="btn btn-primary"
             style="font-weight: bold;"
@@ -224,30 +225,36 @@ export default {
             error: ""
         }
     },
+    computed: {
+      disableEncodeButton() {
+        return this.userSentence === ''
+      }
+    },
     async created() {
         if (this.sentence !== '') {
             this.userSentence = decodeURI(this.sentence)
             await this.getLPCKeys()
-        }
-        if (this.location.searchParams.has('view')) {
-          if (this.location.searchParams.get('view') === 'carousel' || this.location.searchParams.get('view') === 'grid') {
-            this.changeView(this.location.searchParams.get('view'))
-          }
-        }
-        if (this.location.searchParams.has('displayPhonemes') && !this.location.searchParams.has('displayPhonetics')) {
-          this.phoneticCheck = false
-          if (this.location.searchParams.get('displayPhonemes') === 'true') {
-            this.phonemeCheck = true
-          } else if (this.location.searchParams.get('displayPhonemes') === 'false') {
-            this.phonemeCheck = false
-          }
-        } else if (!this.location.searchParams.has('displayPhonemes') && this.location.searchParams.has('displayPhonetics')) {
-          this.phonemeCheck = false
-          if (this.location.searchParams.get('displayPhonetics') === 'true') {
-            this.phoneticCheck = true
-          } else if (this.location.searchParams.get('displayPhonetics') === 'false') {
-            this.phoneticCheck = false
-          }
+
+            if (this.location.searchParams.has('view')) {
+              if (this.location.searchParams.get('view') === 'carousel' || this.location.searchParams.get('view') === 'grid') {
+                this.changeView(this.location.searchParams.get('view'))
+              }
+            }
+            if (this.location.searchParams.has('displayPhonemes') && !this.location.searchParams.has('displayPhonetics')) {
+              this.phoneticCheck = false
+              if (this.location.searchParams.get('displayPhonemes') === 'true') {
+                this.phonemeCheck = true
+              } else if (this.location.searchParams.get('displayPhonemes') === 'false') {
+                this.phonemeCheck = false
+              }
+            } else if (!this.location.searchParams.has('displayPhonemes') && this.location.searchParams.has('displayPhonetics')) {
+              this.phonemeCheck = false
+              if (this.location.searchParams.get('displayPhonetics') === 'true') {
+                this.phoneticCheck = true
+              } else if (this.location.searchParams.get('displayPhonetics') === 'false') {
+                this.phoneticCheck = false
+              }
+            }
         }
     },
     methods: {

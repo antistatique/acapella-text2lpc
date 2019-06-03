@@ -17,7 +17,6 @@ class Library extends Model
      * Define which fields are hidden to the user.
      */
     protected $hidden = [
-        'id',
         'user_id',
         'default',
     ];

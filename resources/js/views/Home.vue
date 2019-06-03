@@ -14,6 +14,18 @@
             rows="3"
             placeholder="Saisissez votre phrase"
           />
+          <select
+            v-model="selectedLibrary"
+            class="custom-select"
+          >
+            <option
+              v-for="library in JSON.parse(libraries)"
+              :key="library.id"
+              :value="library.id"
+            >
+              {{ library.name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="row justify-content-center mt-3 text-center mx-auto">
@@ -190,11 +202,16 @@ export default {
         sentence: {
           default: '',
           type: String
-        }
+        },
+        libraries: {
+          default: "",
+          type: String
+        },
     },
     data() {
         return {
             userSentence: '',
+            selectedLibrary: 1,
             lpcKeys: [],
             mediaQuery: window.matchMedia('(max-width: 600px)'),
             carouselUpdate: 0,

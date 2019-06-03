@@ -23,7 +23,12 @@
               :key="library.id"
               :value="library.id"
             >
-              Librairie : {{ library.name }}
+              <template v-if="library.public === 1">
+                Librairie : {{ library.name }}
+              </template>
+              <template v-else>
+                Librairie : {{ library.name }} (privée)
+              </template>
             </option>
           </select>
         </div>

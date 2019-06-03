@@ -18,3 +18,4 @@ Route::get('login', function () {
     return view('login');
 })->middleware('guest');
 Route::post('login', 'LoginController@login')->middleware('guest');
+Route::get('add_library', 'LibraryController@create')->middleware('auth');

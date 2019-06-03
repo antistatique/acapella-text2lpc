@@ -14,6 +14,7 @@ class LibraryTableSeeder extends Seeder
             'public'  => true,
             'default' => true,
             'user_id' => 1,
+            'name' => 'Défaut'
         ]);
     }
 }

@@ -23,7 +23,7 @@
               :key="library.id"
               :value="library.id"
             >
-              {{ library.name }}
+              Librairie : {{ library.name }}
             </option>
           </select>
         </div>
@@ -255,7 +255,7 @@ export default {
           try {
             this.error = ""
             this.loading = true
-            const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
+            const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}&library_id=${this.selectedLibrary}`)
             this.lpcKeys = response.data.lpcKeys
             this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
             this.loading = false

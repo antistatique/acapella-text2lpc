@@ -5,7 +5,7 @@ return [
         'clientId' => env('OAUTH2_CLIENT_ID'), // The client ID assigned to you by the provider
         'clientSecret' => env('OAUTH2_CLIENT_SECRET'), // The client password assigned to you by the provider
         'redirectUri' => env('APP_URL') . 'oauth2/callback',
-        'urlAuthorize' => env('OAUTH2_HOST') . 'oauth2/authorize',
+        'urlAuthorize' => env('OAUTH2_AUTHORIZE_URL', env('OAUTH2_HOST', '') . 'oauth2/authorize'),
         'urlAccessToken' => env('OAUTH2_HOST') . 'oauth2/token',
         'urlResourceOwnerDetails' => env('OAUTH2_HOST') . 'oauth2/UserInfo',
         'scopes' => ['basic', 'openid', 'profile', 'email'],

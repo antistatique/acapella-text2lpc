@@ -36,14 +36,6 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-12">
-                <div
-                  :id="`imageGiven${index}`"
-                  :hidden="files === null"
-                />
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-12">
                 <input
                   :id="`fileInput${index}`"
                   type="file"
@@ -54,7 +46,15 @@
                 <label
                   class="btn btn-primary"
                   :for="`fileInput${index}`"
-                >Choisissez l'image que vous désirez</label>
+                ><template v-if="files === null">Choisissez l'image que vous désirez</template><template v-else>Remplacez l'image</template></label>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12">
+                <div
+                  :id="`imageGiven${index}`"
+                  :hidden="files === null"
+                />
               </div>
             </div>
             <div class="row mt-3">
@@ -78,6 +78,8 @@
             <button
               type="button"
               class="btn btn-primary"
+              :disabled="croppedImage === null"
+              @click="upload"
             >
               Uploader
             </button>
@@ -97,12 +99,17 @@ export default {
             default: 1,
             type: Number
         },
+        libraryName: {
+            default: '',
+            type: String
+        }
     },
     data() {
         return {
             croppieInstance: null,
             preview: false,
-            files: null
+            files: null,
+            croppedImage: null
         }
     },
     mounted() {
@@ -111,7 +118,7 @@ export default {
                 this.croppieInstance = new Croppie(document.querySelector(`#imageGiven${this.index}`), {
                     viewPort: { width: 500, height: 500 },
                     boundary: { width: 300, height: 300},
-                    showZoomer: false,
+                    showZoomer: true,
                 })
 
                 document.querySelector(`#imageGiven${this.index}`).addEventListener('update', () => { this.previewImage() })
@@ -135,11 +142,15 @@ export default {
             this.preview = true
             const croppedImage = await this.croppieInstance.result({
                 type: 'canvas',
-                size: { width: 500, height: 500, type: 'square'},
+                size: { width: 1200, height: 1200, type: 'square'},
                 format: 'png',
                 quality: 1
             })
             document.querySelector(`#preview${this.index}`).src = croppedImage
+            this.croppedImage = croppedImage
+        },
+        async upload() {
+            const response = await window.axios.post('/api/upload_image', { image_base64: this.croppedImage })
         }
     }
 }

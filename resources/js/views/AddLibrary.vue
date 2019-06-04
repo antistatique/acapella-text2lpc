@@ -13,13 +13,14 @@
             >
           </div>
         </div>
-        <div class="col-6 align-middle">
+        <div class="col-6 align-self-center text-center">
           <div class="form-check">
             <input
               id="privateCheck"
               class="form-check-input"
               type="checkbox"
-              value=""
+              :checked="privateCheck"
+              @change="changeAccess('private')"
             >
             <label
               class="form-check-label"
@@ -33,7 +34,8 @@
               id="publicCheck"
               class="form-check-input"
               type="checkbox"
-              value=""
+              :checked="!privateCheck"
+              @change="changeAccess('public')"
             >
             <label
               class="form-check-label"
@@ -45,22 +47,39 @@
         </div>
       </div>
       <div
-        v-for="(keyImage, index) in JSON.parse(keyImages)"
-        :key="index"
-        class="row text-center"
+        v-if="!valid"
+        class="row justify-content-center mx-auto mt-5"
       >
-        <div class="col-6 mt-3">
-          <img :src="keyImage.image">
-        </div>
-        <div class="col-6 mt-3 align-self-center">
-          <div class="col-12">
-            <upload-modal
-              :library-name="libraryName"
-              :index="index"
-            />
-          </div>
+        <div class="col-12 text-center">
+          <button
+            type="button"
+            class="btn btn-primary"
+            :disabled="!validOptions"
+            @click="valid = true"
+          >
+            Valider nom et accès
+          </button>
         </div>
       </div>
+      <section v-if="valid">
+        <div
+          v-for="(keyImage, index) in JSON.parse(keyImages)"
+          :key="index"
+          class="row text-center"
+        >
+          <div class="col-6 mt-3">
+            <img :src="keyImage.image">
+          </div>
+          <div class="col-6 mt-3 align-self-center">
+            <div class="col-12">
+              <upload-modal
+                :library-name="libraryName"
+                :index="index"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </section>
 </template>
@@ -79,7 +98,23 @@ export default {
     },
     data() {
         return {
-            libraryName: ''
+            libraryName: '',
+            valid: false,
+            privateCheck: true
+        }
+    },
+    computed: {
+        validOptions() {
+            return this.libraryName.length >= 2
+        }
+    },
+    methods: {
+        changeAccess(access) {
+            if (access === 'private') {
+                this.privateCheck = true
+            } else if (access === 'public') {
+                this.privateCheck = false
+            }
         }
     }
 }

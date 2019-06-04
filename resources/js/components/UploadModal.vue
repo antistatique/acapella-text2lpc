@@ -29,6 +29,7 @@
               class="close"
               data-dismiss="modal"
               aria-label="Close"
+              @click="reset"
             >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -46,7 +47,7 @@
                 <label
                   class="btn btn-primary"
                   :for="`fileInput${index}`"
-                ><template v-if="files === null">Choisissez l'image que vous désirez</template><template v-else>Remplacez l'image</template></label>
+                ><template v-if="files === null">Choisissez l'image que vous désirez</template><template v-else>Remplacer l'image</template></label>
               </div>
             </div>
             <div class="row mt-3">
@@ -72,6 +73,7 @@
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
+              @click="reset"
             >
               Annuler
             </button>
@@ -151,6 +153,11 @@ export default {
         },
         async upload() {
             const response = await window.axios.post('/api/upload_image', { image_base64: this.croppedImage })
+        },
+        reset() {
+            this.preview = false
+            this.files = null
+            this.croppedImage = null
         }
     }
 }

@@ -1,7 +1,12 @@
 <template>
   <section>
     <div class="container mt-5">
-      <div class="row justify-content-center mx-auto">
+      <div class="page-header text-center">
+        <h1>
+          Ajout de bibliothèque
+        </h1>
+      </div>
+      <div class="row justify-content-center mx-auto mt-5">
         <div class="col-6">
           <div class="form-group">
             <label for="libraryName">Nom de la bibliothèque</label>
@@ -10,6 +15,7 @@
               v-model="libraryName"
               type="text"
               class="form-control"
+              :disabled="valid"
             >
           </div>
         </div>
@@ -19,7 +25,8 @@
               id="privateCheck"
               class="form-check-input"
               type="checkbox"
-              :checked="privateCheck"
+              :checked="!publicCheck"
+              :disabled="valid"
               @change="changeAccess('private')"
             >
             <label
@@ -34,7 +41,8 @@
               id="publicCheck"
               class="form-check-input"
               type="checkbox"
-              :checked="!privateCheck"
+              :checked="publicCheck"
+              :disabled="valid"
               @change="changeAccess('public')"
             >
             <label
@@ -55,7 +63,7 @@
             type="button"
             class="btn btn-primary"
             :disabled="!validOptions"
-            @click="valid = true"
+            @click="createLibrary"
           >
             Valider nom et accès
           </button>
@@ -100,7 +108,8 @@ export default {
         return {
             libraryName: '',
             valid: false,
-            privateCheck: true
+            publicCheck: false,
+            library_id: null
         }
     },
     computed: {
@@ -111,9 +120,21 @@ export default {
     methods: {
         changeAccess(access) {
             if (access === 'private') {
-                this.privateCheck = true
+                this.publicCheck = false
             } else if (access === 'public') {
-                this.privateCheck = false
+                this.publicCheck = true
+            }
+        },
+        async createLibrary() {
+            try {
+                const response = await window.axios.post('/api/library/store', {
+                    name: this.libraryName,
+                    public: this.publicCheck, 
+                })
+                this.valid = true
+                this.library_id = response.data.library_id
+            } catch (error) {
+                console.log(error)
             }
         }
     }

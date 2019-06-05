@@ -18,5 +18,6 @@ Route::get('/encode', 'LPCController@getLPCKeys');
 
 Route::group(['api', 'auth'], function () {
     Route::post('/library/store', 'LibraryController@store');
-    Route::post('/upload_image', 'LibraryController@saveImage');
+    Route::post('/upload_image', 'LibraryController@uploadImage');
+    Route::post('/library/create', 'LibraryController@saveImages');
 });

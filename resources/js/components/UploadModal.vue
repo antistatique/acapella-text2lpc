@@ -166,6 +166,7 @@ export default {
                 key: this.keyHand,
                 position: this.position
             })
+            this.$emit('uploaded', response.data.imagePath)
         },
         reset() {
             this.preview = false

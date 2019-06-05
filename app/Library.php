@@ -11,7 +11,8 @@ class Library extends Model
      */
     protected $fillable = [
         'public',
-        'name'
+        'name',
+        'user_id',
     ];
 
     /**

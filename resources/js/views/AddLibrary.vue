@@ -81,7 +81,9 @@
           <div class="col-6 mt-3 align-self-center">
             <div class="col-12">
               <upload-modal
-                :library-name="libraryName"
+                :library-id="libraryId"
+                :key-hand="keyImage.key"
+                :position="keyImage.position"
                 :index="index"
               />
             </div>
@@ -109,7 +111,7 @@ export default {
             libraryName: '',
             valid: false,
             publicCheck: false,
-            library_id: null
+            libraryId: null
         }
     },
     computed: {
@@ -132,7 +134,7 @@ export default {
                     public: this.publicCheck, 
                 })
                 this.valid = true
-                this.library_id = response.data.library_id
+                this.libraryId = response.data.library_id
             } catch (error) {
                 console.log(error)
             }

@@ -41,6 +41,9 @@ class LibraryController extends Controller
         $validated = $request->validated();
 
         $image = Image::make($validated['image']);
-        $image->save(storage_path() . '/app/temp_images/test_original.png');
+        $imagePath = $validated['key'] . '_' . $validated['position'] . '_' . $validated['libraryId'] . '.png';
+        $image->save(storage_path() . '/app/temp_images/' . $imagePath);
+
+        return response()->json(['imagePath' => $imagePath]);
     }
 }

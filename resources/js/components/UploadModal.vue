@@ -1,6 +1,7 @@
 <template>
   <div>
     <button
+      v-if="!uploaded"
       type="button"
       class="btn btn-primary"
       data-toggle="modal"
@@ -8,6 +9,11 @@
     >
       Uploader image correspondante
     </button>
+    <font-awesome-icon
+      v-else
+      icon="check"
+      style="color: green"
+    />
     <div
       :id="`imageUploadModal${index}`"
       class="modal fade"
@@ -119,7 +125,9 @@ export default {
             croppieInstance: null,
             preview: false,
             files: null,
-            croppedImage: null
+            croppedImage: null,
+            uploaded: false,
+            uploadedImagePath: null
         }
     },
     mounted() {
@@ -166,7 +174,14 @@ export default {
                 key: this.keyHand,
                 position: this.position
             })
-            this.$emit('uploaded', response.data.imagePath)
+            this.uploadedImagePath = response.data.imagePath
+            this.$emit('uploaded', {
+                key: this.keyHand,
+                position: this.position,
+                imagePath: response.data.imagePath,
+            })
+            $("[data-dismiss=modal]").trigger({ type: "click" });
+            this.uploaded = true
         },
         reset() {
             this.preview = false

@@ -19,7 +19,8 @@ import {
     faPlay,
     faArrowLeft,
     faArrowRight,
-    faRedo
+    faRedo,
+    faCheck
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add([
@@ -28,7 +29,8 @@ library.add([
     faPlay,
     faArrowLeft,
     faArrowRight,
-    faRedo
+    faRedo,
+    faCheck
 ])
 
 Vue.use(VeeValidate)

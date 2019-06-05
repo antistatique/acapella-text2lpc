@@ -101,7 +101,15 @@ export default {
             default: 1,
             type: Number
         },
-        libraryName: {
+        libraryId: {
+            default: null,
+            type: Number
+        },
+        position: {
+            default: '',
+            type: String
+        },
+        keyHand: {
             default: '',
             type: String
         }
@@ -144,7 +152,7 @@ export default {
             this.preview = true
             const croppedImage = await this.croppieInstance.result({
                 type: 'canvas',
-                size: { width: 1200, height: 1200, type: 'square'},
+                size: { width: 1000, height: 1000, type: 'square'},
                 format: 'png',
                 quality: 1
             })
@@ -152,7 +160,12 @@ export default {
             this.croppedImage = croppedImage
         },
         async upload() {
-            const response = await window.axios.post('/api/upload_image', { image_base64: this.croppedImage })
+            const response = await window.axios.post('/api/upload_image', { 
+                image: this.croppedImage,
+                libraryId: this.libraryId,
+                key: this.keyHand,
+                position: this.position
+            })
         },
         reset() {
             this.preview = false

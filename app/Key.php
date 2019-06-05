@@ -13,6 +13,7 @@ class Key extends Model
         'key',
         'position',
         'image',
+        'library_id',
     ];
 
     /**

@@ -85,6 +85,7 @@
                 :key-hand="keyImage.key"
                 :position="keyImage.position"
                 :index="index"
+                @uploaded="addImagePath"
               />
             </div>
           </div>
@@ -111,7 +112,8 @@ export default {
             libraryName: '',
             valid: false,
             publicCheck: false,
-            libraryId: null
+            libraryId: null,
+            imagesPaths: []
         }
     },
     computed: {
@@ -138,6 +140,9 @@ export default {
             } catch (error) {
                 console.log(error)
             }
+        },
+        addImagePath(imagePath) {
+            this.imagesPaths.push(imagePath)
         }
     }
 }

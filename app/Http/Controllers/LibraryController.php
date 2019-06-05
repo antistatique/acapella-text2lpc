@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreLibraryRequest;
+use App\Http\Requests\UploadImageRequest;
 use App\Library;
 use Image;
 use Storage;
@@ -36,8 +37,10 @@ class LibraryController extends Controller
         return response()->json(['library_id' => $library->id]);
     }
 
-    public function saveImage(Request $request) {
-        $image = Image::make($request->input('image_base64'));
+    public function saveImage(UploadImageRequest $request) {
+        $validated = $request->validated();
+
+        $image = Image::make($validated['image']);
         $image->save(storage_path() . '/app/temp_images/test_original.png');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreLibraryRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreLibraryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -25,7 +26,7 @@ class StoreLibraryRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2',
-            'private' => 'required|boolean',
+            'public' => 'required|boolean',
         ];
     }
 }

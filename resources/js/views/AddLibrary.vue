@@ -63,7 +63,7 @@
             type="button"
             class="btn btn-primary"
             :disabled="!validOptions"
-            @click="createLibrary"
+            @click="createBaseLibrary"
           >
             Valider nom et accès
           </button>
@@ -91,12 +91,27 @@
           </div>
         </div>
       </section>
+      <div
+        v-if="valid"
+        class="row justify-content-center mx-auto mt-5"
+      >
+        <div class="col-12 text-center">
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="createLibrary"
+          >
+            Créer bibliothèque
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
 import UploadModal from '../components/UploadModal'
+
 export default {
     components: {
         UploadModal,
@@ -113,7 +128,7 @@ export default {
             valid: false,
             publicCheck: false,
             libraryId: null,
-            imagesPaths: []
+            imagesInfos: []
         }
     },
     computed: {
@@ -129,7 +144,7 @@ export default {
                 this.publicCheck = true
             }
         },
-        async createLibrary() {
+        async createBaseLibrary() {
             try {
                 const response = await window.axios.post('/api/library/store', {
                     name: this.libraryName,
@@ -141,8 +156,15 @@ export default {
                 console.log(error)
             }
         },
-        addImagePath(imagePath) {
-            this.imagesPaths.push(imagePath)
+        addImagePath(imageInfo) {
+            this.imagesInfos.push(imageInfo)
+        },
+        async createLibrary() {
+            const response = await window.axios.post('/api/library/create', {
+                libraryId: this.libraryId,
+                imagesInfos: this.imagesInfos
+            })
+            console.log(response)
         }
     }
 }

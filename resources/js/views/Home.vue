@@ -61,8 +61,8 @@
       class="container-fluid mt-5 options-container"
     >
       <div class="row justify-content-center text-center">
-        <div class="col-3 my-auto">
-          <div class="form-check form-check-inline">
+        <div class="col-7 col-md-6 my-auto">
+          <div class="form-check">
             <input
               id="phonemesCheckbox"
               class="form-check-input"
@@ -75,9 +75,7 @@
               for="phonemesCheckbox"
             >Phonèmes</label>
           </div>
-        </div>
-        <div class="col-3 my-auto">
-          <div class="form-check form-check-inline">
+          <div class="form-check">
             <input
               id="phoneticsCheckbox"
               class="form-check-input"
@@ -88,10 +86,10 @@
             <label
               class="form-check-label"
               for="phoneticsCheckbox"
-            >Phonétiques</label>
+            >Conversion orthographique</label>
           </div>
         </div>
-        <div class="col-6 my-auto">
+        <div class="col-5 col-md-6 my-auto">
           Vue : <button
             type="button"
             class="btn view-btn view-btn-active view-carousel"
@@ -388,8 +386,16 @@ export default {
     background-color: rgb(226, 226, 226);
     height: 50px;
 
+    @media (max-width: 600px) {
+      height: 100px;
+    }
+
     .row {
       height: 50px;
+
+      @media (max-width: 600px) {
+        height: 100px;
+      }
     }
   }
 </style>

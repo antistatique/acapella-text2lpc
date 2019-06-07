@@ -9,11 +9,24 @@
     >
       Uploader image
     </button>
-    <img
-      v-else
-      id="uploadedResult"
-      :src="croppedImage"
-    >
+    <template v-else>
+      <div class="row text-center">
+        <div class="col-9">
+          <img
+            id="uploadedResult"
+            :src="croppedImage"
+          >
+        </div>
+        <div class="col-2 align-self-center">
+          <button
+            type="button"
+            class="btn btn-danger"
+          >
+            <font-awesome-icon icon="times" />
+          </button>
+        </div>
+      </div>
+    </template>
     <div
       :id="`imageUploadModal${index}`"
       class="modal fade"

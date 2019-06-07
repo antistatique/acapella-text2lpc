@@ -262,6 +262,11 @@ export default {
     },
     methods: {
         async getLPCKeys() {
+          if (this.location.searchParams.has('sentence')) {
+            this.location.searchParams.set('sentence', this.userSentence)
+          } else {
+            this.location.searchParams.append('sentence', this.userSentence)
+          }
           try {
             this.error = ""
             this.loading = true
@@ -269,17 +274,12 @@ export default {
             this.lpcKeys = response.data.lpcKeys
             this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
             this.loading = false
-            if (this.location.searchParams.has('sentence')) {
-              this.location.searchParams.set('sentence', this.userSentence)
-            } else {
-              this.location.searchParams.append('sentence', this.userSentence)
-            }
-            history.pushState({}, null, this.location.href)
           } catch (err) {
             this.loading = false
             this.lpcKeys = []
             this.error = err.response.data.message
           }
+          history.pushState({}, null, this.location.href)
         },
         changeView(view) {
           const carousel = document.querySelector('.view-carousel')

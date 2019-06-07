@@ -42,13 +42,27 @@
             </li>
           </template>
           <template v-else>
-            <li class="nav-item">
+            <li class="nav-item dropdown">
               <a
-                class="nav-link"
-                href="#"
-              >Bibliothèques</a>
-            </li>
-            <li class="nav-item">
+                id="libraryDropdown"
+                class="nav-link dropdown-toggle"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Bibliothèques
+              </a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="libraryDropdown"
+              >
+                <a
+                  class="dropdown-item"
+                  href="/library/create"
+                >Créer une bibliothèque</a>
+              </div>
+            </li><li class="nav-item">
               <a
                 class="nav-link"
                 href="/logout"
@@ -84,7 +98,7 @@ export default {
     }
 
     .nav-link {
-        color: $primary;
+        color: $primary !important;
 
         -webkit-transform: translateZ(0);
         transform: translateZ(0);

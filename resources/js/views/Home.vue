@@ -14,11 +14,29 @@
             rows="3"
             placeholder="Saisissez votre phrase"
           />
+          <select
+            v-model="selectedLibrary"
+            class="custom-select"
+          >
+            <option
+              v-for="library in JSON.parse(libraries)"
+              :key="library.id"
+              :value="library.id"
+            >
+              <template v-if="library.public === 1">
+                Librairie : {{ library.name }}
+              </template>
+              <template v-else>
+                Librairie : {{ library.name }} (privée)
+              </template>
+            </option>
+          </select>
         </div>
       </div>
       <div class="row justify-content-center mt-3 text-center mx-auto">
         <div class="col-md-2 col-sm-10">
           <button
+            :disabled="disableEncodeButton"
             type="button"
             class="btn btn-primary"
             style="font-weight: bold;"
@@ -43,8 +61,8 @@
       class="container-fluid mt-5 options-container"
     >
       <div class="row justify-content-center text-center">
-        <div class="col-3 my-auto">
-          <div class="form-check form-check-inline">
+        <div class="col-7 col-md-6 my-auto">
+          <div class="form-check">
             <input
               id="phonemesCheckbox"
               class="form-check-input"
@@ -57,9 +75,7 @@
               for="phonemesCheckbox"
             >Phonèmes</label>
           </div>
-        </div>
-        <div class="col-3 my-auto">
-          <div class="form-check form-check-inline">
+          <div class="form-check">
             <input
               id="phoneticsCheckbox"
               class="form-check-input"
@@ -70,10 +86,10 @@
             <label
               class="form-check-label"
               for="phoneticsCheckbox"
-            >Phonétiques</label>
+            >Conversion orthographique</label>
           </div>
         </div>
-        <div class="col-6 my-auto">
+        <div class="col-5 col-md-6 my-auto">
           Vue : <button
             type="button"
             class="btn view-btn view-btn-active view-carousel"
@@ -136,7 +152,7 @@
         <div
           v-for="(lpcKey, index) in lpcKeys"
           :key="index"
-          class="col-md-4 col-sm-12 mt-2"
+          class="col-md-3 col-sm-12 mt-2"
         >
           <card-image
             v-if="phonemeCheck || phoneticCheck"
@@ -167,6 +183,25 @@
         >Imprimer</a>
       </div>
     </div>
+    <div
+      v-if="error"
+      class="container mt-5"
+    >
+      <div
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+      >
+        {{ error }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -183,11 +218,16 @@ export default {
         sentence: {
           default: '',
           type: String
-        }
+        },
+        libraries: {
+          default: "",
+          type: String
+        },
     },
     data() {
         return {
             userSentence: '',
+            selectedLibrary: 1,
             lpcKeys: [],
             mediaQuery: window.matchMedia('(max-width: 600px)'),
             carouselUpdate: 0,
@@ -197,47 +237,60 @@ export default {
             phoneticCheck: false,
             view: 'carousel',
             loading: false,
-            location: new URL(window.location.href)
+            location: new URL(window.location.href),
+            error: ""
         }
+    },
+    computed: {
+      disableEncodeButton() {
+        return this.userSentence === ''
+      }
     },
     async created() {
         if (this.sentence !== '') {
             this.userSentence = decodeURI(this.sentence)
             await this.getLPCKeys()
-        }
-        if (this.location.searchParams.has('view')) {
-          if (this.location.searchParams.get('view') === 'carousel' || this.location.searchParams.get('view') === 'grid') {
-            this.changeView(this.location.searchParams.get('view'))
-          }
-        }
-        if (this.location.searchParams.has('displayPhonemes') && !this.location.searchParams.has('displayPhonetics')) {
-          this.phoneticCheck = false
-          if (this.location.searchParams.get('displayPhonemes') === 'true') {
-            this.phonemeCheck = true
-          } else if (this.location.searchParams.get('displayPhonemes') === 'false') {
-            this.phonemeCheck = false
-          }
-        } else if (!this.location.searchParams.has('displayPhonemes') && this.location.searchParams.has('displayPhonetics')) {
-          this.phonemeCheck = false
-          if (this.location.searchParams.get('displayPhonetics') === 'true') {
-            this.phoneticCheck = true
-          } else if (this.location.searchParams.get('displayPhonetics') === 'false') {
-            this.phoneticCheck = false
-          }
+
+            if (this.location.searchParams.has('view')) {
+              if (this.location.searchParams.get('view') === 'carousel' || this.location.searchParams.get('view') === 'grid') {
+                this.changeView(this.location.searchParams.get('view'))
+              }
+            }
+            if (this.location.searchParams.has('displayPhonemes') && !this.location.searchParams.has('displayPhonetics')) {
+              this.phoneticCheck = false
+              if (this.location.searchParams.get('displayPhonemes') === 'true') {
+                this.phonemeCheck = true
+              } else if (this.location.searchParams.get('displayPhonemes') === 'false') {
+                this.phonemeCheck = false
+              }
+            } else if (!this.location.searchParams.has('displayPhonemes') && this.location.searchParams.has('displayPhonetics')) {
+              this.phonemeCheck = false
+              if (this.location.searchParams.get('displayPhonetics') === 'true') {
+                this.phoneticCheck = true
+              } else if (this.location.searchParams.get('displayPhonetics') === 'false') {
+                this.phoneticCheck = false
+              }
+            }
         }
     },
     methods: {
         async getLPCKeys() {
-          this.loading = true
-          this.printSentence = this.userSentence
-          const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}`)
-          this.lpcKeys = response.data.lpcKeys
-          this.loading = false
-          this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 2 ? this.carouselPhonemeUpdate = 3 : this.carouselPhonemeUpdate = 2) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
           if (this.location.searchParams.has('sentence')) {
             this.location.searchParams.set('sentence', this.userSentence)
           } else {
             this.location.searchParams.append('sentence', this.userSentence)
+          }
+          try {
+            this.error = ""
+            this.loading = true
+            const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}&library_id=${this.selectedLibrary}`)
+            this.lpcKeys = response.data.lpcKeys
+            this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
+            this.loading = false
+          } catch (err) {
+            this.loading = false
+            this.lpcKeys = []
+            this.error = err.response.data.message
           }
           history.pushState({}, null, this.location.href)
         },
@@ -330,7 +383,7 @@ export default {
 
   .view-btn {
     &:hover {
-      color: orange;
+      color: #f04894;
     }
   }
 
@@ -339,15 +392,23 @@ export default {
   }
 
   .view-btn-active {
-    color: orange;
+    color: #f04894;
   }
 
   .options-container {
     background-color: rgb(226, 226, 226);
     height: 50px;
 
+    @media (max-width: 600px) {
+      height: 100px;
+    }
+
     .row {
       height: 50px;
+
+      @media (max-width: 600px) {
+        height: 100px;
+      }
     }
   }
 </style>

@@ -10,6 +10,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import VeeValidate from 'vee-validate'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
@@ -18,7 +19,8 @@ import {
     faPlay,
     faArrowLeft,
     faArrowRight,
-    faRedo
+    faRedo,
+    faTimes
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add([
@@ -27,8 +29,11 @@ library.add([
     faPlay,
     faArrowLeft,
     faArrowRight,
-    faRedo
+    faRedo,
+    faTimes
 ])
+
+Vue.use(VeeValidate)
 
 /**
  * The following block of code may be used to automatically register your
@@ -45,6 +50,8 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('header-component', require('./components/Header.vue').default);
 Vue.component('footer-component', require('./components/Footer.vue').default);
 Vue.component('home', require('./views/Home.vue').default);
+Vue.component('login', require('./views/Login.vue').default);
+Vue.component('add-library', require('./views/AddLibrary.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

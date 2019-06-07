@@ -11,92 +11,92 @@ class EncodeLPCTest extends TestCase
     {
         $lpcService = new LPCService();
 
-        $images = $lpcService->getLPCImages('l;a k;ɔ;ʁ;a;l d;ə m;ɔ̃;n a;m;i ʃ;ɑ̃;t œ̃;n a;ɡ;ʁ;e;a;b;l ʃ;ɑ̃', 1);
+        $images = $lpcService->getLPCImages('l;a;k;ɔ;ʁ;a;l;d;ə;m;ɔ̃;n;a;m;i;ʃ;ɑ̃;t;œ̃;n;a;ɡ;ʁ;e;a;b;l;ʃ;ɑ̃', 1);
         $imagesExpected = [
             [
-                'phoneme' => 'la',
+                'phoneme'  => 'la',
                 'phonetic' => 'la',
-                'image' => 'storage/champignon_oh_le_lac_default.jpg',
+                'image'    => '/storage/champignon_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'kɔ',
+                'phoneme'  => 'kɔ',
                 'phonetic' => 'ko',
-                'image' => 'storage/vos_cases_ou_est_paul_default.jpg',
+                'image'    => '/storage/vos_cases_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 'ʁa',
+                'phoneme'  => 'ʁa',
                 'phonetic' => 'ra',
-                'image' => 'storage/rance_oh_le_lac_default.jpg',
+                'image'    => '/storage/rance_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'l',
+                'phoneme'  => 'l',
                 'phonetic' => 'l',
-                'image' => 'storage/champignon_oh_le_lac_default.jpg',
+                'image'    => '/storage/champignon_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'də',
+                'phoneme'  => 'də',
                 'phonetic' => 'de',
-                'image' => 'storage/des_jupes_un_zebu_default.jpg',
+                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'mɔ̃',
+                'phoneme'  => 'mɔ̃',
                 'phonetic' => 'mon',
-                'image' => 'storage/fantome_pigeon_blanc_default.jpg',
+                'image'    => '/storage/fantome_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 'n',
-                'phonetic' => 'n',
-                'image' => 'storage/beni_oh_le_lac_default.jpg',
+                'phoneme'  => 'na',
+                'phonetic' => 'na',
+                'image'    => '/storage/beni_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'am',
-                'phonetic' => 'am',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
+                'phoneme'  => 'mi',
+                'phonetic' => 'mi',
+                'image'    => '/storage/fantome_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 'i',
-                'phonetic' => 'i',
-                'image' => 'storage/fantome_pigeon_blanc_default.jpg',
-            ],
-            [
-                'phoneme' => 'ʃɑ̃',
+                'phoneme'  => 'ʃɑ̃',
                 'phonetic' => 'chan',
-                'image' => 'storage/champignon_pigeon_blanc_default.jpg',
+                'image'    => '/storage/champignon_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 't',
-                'phonetic' => 't',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
+                'phoneme'  => 'tœ̃',
+                'phonetic' => 'tun',
+                'image'    => '/storage/fantome_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'œ̃n',
-                'phonetic' => 'unn',
-                'image' => 'storage/beni_un_zebu_default.jpg',
+                'phoneme'  => 'na',
+                'phonetic' => 'na',
+                'image'    => '/storage/beni_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'aɡ',
-                'phonetic' => 'ag',
-                'image' => 'storage/gare_oh_le_lac_default.jpg',
+                'phoneme'  => 'ɡ',
+                'phonetic' => 'g',
+                'image'    => '/storage/gare_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'ʁe',
+                'phoneme'  => 'ʁe',
                 'phonetic' => 'ré',
-                'image' => 'storage/rance_un_zebu_default.jpg',
+                'image'    => '/storage/rance_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'ab',
-                'phonetic' => 'ab',
-                'image' => 'storage/beni_oh_le_lac_default.jpg',
+                'phoneme'  => 'a',
+                'phonetic' => 'a',
+                'image'    => '/storage/fantome_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'l',
+                'phoneme'  => 'b',
+                'phonetic' => 'b',
+                'image'    => '/storage/beni_oh_le_lac_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'l',
                 'phonetic' => 'l',
-                'image' => 'storage/champignon_oh_le_lac_default.jpg',
+                'image'    => '/storage/champignon_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'ʃɑ̃',
+                'phoneme'  => 'ʃɑ̃',
                 'phonetic' => 'chan',
-                'image' => 'storage/champignon_pigeon_blanc_default.jpg',
+                'image'    => '/storage/champignon_pigeon_blanc_default@2x.png',
             ],
         ];
         $this->assertTrue($images === $imagesExpected);
@@ -106,67 +106,67 @@ class EncodeLPCTest extends TestCase
     {
         $lpcService = new LPCService();
 
-        $images = $lpcService->getLPCImages('i;l e;t;ɛ;t y;n f;w;a t;ʁ;w;a;z a;m;i', 1);
+        $images = $lpcService->getLPCImages('i;l;e;t;ɛ;t;y;n;f;w;a;t;ʁ;w;a;z;a;m;i', 1);
         $imagesExpected = [
             [
-                'phoneme' => 'il',
-                'phonetic' => 'il',
-                'image' => 'storage/champignon_pigeon_blanc_default.jpg',
-            ],
-            [
-                'phoneme' => 'et',
-                'phonetic' => 'ét',
-                'image' => 'storage/fantome_un_zebu_default.jpg',
-            ],
-            [
-                'phoneme' => 'ɛt',
-                'phonetic' => 'èt',
-                'image' => 'storage/fantome_ou_est_paul_default.jpg',
-            ],
-            [
-                'phoneme' => 'yn',
-                'phonetic' => 'un',
-                'image' => 'storage/beni_un_zebu_default.jpg',
-            ],
-            [
-                'phoneme' => 'f',
-                'phonetic' => 'f',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
-            ],
-            [
-                'phoneme' => 'wa',
-                'phonetic' => 'oua',
-                'image' => 'storage/champignon_oh_le_lac_default.jpg',
-            ],
-            [
-                'phoneme' => 't',
-                'phonetic' => 't',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
-            ],
-            [
-                'phoneme' => 'ʁ',
-                'phonetic' => 'r',
-                'image' => 'storage/rance_oh_le_lac_default.jpg',
-            ],
-            [
-                'phoneme' => 'wa',
-                'phonetic' => 'oua',
-                'image' => 'storage/champignon_oh_le_lac_default.jpg',
-            ],
-            [
-                'phoneme' => 'z',
-                'phonetic' => 'z',
-                'image' => 'storage/vos_cases_oh_le_lac_default.jpg',
-            ],
-            [
-                'phoneme' => 'am',
-                'phonetic' => 'am',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
-            ],
-            [
-                'phoneme' => 'i',
+                'phoneme'  => 'i',
                 'phonetic' => 'i',
-                'image' => 'storage/fantome_pigeon_blanc_default.jpg',
+                'image'    => '/storage/fantome_pigeon_blanc_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'le',
+                'phonetic' => 'lé',
+                'image'    => '/storage/champignon_un_zebu_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'tɛ',
+                'phonetic' => 'tè',
+                'image'    => '/storage/fantome_ou_est_paul_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'ty',
+                'phonetic' => 'tu',
+                'image'    => '/storage/fantome_un_zebu_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'n',
+                'phonetic' => 'n',
+                'image'    => '/storage/beni_oh_le_lac_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'f',
+                'phonetic' => 'f',
+                'image'    => '/storage/fantome_oh_le_lac_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'wa',
+                'phonetic' => 'oua',
+                'image'    => '/storage/champignon_oh_le_lac_default@2x.png',
+            ],
+            [
+                'phoneme'  => 't',
+                'phonetic' => 't',
+                'image'    => '/storage/fantome_oh_le_lac_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'ʁ',
+                'phonetic' => 'r',
+                'image'    => '/storage/rance_oh_le_lac_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'wa',
+                'phonetic' => 'oua',
+                'image'    => '/storage/champignon_oh_le_lac_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'za',
+                'phonetic' => 'za',
+                'image'    => '/storage/vos_cases_oh_le_lac_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'mi',
+                'phonetic' => 'mi',
+                'image'    => '/storage/fantome_pigeon_blanc_default@2x.png',
             ],
         ];
         $this->assertTrue($images === $imagesExpected);
@@ -176,72 +176,62 @@ class EncodeLPCTest extends TestCase
     {
         $lpcService = new LPCService();
 
-        $images = $lpcService->getLPCImages('l;ə p;ə;t;i;t a;m;i d;ə m;a s;œ;ʁ ɛ s;ɛ̃;p;a', 1);
+        $images = $lpcService->getLPCImages('l;ə;p;ə;t;i;t;a;m;i;d;ə;m;a;s;œ;ʁ;ɛ;s;ɛ̃;p;a', 1);
         $imagesExpected = [
             [
-                'phoneme' => 'lə',
+                'phoneme'  => 'lə',
                 'phonetic' => 'le',
-                'image' => 'storage/champignon_un_zebu_default.jpg',
+                'image'    => '/storage/champignon_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'pə',
+                'phoneme'  => 'pə',
                 'phonetic' => 'pe',
-                'image' => 'storage/des_jupes_un_zebu_default.jpg',
+                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'ti',
+                'phoneme'  => 'ti',
                 'phonetic' => 'ti',
-                'image' => 'storage/fantome_pigeon_blanc_default.jpg',
+                'image'    => '/storage/fantome_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 't',
-                'phonetic' => 't',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
+                'phoneme'  => 'ta',
+                'phonetic' => 'ta',
+                'image'    => '/storage/fantome_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'am',
-                'phonetic' => 'am',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
+                'phoneme'  => 'mi',
+                'phonetic' => 'mi',
+                'image'    => '/storage/fantome_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 'i',
-                'phonetic' => 'i',
-                'image' => 'storage/fantome_pigeon_blanc_default.jpg',
-            ],
-            [
-                'phoneme' => 'də',
+                'phoneme'  => 'də',
                 'phonetic' => 'de',
-                'image' => 'storage/des_jupes_un_zebu_default.jpg',
+                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'ma',
+                'phoneme'  => 'ma',
                 'phonetic' => 'ma',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
+                'image'    => '/storage/fantome_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'sœ',
+                'phoneme'  => 'sœ',
                 'phonetic' => 'seu',
-                'image' => 'storage/rance_oh_le_lac_default.jpg',
+                'image'    => '/storage/rance_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'ʁ',
-                'phonetic' => 'r',
-                'image' => 'storage/rance_oh_le_lac_default.jpg',
+                'phoneme'  => 'ʁɛ',
+                'phonetic' => 'rè',
+                'image'    => '/storage/rance_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 'ɛ',
-                'phonetic' => 'è',
-                'image' => 'storage/fantome_ou_est_paul_default.jpg',
-            ],
-            [
-                'phoneme' => 'sɛ̃',
+                'phoneme'  => 'sɛ̃',
                 'phonetic' => 'sein',
-                'image' => 'storage/rance_bain_bleu_default.jpg',
+                'image'    => '/storage/rance_bain_bleu_default@2x.png',
             ],
             [
-                'phoneme' => 'pa',
+                'phoneme'  => 'pa',
                 'phonetic' => 'pa',
-                'image' => 'storage/des_jupes_oh_le_lac_default.jpg',
+                'image'    => '/storage/des_jupes_oh_le_lac_default@2x.png',
             ],
         ];
         $this->assertTrue($images === $imagesExpected);
@@ -251,37 +241,37 @@ class EncodeLPCTest extends TestCase
     {
         $lpcService = new LPCService();
 
-        $images = $lpcService->getLPCImages('i;l e;t;ɛ;t a p;j;e', 1);
+        $images = $lpcService->getLPCImages('i;l;e;t;ɛ;t;a;p;j;e', 1);
         $imagesExpected = [
             [
-                'phoneme' => 'il',
-                'phonetic' => 'il',
-                'image' => 'storage/champignon_pigeon_blanc_default.jpg',
+                'phoneme'  => 'i',
+                'phonetic' => 'i',
+                'image'    => '/storage/fantome_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 'et',
-                'phonetic' => 'ét',
-                'image' => 'storage/fantome_un_zebu_default.jpg',
+                'phoneme'  => 'le',
+                'phonetic' => 'lé',
+                'image'    => '/storage/champignon_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'ɛt',
-                'phonetic' => 'èt',
-                'image' => 'storage/fantome_ou_est_paul_default.jpg',
+                'phoneme'  => 'tɛ',
+                'phonetic' => 'tè',
+                'image'    => '/storage/fantome_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 'a',
-                'phonetic' => 'a',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
+                'phoneme'  => 'ta',
+                'phonetic' => 'ta',
+                'image'    => '/storage/fantome_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'p',
+                'phoneme'  => 'p',
                 'phonetic' => 'p',
-                'image' => 'storage/des_jupes_oh_le_lac_default.jpg',
+                'image'    => '/storage/des_jupes_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'je',
+                'phoneme'  => 'je',
                 'phonetic' => 'yé',
-                'image' => 'storage/fille_un_zebu_default.jpg',
+                'image'    => '/storage/fille_un_zebu_default@2x.png',
             ],
         ];
         $this->assertTrue($images === $imagesExpected);
@@ -291,73 +281,67 @@ class EncodeLPCTest extends TestCase
     {
         $lpcService = new LPCService();
 
-        $images = $lpcService->getLPCImages('p;l;y;z i;l ɑ̃ f;ɛ m;w;ɛ̃;z i;l ʁ;e;y;s;i', 1);
+        $images = $lpcService->getLPCImages('p;l;y;z;i;l;ɑ̃;f;ɛ;m;w;ɛ̃;z;i;l;ʁ;e;y;s;i', 1);
         $imagesExpected = [
             [
-                'phoneme' => 'p',
+                'phoneme'  => 'p',
                 'phonetic' => 'p',
-                'image' => 'storage/des_jupes_oh_le_lac_default.jpg',
-
+                'image'    => '/storage/des_jupes_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'ly',
+                'phoneme'  => 'ly',
                 'phonetic' => 'lu',
-                'image' => 'storage/champignon_un_zebu_default.jpg',
+                'image'    => '/storage/champignon_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'z',
-                'phonetic' => 'z',
-                'image' => 'storage/vos_cases_oh_le_lac_default.jpg',
+                'phoneme'  => 'zi',
+                'phonetic' => 'zi',
+                'image'    => '/storage/vos_cases_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 'il',
-                'phonetic' => 'il',
-                'image' => 'storage/champignon_pigeon_blanc_default.jpg',
+                'phoneme'  => 'lɑ̃',
+                'phonetic' => 'lan',
+                'image'    => '/storage/champignon_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 'ɑ̃',
-                'phonetic' => 'an',
-                'image' => 'storage/fantome_pigeon_blanc_default.jpg'
-            ],
-            [
-                'phoneme' => 'fɛ',
+                'phoneme'  => 'fɛ',
                 'phonetic' => 'fè',
-                'image' => 'storage/fantome_ou_est_paul_default.jpg',
+                'image'    => '/storage/fantome_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 'm',
+                'phoneme'  => 'm',
                 'phonetic' => 'm',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
+                'image'    => '/storage/fantome_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'wɛ̃',
+                'phoneme'  => 'wɛ̃',
                 'phonetic' => 'ouein',
-                'image' => 'storage/champignon_bain_bleu_default.jpg',
+                'image'    => '/storage/champignon_bain_bleu_default@2x.png',
             ],
             [
-                'phoneme' => 'z',
-                'phonetic' => 'z',
-                'image' => 'storage/vos_cases_oh_le_lac_default.jpg',
+                'phoneme'  => 'zi',
+                'phonetic' => 'zi',
+                'image'    => '/storage/vos_cases_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 'il',
-                'phonetic' => 'il',
-                'image' => 'storage/champignon_pigeon_blanc_default.jpg',
+                'phoneme'  => 'l',
+                'phonetic' => 'l',
+                'image'    => '/storage/champignon_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'ʁe',
+                'phoneme'  => 'ʁe',
                 'phonetic' => 'ré',
-                'image' => 'storage/rance_un_zebu_default.jpg',
+                'image'    => '/storage/rance_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'ys',
-                'phonetic' => 'us',
-                'image' => 'storage/rance_un_zebu_default.jpg',
+                'phoneme'  => 'y',
+                'phonetic' => 'u',
+                'image'    => '/storage/fantome_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'i',
-                'phonetic' => 'i',
-                'image' => 'storage/fantome_pigeon_blanc_default.jpg'
+                'phoneme'  => 'si',
+                'phonetic' => 'si',
+                'image'    => '/storage/rance_pigeon_blanc_default@2x.png',
             ],
         ];
         $this->assertTrue($images === $imagesExpected);
@@ -367,57 +351,57 @@ class EncodeLPCTest extends TestCase
     {
         $lpcService = new LPCService();
 
-        $images = $lpcService->getLPCImages('s;ɛ;t œ̃;n ɔ;ɡ;ʁ ʒ;i;ɡ;ɑ̃;t;ɛ;s;k', 1);
+        $images = $lpcService->getLPCImages('s;ɛ;t;œ̃;n;ɔ;ɡ;ʁ;ʒ;i;ɡ;ɑ̃;t;ɛ;s;k', 1);
         $imagesExpected = [
             [
-                'phoneme' => 'sɛ',
+                'phoneme'  => 'sɛ',
                 'phonetic' => 'sè',
-                'image' => 'storage/rance_ou_est_paul_default.jpg',
+                'image'    => '/storage/rance_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 't',
-                'phonetic' => 't',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
+                'phoneme'  => 'tœ̃',
+                'phonetic' => 'tun',
+                'image'    => '/storage/fantome_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'œ̃n',
-                'phonetic' => 'unn',
-                'image' => 'storage/beni_un_zebu_default.jpg',
+                'phoneme'  => 'nɔ',
+                'phonetic' => 'no',
+                'image'    => '/storage/beni_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 'ɔɡ',
-                'phonetic' => 'og',
-                'image' => 'storage/gare_ou_est_paul_default.jpg',
+                'phoneme'  => 'ɡ',
+                'phonetic' => 'g',
+                'image'    => '/storage/gare_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'ʁ',
+                'phoneme'  => 'ʁ',
                 'phonetic' => 'r',
-                'image' => 'storage/rance_oh_le_lac_default.jpg',
+                'image'    => '/storage/rance_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'ʒi',
+                'phoneme'  => 'ʒi',
                 'phonetic' => 'ji',
-                'image' => 'storage/des_jupes_pigeon_blanc_default.jpg',
+                'image'    => '/storage/des_jupes_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 'ɡɑ̃',
+                'phoneme'  => 'ɡɑ̃',
                 'phonetic' => 'gan',
-                'image' => 'storage/gare_pigeon_blanc_default.jpg',
+                'image'    => '/storage/gare_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 'tɛ',
+                'phoneme'  => 'tɛ',
                 'phonetic' => 'tè',
-                'image' => 'storage/fantome_ou_est_paul_default.jpg',
+                'image'    => '/storage/fantome_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 's',
+                'phoneme'  => 's',
                 'phonetic' => 's',
-                'image' => 'storage/rance_oh_le_lac_default.jpg',
+                'image'    => '/storage/rance_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'k',
+                'phoneme'  => 'k',
                 'phonetic' => 'k',
-                'image' => 'storage/vos_cases_oh_le_lac_default.jpg',
+                'image'    => '/storage/vos_cases_oh_le_lac_default@2x.png',
             ],
         ];
         $this->assertTrue($images === $imagesExpected);
@@ -427,67 +411,67 @@ class EncodeLPCTest extends TestCase
     {
         $lpcService = new LPCService();
 
-        $images = $lpcService->getLPCImages('l;e n;y;a;ʒ s;ɔ̃;t ɑ̃ f;ɔ;ʁ;m d;ə l;j;ɔ̃', 1);
+        $images = $lpcService->getLPCImages('l;e;n;y;a;ʒ;s;ɔ̃;t;ɑ̃;f;ɔ;ʁ;m;d;ə;l;j;ɔ̃', 1);
         $imagesExpected = [
             [
-                'phoneme' => 'le',
+                'phoneme'  => 'le',
                 'phonetic' => 'lé',
-                'image' => 'storage/champignon_un_zebu_default.jpg',
+                'image'    => '/storage/champignon_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'ny',
+                'phoneme'  => 'ny',
                 'phonetic' => 'nu',
-                'image' => 'storage/beni_un_zebu_default.jpg',
+                'image'    => '/storage/beni_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'aʒ',
-                'phonetic' => 'aj',
-                'image' => 'storage/des_jupes_oh_le_lac_default.jpg',
+                'phoneme'  => 'a',
+                'phonetic' => 'a',
+                'image'    => '/storage/fantome_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'sɔ̃',
+                'phoneme'  => 'ʒ',
+                'phonetic' => 'j',
+                'image'    => '/storage/des_jupes_oh_le_lac_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'sɔ̃',
                 'phonetic' => 'son',
-                'image' => 'storage/rance_pigeon_blanc_default.jpg',
+                'image'    => '/storage/rance_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 't',
-                'phonetic' => 't',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
+                'phoneme'  => 'tɑ̃',
+                'phonetic' => 'tan',
+                'image'    => '/storage/fantome_pigeon_blanc_default@2x.png',
             ],
             [
-                'phoneme' => 'ɑ̃',
-                'phonetic' => 'an',
-                'image' => 'storage/fantome_pigeon_blanc_default.jpg',
-            ],
-            [
-                'phoneme' => 'fɔ',
+                'phoneme'  => 'fɔ',
                 'phonetic' => 'fo',
-                'image' => 'storage/fantome_ou_est_paul_default.jpg',
+                'image'    => '/storage/fantome_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 'ʁ',
+                'phoneme'  => 'ʁ',
                 'phonetic' => 'r',
-                'image' => 'storage/rance_oh_le_lac_default.jpg',
+                'image'    => '/storage/rance_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'm',
+                'phoneme'  => 'm',
                 'phonetic' => 'm',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
+                'image'    => '/storage/fantome_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'də',
+                'phoneme'  => 'də',
                 'phonetic' => 'de',
-                'image' => 'storage/des_jupes_un_zebu_default.jpg',
+                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'l',
+                'phoneme'  => 'l',
                 'phonetic' => 'l',
-                'image' => 'storage/champignon_oh_le_lac_default.jpg',
+                'image'    => '/storage/champignon_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'jɔ̃',
+                'phoneme'  => 'jɔ̃',
                 'phonetic' => 'yon',
-                'image' => 'storage/fille_pigeon_blanc_default.jpg',
+                'image'    => '/storage/fille_pigeon_blanc_default@2x.png',
             ],
         ];
         $this->assertTrue($images === $imagesExpected);
@@ -497,72 +481,72 @@ class EncodeLPCTest extends TestCase
     {
         $lpcService = new LPCService();
 
-        $images = $lpcService->getLPCImages('l;e m;u;ɛ;t v;ɔ;l;t o;d;ə;s;y d;ə l;a m;ɛ;ʁ', 1);
+        $images = $lpcService->getLPCImages('l;e;m;u;ɛ;t;v;ɔ;l;t;o;d;ə;s;y;d;ə;l;a;m;ɛ;ʁ', 1);
         $imagesExpected = [
             [
-                'phoneme' => 'le',
+                'phoneme'  => 'le',
                 'phonetic' => 'lé',
-                'image' => 'storage/champignon_un_zebu_default.jpg',
+                'image'    => '/storage/champignon_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'mu',
+                'phoneme'  => 'mu',
                 'phonetic' => 'mou',
-                'image' => 'storage/fantome_ou_est_paul_default.jpg',
+                'image'    => '/storage/fantome_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 'ɛt',
-                'phonetic' => 'èt',
-                'image' => 'storage/fantome_ou_est_paul_default.jpg',
+                'phoneme'  => 'ɛ',
+                'phonetic' => 'è',
+                'image'    => '/storage/fantome_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 'vɔ',
-                'phonetic' => 'vo',
-                'image' => 'storage/vos_cases_ou_est_paul_default.jpg',
-            ],
-            [
-                'phoneme' => 'l',
-                'phonetic' => 'l',
-                'image' => 'storage/champignon_oh_le_lac_default.jpg',
-            ],
-            [
-                'phoneme' => 't',
+                'phoneme'  => 't',
                 'phonetic' => 't',
-                'image' => 'storage/fantome_oh_le_lac_default.jpg',
+                'image'    => '/storage/fantome_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'od',
-                'phonetic' => 'aud',
-                'image' => 'storage/des_jupes_oh_le_lac_default.jpg',
+                'phoneme'  => 'vɔ',
+                'phonetic' => 'vo',
+                'image'    => '/storage/vos_cases_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 'əs',
-                'phonetic' => 'es',
-                'image' => 'storage/rance_un_zebu_default.jpg',
+                'phoneme'  => 'l',
+                'phonetic' => 'l',
+                'image'    => '/storage/champignon_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'y',
-                'phonetic' => 'u',
-                'image' => 'storage/fantome_un_zebu_default.jpg',
+                'phoneme'  => 'to',
+                'phonetic' => 'tau',
+                'image'    => '/storage/fantome_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'də',
+                'phoneme'  => 'də',
                 'phonetic' => 'de',
-                'image' => 'storage/des_jupes_un_zebu_default.jpg',
+                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
             ],
             [
-                'phoneme' => 'la',
+                'phoneme'  => 'sy',
+                'phonetic' => 'su',
+                'image'    => '/storage/rance_un_zebu_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'də',
+                'phonetic' => 'de',
+                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
+            ],
+            [
+                'phoneme'  => 'la',
                 'phonetic' => 'la',
-                'image' => 'storage/champignon_oh_le_lac_default.jpg',
+                'image'    => '/storage/champignon_oh_le_lac_default@2x.png',
             ],
             [
-                'phoneme' => 'mɛ',
+                'phoneme'  => 'mɛ',
                 'phonetic' => 'mè',
-                'image' => 'storage/fantome_ou_est_paul_default.jpg',
+                'image'    => '/storage/fantome_ou_est_paul_default@2x.png',
             ],
             [
-                'phoneme' => 'ʁ',
+                'phoneme'  => 'ʁ',
                 'phonetic' => 'r',
-                'image' => 'storage/rance_oh_le_lac_default.jpg',
+                'image'    => '/storage/rance_oh_le_lac_default@2x.png',
             ],
         ];
         $this->assertTrue($images === $imagesExpected);

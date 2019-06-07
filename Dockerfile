@@ -20,6 +20,7 @@ RUN set -ex; \
       nodejs \
       espeak \
       python3-pip \
+      libpng-dev \
     ; \
     \
     docker-php-ext-install \
@@ -27,12 +28,13 @@ RUN set -ex; \
       mbstring \
       mysqli \
       pdo_mysql \
+      gd \
     ; \
     \
     composer global require \
     friendsofphp/php-cs-fixer \
     ;
-ENV PATH="root/.composer/vendor/bin:${PATH}"
+ENV PATH="/root/.composer/vendor/bin:${PATH}"
 # Set Workdir
 WORKDIR /app
 ADD ./phonemizer/requirements.txt ./

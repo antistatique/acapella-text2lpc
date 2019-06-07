@@ -13,4 +13,14 @@ class PhonemeNotFoundException extends Exception
     {
         \Log::debug('Phoneme not found');
     }
+
+    /**
+     * Return a custom JSON response.
+     */
+    public function render()
+    {
+        return response()->json([
+            'message' => 'La phrase n\'a pas pu être encoder en phonèmes',
+        ], 500);
+    }
 }

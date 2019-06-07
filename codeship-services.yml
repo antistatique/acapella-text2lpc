@@ -17,6 +17,7 @@ node-build:
     context: .
     dockerfile: .codeship/Dockerfile.node
   volumes:
+    - ./public/mix-manifest.json:/app/public/mix-manifest.json
     - ./public/build:/app/public/build
 deploy:
   build:
@@ -26,4 +27,5 @@ deploy:
   default_cache_branch: develop
   encrypted_env_file: .codeship/env.encrypted
   volumes:
+    - ./public/mix-manifest.json:/app/public/mix-manifest.json
     - ./public/build:/app/public/build

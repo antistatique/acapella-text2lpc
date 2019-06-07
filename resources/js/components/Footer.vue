@@ -3,13 +3,13 @@
     <div class="container-fluid">
       <div class="row text-center">
         <div class="col-md-4 col-sm-12 align-self-center">
-          <a href="/">Signaler un problème</a>
+          <a :href="`mailto:support@antistatique.net?subject=Problème sur text2lpc.a-capella.ch&body=Reproduction : ${location}'`">Signaler un problème</a>
         </div>
         <div class="col-md-4 col-sm-12 align-self-center">
           Site réalisé par <a
             href="http://antistatique.net/"
             target="_blank"
-          >Antistatique</a> 
+          >Antistatique</a>
         </div>
         <div class="col-md-4 col-sm-12 align-self-center">
           <a href="https://a-capella.ch/">Fondation A-Capella</a>
@@ -21,7 +21,11 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      location: new URL(window.location.href)
+    }
+  }
 }
 </script>
 
@@ -29,7 +33,7 @@ export default {
     @import '../../sass/_variables.scss';
     
     footer {
-        background-color: $acapella-purple;
+        background-color: $primary;
         color: white;
 
         .row {
@@ -45,7 +49,7 @@ export default {
             text-decoration: underline;
 
             &:hover {
-                color: $primary;
+                color: $secondary;
             }
         }
     }

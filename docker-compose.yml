@@ -17,8 +17,8 @@ services:
     container_name: acapella-web
     volumes:
       - ./:/app
-      - /app/vendor
-      - /app/node_modules
     depends_on:
       - "acapella-db"
     command: ["./wait-for-it.sh", "acapella-db:3306", "--", "php", "artisan", "serve", "--host=0.0.0.0", "--port=8181"]
+    # networks are defined in `docker-compose.override.yml`
+  

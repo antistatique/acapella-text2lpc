@@ -106,7 +106,7 @@ class GetKeyNameTest extends TestCase
      */
     public function testNotFound()
     {
-        $this->expectException(\App\Exceptions\PhonemeNotFoundException::class);
+        $this->expectException(\App\Exceptions\KeyNotFound::class);
         KeyAndPosition::getKeyName('a');
     }
 }

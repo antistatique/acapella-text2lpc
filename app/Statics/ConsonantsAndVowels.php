@@ -2,6 +2,8 @@
 
 namespace App\Statics;
 
+use App\Exceptions\ConsonantOrVowelsNotFound;
+
 class ConsonantsAndVowels
 {
     /**
@@ -38,6 +40,10 @@ class ConsonantsAndVowels
      */
     public static function getKey($phoneme)
     {
-        return self::CONSONANTSANDVOWELS[$phoneme];
+        if (array_key_exists($phoneme, self::CONSONANTSANDVOWELS)) {
+            return self::CONSONANTSANDVOWELS[$phoneme];
+        } else {
+            throw new ConsonantOrVowelsNotFound();
+        }
     }
 }

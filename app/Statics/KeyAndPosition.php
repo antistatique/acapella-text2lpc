@@ -2,7 +2,8 @@
 
 namespace App\Statics;
 
-use App\Exceptions\PhonemeNotFoundException;
+use App\Exceptions\KeyNotFound;
+use App\Exceptions\PositionNotFound;
 
 class KeyAndPosition
 {
@@ -55,7 +56,7 @@ class KeyAndPosition
             case 'p':
                 return 'des_jupes';
             default:
-                throw new PhonemeNotFoundException();
+                throw new KeyNotFound();
                 break;
         }
     }
@@ -101,7 +102,7 @@ class KeyAndPosition
             case 'ə':
                 return 'un_zebu';
             default:
-                throw new PhonemeNotFoundException();
+                throw new PositionNotFound();
                 break;
         }
     }

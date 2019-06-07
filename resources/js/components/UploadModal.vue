@@ -21,6 +21,7 @@
           <button
             type="button"
             class="btn btn-danger"
+            @click="removeUpload"
           >
             <font-awesome-icon icon="times" />
           </button>
@@ -201,6 +202,7 @@ export default {
                 })
                 this.uploadedImagePath = response.data.imagePath
                 this.$emit('uploaded', {
+                    index: this.index,
                     key: this.keyHand,
                     position: this.position,
                     imagePath: response.data.imagePath,
@@ -212,6 +214,11 @@ export default {
                 this.loading = false
                 console.log(error)
             }
+        },
+        removeUpload() {
+            this.$emit('remove', this.index)
+            this.uploaded = false
+            this.croppedImage = null
         },
         reset() {
             this.preview = false

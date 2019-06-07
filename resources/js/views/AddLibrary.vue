@@ -7,7 +7,7 @@
         </h1>
       </div>
       <div class="row justify-content-center mx-auto mt-5">
-        <div class="col-6">
+        <div class="col-md-4 col-sm-8 text-center">
           <div class="form-group">
             <label for="libraryName">Nom de la bibliothèque</label>
             <input
@@ -19,7 +19,8 @@
             >
           </div>
         </div>
-        <div class="col-6 align-self-center text-center">
+        <div class="col-12 align-self-center text-center">
+          <label>Visibilité de la bibliothèque</label>
           <div class="form-check">
             <input
               id="privateCheck"
@@ -65,21 +66,42 @@
             :disabled="!validOptions"
             @click="createBaseLibrary"
           >
-            Valider nom et accès
+            <template v-if="!loading">
+              Valider nom et accès
+            </template>
+            <div
+              v-if="loading"
+              class="spinner-border spinner-grow-sm"
+              role="status"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
           </button>
         </div>
       </div>
       <section v-if="valid">
+        <div class="row text-center mt-5">
+          <div class="col-6 offset-md-3 col-md-3">
+            <h4>
+              Clés LPC d'exemple
+            </h4>
+          </div>
+          <div class="col-6 col-md-3">
+            <h4>
+              Images à importer
+            </h4>
+          </div>
+        </div>
         <div
           v-for="(keyImage, index) in JSON.parse(keyImages)"
           :key="index"
-          class="row text-center"
+          class="row text-center mt-3"
         >
-          <div class="col-6 mt-3">
+          <div class="col-6 offset-md-3 col-md-3 align-self-center">
             <img :src="keyImage.image">
           </div>
-          <div class="col-6 mt-3 align-self-center">
-            <div class="col-12">
+          <div class="col-6 col-md-3 align-self-center">
+            <div class="col-sm-12 col-md-12">
               <upload-modal
                 :library-id="libraryId"
                 :key-hand="keyImage.key"
@@ -99,9 +121,19 @@
           <button
             type="button"
             class="btn btn-primary"
+            :disabled="imagesInfos.length !== 40"
             @click="createLibrary"
           >
-            Créer bibliothèque
+            <template v-if="!loading">
+              Créer bibliothèque
+            </template>
+            <div
+              v-if="loading"
+              class="spinner-border spinner-grow-sm"
+              role="status"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
           </button>
         </div>
       </div>
@@ -128,7 +160,8 @@ export default {
             valid: false,
             publicCheck: false,
             libraryId: null,
-            imagesInfos: []
+            imagesInfos: [],
+            loading: false
         }
     },
     computed: {
@@ -146,13 +179,16 @@ export default {
         },
         async createBaseLibrary() {
             try {
+              this.loading = true
                 const response = await window.axios.post('/api/library/store', {
                     name: this.libraryName,
                     public: this.publicCheck, 
                 })
                 this.valid = true
                 this.libraryId = response.data.library_id
+                this.loading = false
             } catch (error) {
+                this.loading = false
                 console.log(error)
             }
         },
@@ -160,11 +196,17 @@ export default {
             this.imagesInfos.push(imageInfo)
         },
         async createLibrary() {
-            const response = await window.axios.post('/api/library/create', {
+            try {
+              this.loading = true
+              const response = await window.axios.post('/api/library/create', {
                 libraryId: this.libraryId,
                 imagesInfos: this.imagesInfos
-            })
-            console.log(response)
+              })
+              this.loading = false
+            } catch (error) {
+              this.loading = false
+              console.log(error)
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ RUN set -ex; \
     composer global require \
     friendsofphp/php-cs-fixer \
     ;
-ENV PATH="root/.composer/vendor/bin:${PATH}"
+ENV PATH="/root/.composer/vendor/bin:${PATH}"
 # Set Workdir
 WORKDIR /app
 ADD ./phonemizer/requirements.txt ./

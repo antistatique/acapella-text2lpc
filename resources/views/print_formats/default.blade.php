@@ -20,7 +20,7 @@
                 <section class="tags-row">
                     @while ($y < sizeof($images) && $y < $x)
                         <div class="tags-column">
-                            <img src="{{ $images[$y]['image'] }}" >
+                            <img src="{{ $images[$y] }}" >
                         </div>
                         @php
                             $y++;

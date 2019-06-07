@@ -7,13 +7,13 @@
       data-toggle="modal"
       :data-target="`#imageUploadModal${index}`"
     >
-      Uploader image correspondante
+      Uploader image
     </button>
-    <font-awesome-icon
+    <img
       v-else
-      icon="check"
-      style="color: green"
-    />
+      id="uploadedResult"
+      :src="croppedImage"
+    >
     <div
       :id="`imageUploadModal${index}`"
       class="modal fade"
@@ -89,7 +89,16 @@
               :disabled="croppedImage === null"
               @click="upload"
             >
-              Uploader
+              <template v-if="!loading">
+                Uploader
+              </template>
+              <div
+                v-if="loading"
+                class="spinner-border spinner-grow-sm"
+                role="status"
+              >
+                <span class="sr-only">Loading...</span>
+              </div>
             </button>
           </div>
         </div>
@@ -127,7 +136,8 @@ export default {
             files: null,
             croppedImage: null,
             uploaded: false,
-            uploadedImagePath: null
+            uploadedImagePath: null,
+            loading: false
         }
     },
     mounted() {
@@ -168,25 +178,31 @@ export default {
             this.croppedImage = croppedImage
         },
         async upload() {
-            const response = await window.axios.post('/api/upload_image', { 
-                image: this.croppedImage,
-                libraryId: this.libraryId,
-                key: this.keyHand,
-                position: this.position
-            })
-            this.uploadedImagePath = response.data.imagePath
-            this.$emit('uploaded', {
-                key: this.keyHand,
-                position: this.position,
-                imagePath: response.data.imagePath,
-            })
-            $("[data-dismiss=modal]").trigger({ type: "click" });
-            this.uploaded = true
+            try {
+                this.loading = true
+                const response = await window.axios.post('/api/upload_image', { 
+                    image: this.croppedImage,
+                    libraryId: this.libraryId,
+                    key: this.keyHand,
+                    position: this.position
+                })
+                this.uploadedImagePath = response.data.imagePath
+                this.$emit('uploaded', {
+                    key: this.keyHand,
+                    position: this.position,
+                    imagePath: response.data.imagePath,
+                })
+                this.loading = false
+                $("[data-dismiss=modal]").trigger({ type: "click" });
+                this.uploaded = true
+            } catch (error) {
+                this.loading = false
+                console.log(error)
+            }
         },
         reset() {
             this.preview = false
             this.files = null
-            this.croppedImage = null
         }
     }
 }
@@ -194,4 +210,11 @@ export default {
 
 <style lang="scss" scoped>
     @import '~croppie/croppie.css';
+
+    img {
+        width: 150px;
+        height: auto;
+        max-height: 100%;
+        max-width: 100%;
+    }
 </style>

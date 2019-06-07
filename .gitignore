@@ -16,3 +16,5 @@ yarn-error.log
 # Ignore Codeship tmp files
 /.codeship/*/*
 !/.codeship/*/.gitkeep
+/storage/app/private
+/storage/app/temp_images

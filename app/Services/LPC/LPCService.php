@@ -20,46 +20,67 @@ class LPCService
     {
         // Create array that will hold the images
         $images = [];
-        // Get all the words in the sentence sent by the user
-        $words = explode(' ', $phonemes);
-        // Loop through all the words
-        foreach ($words as $word) {
-            // Get the groups with the split method
-            $groups = $this->split($word);
-            $index = 0;
-            // Loop over all the the groups in the current word
-            while ($index < sizeof($groups)) {
-                // Explode the group to get the 2 phonemes
-                $groupsExploded = explode(';', $groups[$index]);
-                // If there's only 1 phoneme, we can search for the LPC key
-                if (1 === sizeof($groupsExploded)) {
-                    /*
-                        Check if the phoneme is a consonant or a vowel and get the key and position accordingly
-                        Since there's only 1 phoneme, we can get the key or position because which ones represent a blank
-                    */
-                    list($key, $position) = $this->getKeyAndPositionSinglePhoneme($groupsExploded);
-                    $phoneme = $groupsExploded[0];
-                    $phonetic = PhoneticsFromPhonemes::getPhonetic($groupsExploded[0]);
-                } else {
-                    // Check the pattern of the group. Get the key and position if it's a consonant and a vowel
-                    if (
-                        'consonant' === ConsonantsAndVowels::getKey($groupsExploded[0]) &&
-                        'vowel' === ConsonantsAndVowels::getKey($groupsExploded[1])) {
-                        $key = KeyAndPosition::getKeyName($groupsExploded[0]);
-                        $position = KeyAndPosition::getPositionName($groupsExploded[1]);
-                        $phoneme = $groupsExploded[0] . $groupsExploded[1];
-                        $phonetic = PhoneticsFromPhonemes::getPhonetic($groupsExploded[0]) . PhoneticsFromPhonemes::getPhonetic($groupsExploded[1]);
-                    } elseif (
-                        'vowel' === ConsonantsAndVowels::getKey($groupsExploded[0]) &&
-                        'consonant' === ConsonantsAndVowels::getKey($groupsExploded[1])) {
-                        $key = KeyAndPosition::getKeyName($groupsExploded[1]);
-                        $position = KeyAndPosition::getPositionName($groupsExploded[0]);
-                        $phoneme = $groupsExploded[0] . $groupsExploded[1];
-                        $phonetic = PhoneticsFromPhonemes::getPhonetic($groupsExploded[0]) . PhoneticsFromPhonemes::getPhonetic($groupsExploded[1]);
-                    /*
-                        If it's not, we have to push the second phoneme to the next group and so on
-                        To do so, we go from the last group and push to the "right" of the array, and do so until we go to the current group
-                    */
+        // Get the groups with the split method
+        $groups = $this->split($phonemes);
+        $index = 0;
+        // Loop over all the the groups in the current word
+        while ($index < sizeof($groups)) {
+            // Explode the group to get the 2 phonemes
+            $groupsExploded = explode(';', $groups[$index]);
+            // If there's only 1 phoneme, we can search for the LPC key
+            if (1 === sizeof($groupsExploded)) {
+                /*
+                    Check if the phoneme is a consonant or a vowel and get the key and position accordingly
+                    Since there's only 1 phoneme, we can get the key or position because which ones represent a blank
+                */
+                list($key, $position) = $this->getKeyAndPositionSinglePhoneme($groupsExploded);
+                $phoneme = $groupsExploded[0];
+                $phonetic = PhoneticsFromPhonemes::getPhonetic($groupsExploded[0]);
+            } else {
+                // Check the pattern of the group. Get the key and position if it's a consonant and a vowel
+                if (
+                    'consonant' === ConsonantsAndVowels::getKey($groupsExploded[0]) &&
+                    'vowel' === ConsonantsAndVowels::getKey($groupsExploded[1])) {
+                    $key = KeyAndPosition::getKeyName($groupsExploded[0]);
+                    $position = KeyAndPosition::getPositionName($groupsExploded[1]);
+                    $phoneme = $groupsExploded[0] . $groupsExploded[1];
+                    $phonetic = PhoneticsFromPhonemes::getPhonetic($groupsExploded[0]) . PhoneticsFromPhonemes::getPhonetic($groupsExploded[1]);
+                }
+                /*
+                    If it's not, we have to push the second phoneme to the next group and so on
+                    To do so, we go from the last group and push to the "right" of the array, and do so until we go to the current group
+                */
+                else {
+                    if ((sizeof($groups) - 1) === 0) {
+                        if (ConsonantsAndVowels::getKey($groupsExploded[0]) === 'consonant') {
+                            $key = KeyAndPosition::getKeyName($groupsExploded[0]);
+                            $position = 'oh_le_lac';
+                        } else if (ConsonantsAndVowels::getKey($groupsExploded[0]) === 'vowel') {
+                            $key = 'fantome';
+                            $position = KeyAndPosition::getPositionName($groupsExploded[0]);
+                        }
+
+                        array_push($images, [
+                            'phoneme' => $groupsExploded[0],
+                            'phonetic' => PhoneticsFromPhonemes::getPhonetic($groupsExploded[0]),
+                            'image' => $this->getImageFromModel($key, $position, $library_id),
+                        ]);
+
+                        if (ConsonantsAndVowels::getKey($groupsExploded[1]) === 'consonant') {
+                            $key = KeyAndPosition::getKeyName($groupsExploded[1]);
+                            $position = 'oh_le_lac';
+                        } else if (ConsonantsAndVowels::getKey($groupsExploded[1]) === 'vowel') {
+                            $key = 'fantome';
+                            $position = KeyAndPosition::getPositionName($groupsExploded[1]);
+                        }
+
+                        array_push($images, [
+                            'phoneme' => $groupsExploded[1],
+                            'phonetic' => PhoneticsFromPhonemes::getPhonetic($groupsExploded[1]),
+                            'image' => $this->getImageFromModel($key, $position, $library_id),
+                        ]);
+
+                        break;
                     } else {
                         // Get the last index of the groups array
                         $tempIndex = sizeof($groups) - 1;
@@ -94,13 +115,13 @@ class LPCService
                         $phonetic = PhoneticsFromPhonemes::getPhonetic($groupsExploded[0]);
                     }
                 }
-                array_push($images, [
-                    'phoneme' => $phoneme,
-                    'phonetic' => $phonetic,
-                    'image' => $this->getImageFromModel($key, $position, $library_id)
-                ]);
-                ++$index;
             }
+            array_push($images, [
+                'phoneme' => $phoneme,
+                'phonetic' => $phonetic,
+                'image' => $this->getImageFromModel($key, $position, $library_id)
+            ]);
+            ++$index;
         }
 
         return $images;
@@ -154,10 +175,10 @@ class LPCService
      *
      * @return array
      */
-    private function split($word)
+    private function split($phonemes)
     {
         // Split the word into phonemes with the separator ';'
-        $initial = explode(';', $word);
+        $initial = explode(';', $phonemes);
         // Create an array that will hold the final groups
         $final = [];
 

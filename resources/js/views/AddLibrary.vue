@@ -81,7 +81,7 @@
       </div>
       <section v-if="valid">
         <div class="row text-center mt-5">
-          <div class="col-6 offset-md-3 col-md-3">
+          <div class="col-4 offset-md-3 col-md-3">
             <h4>
               Clés LPC d'exemple
             </h4>
@@ -97,7 +97,7 @@
           :key="index"
           class="row text-center mt-3"
         >
-          <div class="col-6 offset-md-3 col-md-3 align-self-center">
+          <div class="col-4 offset-md-3 col-md-3 align-self-center">
             <img :src="keyImage.image">
           </div>
           <div class="col-6 col-md-3 align-self-center">

@@ -108,6 +108,7 @@
                 :position="keyImage.position"
                 :index="index"
                 @uploaded="addImagePath"
+                @remove="removeImagePath"
               />
             </div>
           </div>
@@ -194,6 +195,11 @@ export default {
         },
         addImagePath(imageInfo) {
             this.imagesInfos.push(imageInfo)
+        },
+        removeImagePath(index) {
+          this.imagesInfos = this.imagesInfos.filter(imageInfo => {
+            return imageInfo.index !== index
+          })
         },
         async createLibrary() {
             try {

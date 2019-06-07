@@ -2,7 +2,7 @@ import sys
 from phonemizer.phonemize import phonemize
 
 # Get the phonemes from phonemizer. Remove the '-' characters from the results as they are useless
-phonemes = phonemize(text=sys.argv[1].replace(',', '').replace('.', ''), language="fr-fr", backend="espeak").replace('-', '')
+phonemes = phonemize(text=sys.argv[1].replace(',', '').replace('.', ''), language="fr-fr", backend="espeak").replace('-', '').replace('ː', '').replace(' ', '')
 # Create an array that will hold the words with the ';' characters as separation between each phoneme
 final_words = []
 words = phonemes.split(" ")

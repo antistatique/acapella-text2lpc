@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreLibraryRequest;
 use App\Http\Requests\UploadImageRequest;
 use App\Http\Requests\SaveImagesRequest;
+use Intervention\Image\ImageManagerStatic;
 use App\Library;
 use App\Key;
 use Image;
@@ -46,7 +47,7 @@ class LibraryController extends Controller
         $validated = $request->validated();
 
         $image = Image::make($validated['image']);
-        $imagePath = $validated['key'] . '_' . $validated['position'] . '_' . $validated['libraryId'] . '.png';
+        $imagePath = $validated['key'] . '_' . $validated['position'] . '_' . $validated['libraryId'] . '_' . str_random(10) .  '.png';
         $image->save(storage_path('app/temp_images/') . $imagePath);
 
         return response()->json(['imagePath' => $imagePath]);
@@ -64,35 +65,57 @@ class LibraryController extends Controller
 
         $public = Library::find($validated['libraryId'])->public;
 
+        foreach ($validated['imagesInfos'] as $testImage) {
+            $imagePathValidated = basename($testImage['imagePath']);
+            try {
+                ImageManagerStatic::make(storage_path('app/temp_images/') . $imagePathValidated);
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'Une erreur est survenue durant la sauvegarde des images']);
+            }
+        }
+
         // Get all the images in the temporary folder that were stored by the user with the API
         foreach ($validated['imagesInfos'] as $imageInfos) {
-            if ($public) {
-                $imagePath = public_path() . '/' . $imageInfos['imagePath'];
-            } else {
-                $imagePath = storage_path('app/private/') . $imageInfos['imagePath'];
-            }
-            File::move(storage_path('app/temp_images/') . $imageInfos['imagePath'], $imagePath);
+            $imagePathValidated = basename($imageInfos['imagePath']);
 
-            Key::create([
+            if ($public) {
+                $imagePath = storage_path('app/public/') . $imagePathValidated;
+            } else {
+                $imagePath = storage_path('app/private/') . $imagePathValidated;
+            }
+
+            File::move(storage_path('app/temp_images/') . $imagePathValidated, $imagePath);
+
+            $key = Key::create([
                 'key' => $imageInfos['key'],
                 'position' => $imageInfos['position'],
-                'image' => 'private/' . $imageInfos['imagePath'],
                 'library_id' => $validated['libraryId'],
+                'image' => $imagePathValidated,
             ]);
+
+            if ($public) {
+                $key->image = '/storage/' . $imagePathValidated;
+            } else {
+                $key->image = '/private/files/' . (string) $key->id . '/' . $imagePathValidated;
+            }
+
+            $key->save();
         }
     }
 
     /**
      * Method to get a private image
      */
-    public function getPrivateImage($fileName) {
-        // Explode the filename to get the library_id
-        $libraryId = explode('_', $fileName);
-        $libraryId = explode('.', $libraryId[sizeof($libraryId) - 1]);
-        $libraryId = (int) $libraryId[0];
+    public function getPrivateImage($keyId, $fileName) {
+        // Get the user id of the library from the key
+        $libraryUserId = Key::find($keyId)->library->user_id;
+
         // Only return the image if the user logged in is the creator of the library
-        if (Library::find($libraryId)->user_id === Auth::user()->id) {
-            return Image::make(storage_path('app/private/') . $fileName)->response();
+        if ($libraryUserId !== Auth::user()->id) {
+            return '';
         }
+
+        return Image::make(storage_path('app/private/') . $fileName)->response();
+
     }
 }

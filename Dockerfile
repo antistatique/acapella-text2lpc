@@ -20,6 +20,7 @@ RUN set -ex; \
       nodejs \
       espeak \
       python3-pip \
+      libpng-dev \
     ; \
     \
     docker-php-ext-install \
@@ -27,6 +28,7 @@ RUN set -ex; \
       mbstring \
       mysqli \
       pdo_mysql \
+      gd \
     ; \
     \
     composer global require \

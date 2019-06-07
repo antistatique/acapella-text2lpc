@@ -154,7 +154,7 @@
         <div
           v-for="(lpcKey, index) in lpcKeys"
           :key="index"
-          class="col-md-4 col-sm-12 mt-2"
+          class="col-md-3 col-sm-12 mt-2"
         >
           <card-image
             v-if="phonemeCheck || phoneticCheck"

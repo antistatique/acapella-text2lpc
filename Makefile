@@ -6,6 +6,8 @@ setup:
 	docker-compose exec acapella-web php artisan key:generate && \
 	docker-compose exec acapella-web php artisan migrate && \
 	docker-compose exec acapella-web php artisan db:seed && \
+	docker-compose exec acapella-web php artisan storage:link && \
+	docker-compose exec acapella-web npm run dev && \
 	git config core.hooksPath .githooks
 build:
 	docker-compose build

@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,7 +11,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 Route::get('/encode', 'LPCController@getLPCKeys');
+
+Route::group(['api', 'auth'], function () {
+    Route::post('/library/store', 'LibraryController@store');
+    Route::post('/upload_image', 'LibraryController@uploadImage');
+    Route::post('/library/create', 'LibraryController@saveImages');
+});

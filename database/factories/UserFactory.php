@@ -21,6 +21,6 @@ $factory->define(User::class, function (Faker $faker) {
         'email'             => $faker->unique()->safeEmail,
         'password'          => '', // password
         'remember_token'    => Str::random(10),
-        'drupal_id' => 1,
+        'drupal_id'         => 1,
     ];
 });

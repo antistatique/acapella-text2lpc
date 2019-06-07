@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@index');
 Route::get('loginOAuth', 'LoginController@loginOAuth')->middleware('guest');
 Route::get('logout', 'LoginController@logout')->middleware('auth');
 Route::get('login', function () {
     return view('login');
 })->middleware('guest');
 Route::post('login', 'LoginController@login')->middleware('guest');
+Route::get('library/create', 'LibraryController@create')->middleware('auth');
+Route::get('private/files/{keyId}/{fileName}', 'LibraryController@getPrivateImage')->middleware('auth');

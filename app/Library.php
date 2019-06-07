@@ -11,13 +11,14 @@ class Library extends Model
      */
     protected $fillable = [
         'public',
+        'name',
+        'user_id',
     ];
 
     /**
      * Define which fields are hidden to the user.
      */
     protected $hidden = [
-        'id',
         'user_id',
         'default',
     ];

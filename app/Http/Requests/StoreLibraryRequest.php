@@ -25,7 +25,7 @@ class StoreLibraryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2',
+            'name'   => 'required|min:2',
             'public' => 'required|boolean',
         ];
     }

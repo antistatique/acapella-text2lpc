@@ -15,9 +15,10 @@ class KeyNotFound extends Exception
     }
 
     /**
-     * Return a custom JSON response
+     * Return a custom JSON response.
      */
-    public function render() {
+    public function render()
+    {
         return response()->json([
             'message' => 'La clé n\'a pas pu être identifié pour un des phonèmes de la phrase',
         ], 500);

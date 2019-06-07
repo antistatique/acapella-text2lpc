@@ -25,7 +25,7 @@ class SaveImagesRequest extends FormRequest
     public function rules()
     {
         return [
-            'libraryId' => 'required|integer',
+            'libraryId'   => 'required|integer',
             'imagesInfos' => 'required|array|size:40',
         ];
     }

@@ -25,9 +25,9 @@ class UploadImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|imageable',
-            'key' => 'required|string',
-            'position' => 'required|string',
+            'image'     => 'required|imageable',
+            'key'       => 'required|string',
+            'position'  => 'required|string',
             'libraryId' => 'required|integer',
         ];
     }

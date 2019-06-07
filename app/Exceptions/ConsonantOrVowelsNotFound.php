@@ -15,9 +15,10 @@ class ConsonantOrVowelsNotFound extends Exception
     }
 
     /**
-     * Return a custom JSON response
+     * Return a custom JSON response.
      */
-    public function render() {
+    public function render()
+    {
         return response()->json([
             'message' => 'Il y a eu un problème durant l\'identification du phonème',
         ], 500);

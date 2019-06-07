@@ -43,41 +43,41 @@ class LPCService
                     'vowel' === ConsonantsAndVowels::getKey($groupsExploded[1])) {
                     $key = KeyAndPosition::getKeyName($groupsExploded[0]);
                     $position = KeyAndPosition::getPositionName($groupsExploded[1]);
-                    $phoneme = $groupsExploded[0] . $groupsExploded[1];
-                    $phonetic = PhoneticsFromPhonemes::getPhonetic($groupsExploded[0]) . PhoneticsFromPhonemes::getPhonetic($groupsExploded[1]);
+                    $phoneme = $groupsExploded[0].$groupsExploded[1];
+                    $phonetic = PhoneticsFromPhonemes::getPhonetic($groupsExploded[0]).PhoneticsFromPhonemes::getPhonetic($groupsExploded[1]);
                 }
                 /*
                     If it's not, we have to push the second phoneme to the next group and so on
                     To do so, we go from the last group and push to the "right" of the array, and do so until we go to the current group
                 */
                 else {
-                    if ((sizeof($groups) - 1) === 0) {
-                        if (ConsonantsAndVowels::getKey($groupsExploded[0]) === 'consonant') {
+                    if (0 === (sizeof($groups) - 1)) {
+                        if ('consonant' === ConsonantsAndVowels::getKey($groupsExploded[0])) {
                             $key = KeyAndPosition::getKeyName($groupsExploded[0]);
                             $position = 'oh_le_lac';
-                        } else if (ConsonantsAndVowels::getKey($groupsExploded[0]) === 'vowel') {
+                        } elseif ('vowel' === ConsonantsAndVowels::getKey($groupsExploded[0])) {
                             $key = 'fantome';
                             $position = KeyAndPosition::getPositionName($groupsExploded[0]);
                         }
 
                         array_push($images, [
-                            'phoneme' => $groupsExploded[0],
+                            'phoneme'  => $groupsExploded[0],
                             'phonetic' => PhoneticsFromPhonemes::getPhonetic($groupsExploded[0]),
-                            'image' => $this->getImageFromModel($key, $position, $library_id),
+                            'image'    => $this->getImageFromModel($key, $position, $library_id),
                         ]);
 
-                        if (ConsonantsAndVowels::getKey($groupsExploded[1]) === 'consonant') {
+                        if ('consonant' === ConsonantsAndVowels::getKey($groupsExploded[1])) {
                             $key = KeyAndPosition::getKeyName($groupsExploded[1]);
                             $position = 'oh_le_lac';
-                        } else if (ConsonantsAndVowels::getKey($groupsExploded[1]) === 'vowel') {
+                        } elseif ('vowel' === ConsonantsAndVowels::getKey($groupsExploded[1])) {
                             $key = 'fantome';
                             $position = KeyAndPosition::getPositionName($groupsExploded[1]);
                         }
 
                         array_push($images, [
-                            'phoneme' => $groupsExploded[1],
+                            'phoneme'  => $groupsExploded[1],
                             'phonetic' => PhoneticsFromPhonemes::getPhonetic($groupsExploded[1]),
-                            'image' => $this->getImageFromModel($key, $position, $library_id),
+                            'image'    => $this->getImageFromModel($key, $position, $library_id),
                         ]);
 
                         break;
@@ -117,9 +117,9 @@ class LPCService
                 }
             }
             array_push($images, [
-                'phoneme' => $phoneme,
+                'phoneme'  => $phoneme,
                 'phonetic' => $phonetic,
-                'image' => $this->getImageFromModel($key, $position, $library_id)
+                'image'    => $this->getImageFromModel($key, $position, $library_id),
             ]);
             ++$index;
         }

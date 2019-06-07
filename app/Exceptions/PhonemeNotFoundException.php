@@ -15,9 +15,10 @@ class PhonemeNotFoundException extends Exception
     }
 
     /**
-     * Return a custom JSON response
+     * Return a custom JSON response.
      */
-    public function render() {
+    public function render()
+    {
         return response()->json([
             'message' => 'La phrase n\'a pas pu être encoder en phonèmes',
         ], 500);

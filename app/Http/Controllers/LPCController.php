@@ -30,20 +30,34 @@ class LPCController extends Controller
 
     public function printTags(Request $request, PhonemeService $phonemeService, LPCService $lpcService)
     {
-        if ($request->has('sentence')) {
-            $phonemes = $phonemeService->transform($request->input('sentence'));
-            $images = $lpcService->getLPCImages($phonemes, 1);
+        if ($request->has('sentence') && $request->has('library_id')) {
+            $library = Library::find($request->input('library_id'));
+            if ($library->public || (Auth::check() && $library->user_id === Auth::user()->id)) {
+                $phonemes = $phonemeService->transform($request->input('sentence'));
+                $imagesTemp = $lpcService->getLPCImages($phonemes, $request->input('library_id'));
+                $images = [];
 
-            if ($request->has('library_id')) {
-                switch ($request->input('library_id')) {
-                    default:
-                        $pdf = PDF::loadView('print_formats.default', ['images' => $images]);
-                        break;
+                if ($library->public) {
+                    foreach ($imagesTemp as $image) {
+                        array_push($images, storage_path('app/public/').basename($image['image']));
+                    }
+                } else {
+                    foreach ($imagesTemp as $image) {
+                        array_push($images, storage_path('app/private/').basename($image['image']));
+                    }
                 }
-            } else {
-                $pdf = PDF::loadView('print_formats.default', ['images' => $images]);
+
+                if ($request->has('format')) {
+                    switch ($request->input('format')) {
+                        default:
+                            $pdf = PDF::loadView('print_formats.default', ['images' => $images]);
+                            break;
+                    }
+                } else {
+                    $pdf = PDF::loadView('print_formats.default', ['images' => $images]);
+                }
+                return $pdf->stream();
             }
-            return $pdf->stream();
         }
     }
 }

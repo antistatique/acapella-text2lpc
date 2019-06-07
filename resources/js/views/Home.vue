@@ -179,7 +179,7 @@
         <a
           role="button"
           class="btn btn-primary"
-          :href="`/print?sentence=${printSentence}`"
+          :href="`/print?sentence=${printSentence}&library_id=${selectedLibrary}`"
         >Imprimer</a>
       </div>
     </div>
@@ -287,6 +287,7 @@ export default {
             this.lpcKeys = response.data.lpcKeys
             this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
             this.loading = false
+            this.printSentence = this.userSentence
           } catch (err) {
             this.loading = false
             this.lpcKeys = []

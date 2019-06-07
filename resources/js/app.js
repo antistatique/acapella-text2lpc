@@ -20,7 +20,7 @@ import {
     faArrowLeft,
     faArrowRight,
     faRedo,
-    faCheck
+    faTimes
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add([
@@ -30,7 +30,7 @@ library.add([
     faArrowLeft,
     faArrowRight,
     faRedo,
-    faCheck
+    faTimes
 ])
 
 Vue.use(VeeValidate)

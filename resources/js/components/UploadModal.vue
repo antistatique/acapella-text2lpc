@@ -9,11 +9,25 @@
     >
       Uploader image
     </button>
-    <img
-      v-else
-      id="uploadedResult"
-      :src="croppedImage"
-    >
+    <template v-else>
+      <div class="row text-center">
+        <div class="col-9">
+          <img
+            id="uploadedResult"
+            :src="croppedImage"
+          >
+        </div>
+        <div class="col-2 align-self-center">
+          <button
+            type="button"
+            class="btn btn-danger"
+            @click="removeUpload"
+          >
+            <font-awesome-icon icon="times" />
+          </button>
+        </div>
+      </div>
+    </template>
     <div
       :id="`imageUploadModal${index}`"
       class="modal fade"
@@ -188,6 +202,7 @@ export default {
                 })
                 this.uploadedImagePath = response.data.imagePath
                 this.$emit('uploaded', {
+                    index: this.index,
                     key: this.keyHand,
                     position: this.position,
                     imagePath: response.data.imagePath,
@@ -199,6 +214,11 @@ export default {
                 this.loading = false
                 console.log(error)
             }
+        },
+        removeUpload() {
+            this.$emit('remove', this.index)
+            this.uploaded = false
+            this.croppedImage = null
         },
         reset() {
             this.preview = false

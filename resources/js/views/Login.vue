@@ -11,7 +11,10 @@
         </div>
       </div>
     </div>
-    <div class="container mt-5">
+    <div
+      v-if="false"
+      class="container mt-5"
+    >
       <div class="row justify-content-center mx-auto">
         <div class="col-md-6 col-sm-12">
           <form
@@ -88,7 +91,10 @@
         </div>
       </div>
     </div>
-    <div class="container mt-3">
+    <div
+      v-if="false"
+      class="container mt-3"
+    >
       <div class="row justify-content-center mx-auto">
         <div class="col-md-3 text-center">
           <a

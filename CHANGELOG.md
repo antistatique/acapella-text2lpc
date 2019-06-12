@@ -2,6 +2,12 @@
 
 Every changes made to the project will be documented here.
 
+## [0.4.1] - 12-06-2019
+## Added
+ - Google Analytics
+## Changed
+ - No display of login form until register form is added
+
 ## [0.4.0] - 07-06-2019
 ## Added
  - Page to add a library

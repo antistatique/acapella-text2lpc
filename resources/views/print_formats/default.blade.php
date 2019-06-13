@@ -11,8 +11,8 @@
             $x = 0;
             $y = 0;
         @endphp
-        @for ($i = 1; $i <= floor((sizeof($images)/24) + 1); $i++)
-            @while ($x <= (24 * $i) && $x < sizeof($images))
+        @for ($i = 1; $i <= ceil((sizeof($images)/24)); $i++)
+            @while ($x < (24 * $i) && $x < sizeof($images))
                 @php
                     $y = $x;
                     $x += 4;
@@ -26,14 +26,14 @@
                             $y++;
                         @endphp
                     @endwhile
+                    @if ($x - $y === 3)
+                        <div class="tags-column"></div>
+                    @endif
                 </section>
             @endwhile
-            @if ($i < floor((sizeof($images)/24) + 1))
+            @if ($i < ceil((sizeof($images)/24)))
                 <div class="page-break"></div>
             @endif
-            @php
-                $x++;
-            @endphp
         @endfor
     </body>
 </html>

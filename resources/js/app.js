@@ -35,6 +35,18 @@ library.add([
 
 Vue.use(VeeValidate)
 
+Vue.prototype.$ga = (title, path) => {
+    try {
+        gtag('config', 'UA-49662749-2', {
+            page_title: title,
+            page_path: path
+        })
+        return true
+    } catch (error) {
+        throw new Error('Google Analytics pas activé')
+    }
+}
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

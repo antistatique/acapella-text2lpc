@@ -36,7 +36,7 @@ class EncodeLPCTest extends TestCase
             [
                 'phoneme'  => 'də',
                 'phonetic' => 'de',
-                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
+                'image'    => '/storage/des_jupes_oh_le_lac_default@2x.png',
             ],
             [
                 'phoneme'  => 'mɔ̃',
@@ -181,12 +181,12 @@ class EncodeLPCTest extends TestCase
             [
                 'phoneme'  => 'lə',
                 'phonetic' => 'le',
-                'image'    => '/storage/champignon_un_zebu_default@2x.png',
+                'image'    => '/storage/champignon_oh_le_lac_default@2x.png',
             ],
             [
                 'phoneme'  => 'pə',
                 'phonetic' => 'pe',
-                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
+                'image'    => '/storage/des_jupes_oh_le_lac_default@2x.png',
             ],
             [
                 'phoneme'  => 'ti',
@@ -206,7 +206,7 @@ class EncodeLPCTest extends TestCase
             [
                 'phoneme'  => 'də',
                 'phonetic' => 'de',
-                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
+                'image'    => '/storage/des_jupes_oh_le_lac_default@2x.png',
             ],
             [
                 'phoneme'  => 'ma',
@@ -461,7 +461,7 @@ class EncodeLPCTest extends TestCase
             [
                 'phoneme'  => 'də',
                 'phonetic' => 'de',
-                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
+                'image'    => '/storage/des_jupes_oh_le_lac_default@2x.png',
             ],
             [
                 'phoneme'  => 'l',
@@ -521,7 +521,7 @@ class EncodeLPCTest extends TestCase
             [
                 'phoneme'  => 'də',
                 'phonetic' => 'de',
-                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
+                'image'    => '/storage/des_jupes_oh_le_lac_default@2x.png',
             ],
             [
                 'phoneme'  => 'sy',
@@ -531,7 +531,7 @@ class EncodeLPCTest extends TestCase
             [
                 'phoneme'  => 'də',
                 'phonetic' => 'de',
-                'image'    => '/storage/des_jupes_un_zebu_default@2x.png',
+                'image'    => '/storage/des_jupes_oh_le_lac_default@2x.png',
             ],
             [
                 'phoneme'  => 'la',

@@ -100,7 +100,7 @@ class KeyAndPosition
             case 'œ̃':
                 return 'un_zebu';
             case 'ə':
-                return 'un_zebu';
+                return 'oh_le_lac';
             default:
                 throw new PositionNotFound();
                 break;

@@ -2,6 +2,17 @@
   <section>
     <div class="container mt-5">
       <div class="row justify-content-center mx-auto">
+        <div class="col-12 description text-center">
+          <p>Introduire un mot ou une phrase et cliquer sur « Encoder » pour consulter le code LPC correspondant !</p>
+          <a
+            role="button"
+            class="btn btn-link"
+            href="https://a-capella.ch/le-lpc-quest-ce-que-cest"
+            target="_blank"
+          >En savoir plus</a>
+        </div>
+      </div>
+      <div class="row justify-content-center mx-auto mt-4">
         <div class="col-md-5 col-sm-10">
           <label
             for="sentence"
@@ -24,10 +35,10 @@
               :value="library.id"
             >
               <template v-if="library.public === 1">
-                Librairie : {{ library.name }}
+                Bibliothèque : {{ library.name }}
               </template>
               <template v-else>
-                Librairie : {{ library.name }} (privée)
+                Bibliothèque : {{ library.name }} (privée)
               </template>
             </option>
           </select>
@@ -274,10 +285,11 @@ export default {
             this.lpcKeys = response.data.lpcKeys
             this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
             this.loading = false
+            this.$ga(`Encodage de la phrase : ${this.userSentence}`, `/?sentence=${this.userSentence}`)
           } catch (err) {
             this.loading = false
             this.lpcKeys = []
-            this.error = err.response.data.message
+            this.error = err.response !== undefined ? err.response.data.message : err
           }
           history.pushState({}, null, this.location.href)
         },
@@ -350,6 +362,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .description {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
   .sentence {
     font-size: 24px;
     font-weight: bold;

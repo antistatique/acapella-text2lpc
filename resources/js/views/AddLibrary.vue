@@ -86,7 +86,7 @@
               Clés LPC d'exemple
             </h4>
           </div>
-          <div class="col-6 col-md-3">
+          <div class="col-8 col-md-3">
             <h4>
               Images à importer
             </h4>
@@ -100,7 +100,7 @@
           <div class="col-4 offset-md-3 col-md-3 align-self-center">
             <img :src="keyImage.image">
           </div>
-          <div class="col-6 col-md-3 align-self-center">
+          <div class="col-8 col-md-3 align-self-center text-center">
             <div class="col-sm-12 col-md-12">
               <upload-modal
                 :library-id="libraryId"
@@ -119,6 +119,11 @@
         class="row justify-content-center mx-auto mt-5"
       >
         <div class="col-12 text-center">
+          <a
+            role="button"
+            class="btn btn-secondary"
+            :href="`/library/delete/${libraryId}`"
+          >Annuler</a>
           <button
             type="button"
             class="btn btn-primary"

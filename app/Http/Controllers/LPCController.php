@@ -14,7 +14,7 @@ class LPCController extends Controller
     public function getLPCKeys(Request $request, PhonemeService $phonemeService, LPCService $lpcService)
     {
         $library = Library::find($request->input('library_id'));
-        if ($library->public || (Auth::check() && $library->user_id === Auth::user()->id)) {
+        if ($library->public || (Auth::check() && $library->user_id === Auth::user()->id && $library->completed)) {
             if ($request->has('sentence') && '' != $request->input('sentence')) {
                 $phonemes = $phonemeService->transform($request->input('sentence'));
                 $lpcKeys = $lpcService->getLPCImages($phonemes, $request->input('library_id'));
@@ -32,7 +32,7 @@ class LPCController extends Controller
     {
         if ($request->has('sentence') && $request->has('library_id')) {
             $library = Library::find($request->input('library_id'));
-            if ($library->public || (Auth::check() && $library->user_id === Auth::user()->id)) {
+            if ($library->public || (Auth::check() && $library->user_id === Auth::user()->id && $library->completed)) {
                 $phonemes = $phonemeService->transform($request->input('sentence'));
                 $imagesTemp = $lpcService->getLPCImages($phonemes, $request->input('library_id'));
                 $images = [];

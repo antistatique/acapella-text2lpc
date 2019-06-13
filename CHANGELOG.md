@@ -2,6 +2,14 @@
 
 Every changes made to the project will be documented here.
 
+## [0.5.0] - 13-06-2019
+## Added
+ - Print functionnality
+ - Cancel adding library action (delete library)
+
+## Changed
+ - Fixed bad redirect in auth middleware
+
 ## [0.4.1] - 12-06-2019
 ## Added
  - Google Analytics

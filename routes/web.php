@@ -11,6 +11,7 @@
 |
 */
 
+Route::get('/print', 'LPCController@printTags');
 Route::get('/', 'HomeController@index');
 Route::get('loginOAuth', 'LoginController@loginOAuth')->middleware('guest');
 Route::get('logout', 'LoginController@logout')->middleware('auth');

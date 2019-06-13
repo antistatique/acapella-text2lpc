@@ -143,7 +143,7 @@
             />
           </carousel>
           <carousel
-            v-if="!phonemeCheck && !phoneticCheck"
+            v-else
             :key="carouselUpdate"
           >
             <img
@@ -180,6 +180,19 @@
             class="grid-image"
           >
         </div>
+      </div>
+    </div>
+    <div
+      v-if="lpcKeys.length > 0"
+      class="container mt-5"
+    >
+      <div class="row justify-content-center text-center mx-auto">
+        <a
+          role="button"
+          class="btn btn-primary"
+          :href="`/print?sentence=${printSentence}&library_id=${selectedLibrary}`"
+          target="_blank"
+        >Imprimer</a>
       </div>
     </div>
     <div
@@ -230,7 +243,8 @@ export default {
             lpcKeys: [],
             mediaQuery: window.matchMedia('(max-width: 600px)'),
             carouselUpdate: 0,
-            carouselPhonemeUpdate: 0,
+            printSentence: '',
+            carouselPhonemeUpdate: 2,
             phonemeCheck: true,
             phoneticCheck: false,
             view: 'carousel',
@@ -285,6 +299,7 @@ export default {
             this.lpcKeys = response.data.lpcKeys
             this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
             this.loading = false
+            this.printSentence = this.userSentence
             this.$ga(`Encodage de la phrase : ${this.userSentence}`, `/?sentence=${this.userSentence}`)
           } catch (err) {
             this.loading = false

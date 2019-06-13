@@ -191,6 +191,7 @@
           role="button"
           class="btn btn-primary"
           :href="`/print?sentence=${printSentence}&library_id=${selectedLibrary}`"
+          target="_blank"
         >Imprimer</a>
       </div>
     </div>

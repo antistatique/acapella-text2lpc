@@ -106,6 +106,9 @@ class LibraryController extends Controller
 
             $key->save();
         }
+
+        Library::find($validated['libraryId'])->completed = true;
+        Library::find($validated['libraryId'])->save();
     }
 
     /**
@@ -122,5 +125,18 @@ class LibraryController extends Controller
         }
 
         return Image::make(storage_path('app/private/').$fileName)->response();
+    }
+
+    /**
+     * Method to delete a library
+     */
+    public function destroy($id) {
+        $library = Library::find($id);
+
+        if ($library->user_id === Auth::user()->id) {
+            $library->delete();
+        }
+
+        return redirect('/');
     }
 }

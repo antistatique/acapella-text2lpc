@@ -45,6 +45,9 @@ export default {
     async deleteLibrary() {
       try {
         await window.axios.delete(`/api/library/delete/${this.library.id}`);
+        this.$emit('deleted', {
+          library: this.library
+        })
       } catch (error) {
         console.log(error)
       }

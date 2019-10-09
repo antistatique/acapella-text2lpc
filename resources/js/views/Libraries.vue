@@ -8,11 +8,14 @@
       </div>
       <div class="row justify-content-center mx-auto mt-5">
         <div
-          v-for="library of JSON.parse(libraries)"
+          v-for="library of JSON.parse(libraries_)"
           :key="library.id"
           class="col-md-4 col-sm-12"
         >
-          <card-library :library="library" />
+          <card-library
+            :library="library"
+            @deleted="deleteLibrary"
+          />
         </div>
       </div>
     </div>
@@ -32,8 +35,15 @@ export default {
             type: String
         }
     },
-    mounted() {
-        console.log(JSON.parse(this.libraries))
+    data() {
+        return {
+            libraries_: this.libraries
+        }
+    },
+    methods: {
+        deleteLibrary(library) {
+            this.libraries_ = this.libraries_.filter(library_ => library_.id !== library.id)
+        }
     }
 }
 </script>

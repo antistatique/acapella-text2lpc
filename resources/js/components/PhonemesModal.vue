@@ -37,6 +37,8 @@
             <div class="row">
               <div class="col-12">
                 <textarea
+                  id="phonemesInput"
+                  ref="phonemesInput"
                   v-model="phonemes_"
                   class="form-control"
                   cols="30"
@@ -53,6 +55,7 @@
                 <button
                   type="button"
                   class="btn btn-primary col-12"
+                  @click="addPhoneme(phoneme)"
                 >
                   {{ phoneme }}
                 </button>
@@ -93,7 +96,24 @@ export default {
   data() {
     return {
       phonemes_: this.phonemes,
-      phonemesList_: phonemesList
+      phonemesList_: phonemesList,
+      caretPosition: {}
+    }
+  },
+  mounted() {
+    document.querySelector('#phonemesInput').addEventListener('keydown', this.getCaretPosition)
+    document.querySelector('#phonemesInput').addEventListener('mouseup', this.getCaretPosition)
+  },
+  methods: {
+    getCaretPosition() {
+      this.caretPosition = {
+        start: document.querySelector('#phonemesInput').selectionStart,
+        end: document.querySelector('#phonemesInput').selectionEnd
+      }
+    },
+    addPhoneme(phoneme) {
+      const value = document.querySelector('#phonemesInput').value
+      document.querySelector('#phonemesInput').value = value.slice(0, this.caretPosition.start) + phoneme + value.slice(this.caretPosition.end)
     }
   }
 }

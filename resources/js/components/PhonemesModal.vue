@@ -44,6 +44,20 @@
                 />
               </div>
             </div>
+            <div class="row no-gutters mt-1">
+              <div
+                v-for="(phoneme, index) in phonemesList_"
+                :key="index"
+                class="col-2 col-md-1 p-1"
+              >
+                <button
+                  type="button"
+                  class="btn btn-primary col-12"
+                >
+                  {{ phoneme }}
+                </button>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button
@@ -67,6 +81,8 @@
 </template>
 
 <script>
+import { phonemesList } from '../constants/phonemes'
+
 export default {
   props: {
     phonemes: {
@@ -76,12 +92,9 @@ export default {
   },
   data() {
     return {
-      phonemes_: this.phonemes
+      phonemes_: this.phonemes,
+      phonemesList_: phonemesList
     }
   }
 }
 </script>
-
-<style>
-
-</style>

@@ -29,6 +29,7 @@
               class="close"
               data-dismiss="modal"
               aria-label="Close"
+              @click="reset"
             >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -67,6 +68,7 @@
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
+              @click="reset"
             >
               Annuler
             </button>
@@ -114,6 +116,13 @@ export default {
     addPhoneme(phoneme) {
       const value = document.querySelector('#phonemesInput').value
       document.querySelector('#phonemesInput').value = value.slice(0, this.caretPosition.start) + phoneme + value.slice(this.caretPosition.end)
+      this.caretPosition = {
+        start: this.caretPosition.start + 1,
+        end: this.caretPosition.end + 1
+      }
+    },
+    reset() {
+      document.querySelector('#phonemesInput').value = this.phonemes
     }
   }
 }

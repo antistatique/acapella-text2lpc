@@ -123,7 +123,12 @@
       v-if="lpcKeys.length > 0 && view === 'carousel'"
       class="container mt-5"
     >
-      <div class="row justify-content-center text-center mx-auto">
+      <div class="row justify-content-center mt-3 text-center mx-auto">
+        <div class="col-md-4 col-sm-12">
+          <phonemes-modal :phonemes="getAllPhonemes" />
+        </div>
+      </div>
+      <div class="row justify-content-center text-center mx-auto mt-4">
         <div
           class="col-md-6"
         >
@@ -220,11 +225,13 @@
 <script>
 import Carousel from '../components/Carousel'
 import CardImage from '../components/CardImage'
+import PhonemesModal from '../components/PhonemesModal'
 
 export default {
     components: {
         Carousel,
         CardImage,
+        PhonemesModal
     },
     props: {
         sentence: {
@@ -256,6 +263,9 @@ export default {
     computed: {
       disableEncodeButton() {
         return this.userSentence === ''
+      },
+      getAllPhonemes() {
+        return this.lpcKeys.map(lpcKey => lpcKey.phoneme).join('')
       }
     },
     async created() {

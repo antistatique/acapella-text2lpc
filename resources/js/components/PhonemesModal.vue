@@ -6,7 +6,16 @@
       data-toggle="modal"
       data-target="#phonemesModal"
     >
-      Modifier résultat (phonèmes)
+      <template v-if="!loading">
+        Modifier le résultat
+      </template>
+      <div
+        v-if="loading"
+        class="spinner-border spinner-grow-sm"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
     </button>
     <div
       id="phonemesModal"
@@ -75,6 +84,8 @@
             <button
               type="button"
               class="btn btn-primary"
+              data-dismiss="modal"
+              @click="modify"
             >
               Modifier le résultat
             </button>
@@ -93,6 +104,10 @@ export default {
     phonemes: {
       type: String,
       default: ''
+    },
+    loading: {
+      Type: Boolean,
+      default: false
     }
   },
   data() {
@@ -123,6 +138,9 @@ export default {
     },
     reset() {
       document.querySelector('#phonemesInput').value = this.phonemes
+    },
+    modify() {
+      this.$emit('modified', document.querySelector('#phonemesInput').value)
     }
   }
 }

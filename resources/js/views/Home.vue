@@ -125,7 +125,11 @@
     >
       <div class="row justify-content-center mt-3 text-center mx-auto">
         <div class="col-md-4 col-sm-12">
-          <phonemes-modal :phonemes="getAllPhonemes" />
+          <phonemes-modal
+            :phonemes="getAllPhonemes"
+            :loading="loading"
+            @modified="checkModified"
+          />
         </div>
       </div>
       <div class="row justify-content-center text-center mx-auto mt-4">
@@ -381,6 +385,18 @@ export default {
             }
           }
           history.pushState({}, null, this.location.href)
+        },
+        async checkModified(newPhonemes) {
+          try {
+            this.error = ""
+            this.loading = true
+            const response = await window.axios.get(`/api/encode-from-phonemes?phonemes=${newPhonemes}&library_id=${this.selectedLibrary}`)
+            this.lpcKeys = response.data.lpcKeys
+            this.loading = false
+          } catch (err) {
+            this.loading = false
+            this.error = err.response !== undefined ? err.response.data.message : err
+          }
         }
     }
 }

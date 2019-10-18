@@ -28,6 +28,23 @@ class LPCController extends Controller
         return response()->json(['message' => 'Vous n\'êtes pas autorisé à utiliser cette librairie'], 403);
     }
 
+    public function getLPCKeysFromPhonemes(Request $request, PhonemeService $phonemeService, LPCService $lpcService)
+    {
+        $library = Library::find($request->input('library_id'));
+        if ($library->public || (Auth::check() && $library->user_id === Auth::user()->id && $library->completed)) {
+            if ($request->has('phonemes') && '' != $request->input('phonemes')) {
+                $phonemes = $phonemeService->format($request->input('phonemes'));
+                $lpcKeys = $lpcService->getLPCImages($phonemes, $request->input('library_id'));
+
+                return response()->json(['lpcKeys' => $lpcKeys]);
+            }
+
+            return response()->json(['message' => 'Veuillez saisir une phrase']);
+        }
+
+        return response()->json(['message' => 'Vous n\'êtes pas autorisé à utiliser cette librairie'], 403);
+    }
+
     public function printTags(Request $request, PhonemeService $phonemeService, LPCService $lpcService)
     {
         if ($request->has('sentence') && $request->has('library_id')) {

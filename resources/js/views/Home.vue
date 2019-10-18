@@ -168,7 +168,16 @@
       v-if="lpcKeys.length > 0 && view === 'grid'"
       class="container-fluid mt-5"
     >
-      <div class="row justify-content-center text-center mx-auto">
+      <div class="row justify-content-center mt-3 text-center mx-auto">
+        <div class="col-md-4 col-sm-12">
+          <phonemes-modal
+            :phonemes="getAllPhonemes"
+            :loading="loading"
+            @modified="checkModified"
+          />
+        </div>
+      </div>
+      <div class="row justify-content-center text-center mx-auto mt-4">
         <div
           v-for="(lpcKey, index) in lpcKeys"
           :key="index"

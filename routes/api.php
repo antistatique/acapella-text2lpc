@@ -12,6 +12,7 @@
 */
 
 Route::get('/encode', 'LPCController@getLPCKeys');
+Route::get('/encode-from-phonemes', 'LPCController@getLPCKeysFromPhonemes');
 
 Route::group(['api', 'auth'], function () {
     Route::post('/library/store', 'LibraryController@store');

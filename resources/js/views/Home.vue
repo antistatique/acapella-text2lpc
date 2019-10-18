@@ -208,7 +208,7 @@
         <a
           role="button"
           class="btn btn-primary"
-          :href="`/print?sentence=${printSentence}&library_id=${selectedLibrary}`"
+          :href="printSentence !== '' ? `/print?sentence=${printSentence}&library_id=${selectedLibrary}` : `/print?phonemes=${printPhonemes}&library_id=${selectedLibrary}`"
           target="_blank"
         >Imprimer</a>
       </div>
@@ -268,6 +268,7 @@ export default {
             mediaQuery: window.matchMedia('(max-width: 600px)'),
             carouselUpdate: 0,
             printSentence: '',
+            printPhonemes: '',
             carouselPhonemeUpdate: 2,
             phonemeCheck: true,
             phoneticCheck: false,
@@ -332,6 +333,7 @@ export default {
             this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
             this.loading = false
             this.printSentence = this.userSentence
+            this.printPhonemes = ''
             this.$ga(`Encodage de la phrase : ${this.userSentence}`, `/?sentence=${this.userSentence}`)
           } catch (err) {
             this.loading = false
@@ -408,7 +410,7 @@ export default {
           try {
             this.error = ""
             this.loading = true
-            const response = await window.axios.get(`/api/encode-from-phonemes?phonemes=${newPhonemes}&library_id=${this.selectedLibrary}`)
+            const response = await window.axios.get(`/api/encode?phonemes=${newPhonemes}&library_id=${this.selectedLibrary}`)
             this.lpcKeys = response.data.lpcKeys
             this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
             if (this.location.searchParams.has('sentence')) {
@@ -419,6 +421,8 @@ export default {
             } else {
               this.location.searchParams.append('phonemes', newPhonemes)
             }
+            this.printPhonemes = newPhonemes
+            this.printSentence = ''
             this.loading = false
             history.pushState({}, null, this.location.href)
           } catch (err) {

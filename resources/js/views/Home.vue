@@ -242,6 +242,10 @@ export default {
           default: '',
           type: String
         },
+        phonemes: {
+          default: '',
+          type: String
+        },
         libraries: {
           default: "",
           type: String
@@ -276,31 +280,36 @@ export default {
         if (this.sentence !== '') {
             this.userSentence = decodeURI(this.sentence)
             await this.getLPCKeys()
+        } else if (this.phonemes !== '') {
+          await this.checkModified(this.phonemes);
+        }
 
-            if (this.location.searchParams.has('view')) {
-              if (this.location.searchParams.get('view') === 'carousel' || this.location.searchParams.get('view') === 'grid') {
-                this.changeView(this.location.searchParams.get('view'))
-              }
-            }
-            if (this.location.searchParams.has('displayPhonemes') && !this.location.searchParams.has('displayPhonetics')) {
-              this.phoneticCheck = false
-              if (this.location.searchParams.get('displayPhonemes') === 'true') {
-                this.phonemeCheck = true
-              } else if (this.location.searchParams.get('displayPhonemes') === 'false') {
-                this.phonemeCheck = false
-              }
-            } else if (!this.location.searchParams.has('displayPhonemes') && this.location.searchParams.has('displayPhonetics')) {
-              this.phonemeCheck = false
-              if (this.location.searchParams.get('displayPhonetics') === 'true') {
-                this.phoneticCheck = true
-              } else if (this.location.searchParams.get('displayPhonetics') === 'false') {
-                this.phoneticCheck = false
-              }
-            }
+        if (this.location.searchParams.has('view')) {
+          if (this.location.searchParams.get('view') === 'carousel' || this.location.searchParams.get('view') === 'grid') {
+            this.changeView(this.location.searchParams.get('view'))
+          }
+        }
+        if (this.location.searchParams.has('displayPhonemes') && !this.location.searchParams.has('displayPhonetics')) {
+          this.phoneticCheck = false
+          if (this.location.searchParams.get('displayPhonemes') === 'true') {
+            this.phonemeCheck = true
+          } else if (this.location.searchParams.get('displayPhonemes') === 'false') {
+            this.phonemeCheck = false
+          }
+        } else if (!this.location.searchParams.has('displayPhonemes') && this.location.searchParams.has('displayPhonetics')) {
+          this.phonemeCheck = false
+          if (this.location.searchParams.get('displayPhonetics') === 'true') {
+            this.phoneticCheck = true
+          } else if (this.location.searchParams.get('displayPhonetics') === 'false') {
+            this.phoneticCheck = false
+          }
         }
     },
     methods: {
         async getLPCKeys() {
+          if (this.location.searchParams.has('phonemes')) {
+            this.location.searchParams.delete('phonemes')
+          }
           if (this.location.searchParams.has('sentence')) {
             this.location.searchParams.set('sentence', this.userSentence)
           } else {
@@ -392,7 +401,17 @@ export default {
             this.loading = true
             const response = await window.axios.get(`/api/encode-from-phonemes?phonemes=${newPhonemes}&library_id=${this.selectedLibrary}`)
             this.lpcKeys = response.data.lpcKeys
+            this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
+            if (this.location.searchParams.has('sentence')) {
+              this.location.searchParams.delete('sentence')
+            }
+            if (this.location.searchParams.has('phonemes')) {
+              this.location.searchParams.set('phonemes', newPhonemes)
+            } else {
+              this.location.searchParams.append('phonemes', newPhonemes)
+            }
             this.loading = false
+            history.pushState({}, null, this.location.href)
           } catch (err) {
             this.loading = false
             this.error = err.response !== undefined ? err.response.data.message : err

@@ -72,7 +72,8 @@
       >
         <div class="col-md-4 col-sm-12">
           <phonemes-modal
-            :phonemes="getAllPhonemes"
+            :key="modalKey"
+            :phonemes="allPhonemes"
             :loading="loading"
             @modified="checkModified"
           />
@@ -269,15 +270,14 @@ export default {
             view: 'carousel',
             loading: false,
             location: new URL(window.location.href),
-            error: ""
+            error: "",
+            allPhonemes: [],
+            modalKey: 0
         }
     },
     computed: {
       disableEncodeButton() {
         return this.userSentence === ''
-      },
-      getAllPhonemes() {
-        return this.lpcKeys.map(lpcKey => lpcKey.phoneme).join('')
       }
     },
     async created() {
@@ -324,6 +324,8 @@ export default {
             this.loading = true
             const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}&library_id=${this.selectedLibrary}`)
             this.lpcKeys = response.data.lpcKeys
+            this.allPhonemes = this.lpcKeys.map(lpcKey => lpcKey.phoneme).join('')
+            this.modalKey += 1
             this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
             this.loading = false
             this.printSentence = this.userSentence

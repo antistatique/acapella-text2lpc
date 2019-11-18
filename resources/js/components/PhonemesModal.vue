@@ -127,14 +127,19 @@ export default {
     }
   },
   mounted() {
-    document.querySelector('#phonemesInput').addEventListener('keydown', this.getCaretPosition)
-    document.querySelector('#phonemesInput').addEventListener('mouseup', this.getCaretPosition)
+    document.querySelector('#phonemesInput').addEventListener('keydown', (e) => this.getCaretPosition(e))
+    document.querySelector('#phonemesInput').addEventListener('mouseup', (e) => this.getCaretPosition(e))
   },
   methods: {
-    getCaretPosition() {
+    getCaretPosition(event) {
       this.caretPosition = {
         start: document.querySelector('#phonemesInput').selectionStart,
         end: document.querySelector('#phonemesInput').selectionEnd
+      }
+
+      if (event.key === 'Backspace') {
+        this.caretPosition.start -= 1
+        this.caretPosition.end -= 1
       }
     },
     addPhoneme(phoneme) {

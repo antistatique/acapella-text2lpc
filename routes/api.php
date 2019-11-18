@@ -19,4 +19,5 @@ Route::group(['api', 'auth'], function () {
     Route::post('/library/create', 'LibraryController@saveImages');
     Route::put('/library/updateImages', 'LibraryController@updateImages');
     Route::put('/library/update', 'LibraryController@update');
+    Route::delete('/library/delete/{id}', 'LibraryController@destroy');
 });

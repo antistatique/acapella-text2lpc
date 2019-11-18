@@ -18,6 +18,16 @@ use Intervention\Image\ImageManagerStatic;
 class LibraryController extends Controller
 {
     /**
+     * Method to return all libraries available for a user
+     */
+    public function index(Request $request)
+    {
+        $privateLibraries = Library::where('user_id', Auth::user()->id)->with('keys')->get();
+
+        return view('libraries', ['libraries' => $privateLibraries]);
+    }
+
+    /**
      * Method to return the view with all the default images.
      */
     public function create(Request $request)
@@ -219,8 +229,8 @@ class LibraryController extends Controller
 
         if ($library->user_id === Auth::user()->id) {
             $library->delete();
+        } else {
+            return response()->json(['message' => 'Vous n\'êtes pas autorisé à supprimer cette bibliothèque'], 401);
         }
-
-        return redirect('/');
     }
 }

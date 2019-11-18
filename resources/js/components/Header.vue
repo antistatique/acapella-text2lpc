@@ -61,6 +61,10 @@
                   class="dropdown-item"
                   href="/library/create"
                 >Créer une bibliothèque</a>
+                <a
+                  class="dropdown-item"
+                  href="/libraries"
+                >Mes bibliothèques</a>
               </div>
             </li><li class="nav-item">
               <a

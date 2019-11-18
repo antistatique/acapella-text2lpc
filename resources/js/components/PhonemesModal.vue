@@ -1,22 +1,31 @@
 <template>
-  <div>
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-toggle="modal"
-      data-target="#phonemesModal"
+  <div class="input-group">
+    <input
+      type="text"
+      class="form-control"
+      disabled
+      :value="phonemes_"
     >
-      <template v-if="!loading">
-        Modifier le résultat
-      </template>
-      <div
-        v-if="loading"
-        class="spinner-border spinner-grow-sm"
-        role="status"
+    <div class="input-group-append">
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        data-toggle="modal"
+        data-target="#phonemesModal"
       >
-        <span class="sr-only">Loading...</span>
-      </div>
-    </button>
+        <template v-if="!loading">
+          <font-awesome-icon icon="cog" />
+          Modifier
+        </template>
+        <div
+          v-if="loading"
+          class="spinner-border spinner-grow-sm"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
     <div
       id="phonemesModal"
       class="modal fade"
@@ -145,3 +154,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  textarea {
+    font-size: 20px;
+  }
+</style>

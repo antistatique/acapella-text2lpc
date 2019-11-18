@@ -51,8 +51,10 @@ class LibraryController extends Controller
     public function edit($id)
     {
         $library = Library::find($id);
-        if ($library->user_id === Auth::user()->id)
+        if (Auth::user()->can('edit'))
             return view('edit_library', ['library' => $library->with('keys')->first()]);
+
+        return redirect('/');
     }
 
     /**
@@ -67,7 +69,7 @@ class LibraryController extends Controller
         $validated = $request->validated();
 
         $library = Library::find($validated['libraryId']);
-        if ($library->user_id === Auth::user()->id) {
+        if (Auth::user()->can('update')) {
             $library->name = $validated['name'];
             $library->save();
 
@@ -154,37 +156,43 @@ class LibraryController extends Controller
     {
         $validated = $request->validated();
 
-        // Test if the images exist and if they're truly images
-        foreach ($validated['imagesInfos'] as $testImage) {
-            $imagePathValidated = basename($testImage['imagePath']);
-            try {
-                ImageManagerStatic::make(storage_path('app/temp_images/').$imagePathValidated);
-            } catch (\Exception $e) {
-                return response()->json(['message' => 'Une erreur est survenue durant la sauvegarde des images']);
-            }
-        }
-
-        foreach ($validated['imagesInfos'] as $imageInfos) {
-            $imagePathValidated = basename($imageInfos['imagePath']);
-
-            $key = Key::where(['key' => $imageInfos['key'], 'position' => $imageInfos['position'], 'library_id' => $validated['libraryId']])->first();
-
-            if (Library::find($validated['libraryId'])->public) {
-                $imagePath = storage_path('app/public/').$imagePathValidated;
-                $key->image = '/storage/'.$imagePathValidated;
-                // Delete the previous image for the key
-                File::delete($imagePath);
-            } else {
-                $imagePath = storage_path('app/private/').$imagePathValidated;
-                $key->image = '/private/files/'.(string) $key->id.'/'.$imagePathValidated;
-                // Delete the previous image for the key
-                File::delete($imagePath);
+        if (Auth::user()->can('update')) {
+            // Test if the images exist and if they're truly images
+            foreach ($validated['imagesInfos'] as $testImage) {
+                $imagePathValidated = basename($testImage['imagePath']);
+                try {
+                    ImageManagerStatic::make(storage_path('app/temp_images/').$imagePathValidated);
+                } catch (\Exception $e) {
+                    return response()->json(['message' => 'Une erreur est survenue durant la sauvegarde des images']);
+                }
             }
 
-            File::move(storage_path('app/temp_images/').$imagePathValidated, $imagePath);
+            foreach ($validated['imagesInfos'] as $imageInfos) {
+                $imagePathValidated = basename($imageInfos['imagePath']);
 
-            $key->save();
+                $key = Key::where(['key' => $imageInfos['key'], 'position' => $imageInfos['position'], 'library_id' => $validated['libraryId']])->first();
+
+                if (Library::find($validated['libraryId'])->public) {
+                    $imagePath = storage_path('app/public/').$imagePathValidated;
+                    $key->image = '/storage/'.$imagePathValidated;
+                    // Delete the previous image for the key
+                    File::delete($imagePath);
+                } else {
+                    $imagePath = storage_path('app/private/').$imagePathValidated;
+                    $key->image = '/private/files/'.(string) $key->id.'/'.$imagePathValidated;
+                    // Delete the previous image for the key
+                    File::delete($imagePath);
+                }
+
+                File::move(storage_path('app/temp_images/').$imagePathValidated, $imagePath);
+
+                $key->save();
+            }
+
+            return response()->json(['message' => 'Success'], 200);
         }
+
+        return response()->json(['message' => 'Vous n\'êtes pas authorisé à éditer cette bibliothèque'], 403);
     }
 
     /**

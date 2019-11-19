@@ -28,6 +28,7 @@
           <select
             v-model="selectedLibrary"
             class="custom-select"
+            @change="this.modalKey += 1"
           >
             <option
               v-for="library in JSON.parse(libraries)"
@@ -75,6 +76,7 @@
             :key="modalKey"
             :phonemes="allPhonemes"
             :loading="loading"
+            :selected-library="selectedLibrary"
             @modified="checkModified"
           />
         </div>
@@ -271,7 +273,7 @@ export default {
             loading: false,
             location: new URL(window.location.href),
             error: "",
-            allPhonemes: [],
+            allPhonemes: this.phonemes !== '' ? decodeURI(this.phonemes) : '',
             modalKey: 0
         }
     },
@@ -283,9 +285,12 @@ export default {
     async created() {
         if (this.sentence !== '') {
             this.userSentence = decodeURI(this.sentence)
-            await this.getLPCKeys()
-        } else if (this.phonemes !== '') {
-          await this.checkModified(this.phonemes);
+            if (this.phonemes === '') {
+              await this.getLPCKeys()
+            }
+        }
+        if (this.phonemes !== '') {
+          await this.checkModified(null, decodeURI(this.phonemes));
         }
 
         if (this.location.searchParams.has('view')) {
@@ -402,16 +407,17 @@ export default {
           }
           history.pushState({}, null, this.location.href)
         },
-        async checkModified(newPhonemes) {
+        async checkModified(newKeys, newPhonemes) {
           try {
             this.error = ""
             this.loading = true
-            const response = await window.axios.get(`/api/encode?phonemes=${newPhonemes}&library_id=${this.selectedLibrary}`)
-            this.lpcKeys = response.data.lpcKeys
-            this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
-            if (this.location.searchParams.has('sentence')) {
-              this.location.searchParams.delete('sentence')
+            if (newKeys) {
+              this.lpcKeys = newKeys
+            } else {
+              const response = await window.axios.get(`/api/encode?phonemes=${newPhonemes}&library_id=${this.selectedLibrary}`)
+              this.lpcKeys = response.data.lpcKeys
             }
+            this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
             if (this.location.searchParams.has('phonemes')) {
               this.location.searchParams.set('phonemes', newPhonemes)
             } else {

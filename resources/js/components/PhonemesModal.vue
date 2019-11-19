@@ -62,6 +62,7 @@
                   class="form-control"
                   cols="30"
                   rows="5"
+                  autofocus
                 />
               </div>
             </div>
@@ -82,22 +83,32 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-              @click="reset"
-            >
-              Annuler
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-dismiss="modal"
-              @click="modify"
-            >
-              Modifier le résultat
-            </button>
+            <div class="row no-gutters row-footer">
+              <div class="col-8 error-message">
+                <template v-if="error">
+                  {{ error }}
+                </template>
+              </div>
+              <div class="col-1">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                  @click="reset"
+                >
+                  Annuler
+                </button>
+              </div>
+              <div class="col-3">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  @click="modify"
+                >
+                  Modifier le résultat
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -117,18 +128,27 @@ export default {
     loading: {
       Type: Boolean,
       default: false
+    },
+    selectedLibrary: {
+      type: Number,
+      default: 0
     }
   },
   data() {
     return {
       phonemes_: this.phonemes,
       phonemesList_: phonemesList,
-      caretPosition: {}
+      caretPosition: {},
+      error: null
     }
   },
   mounted() {
     document.querySelector('#phonemesInput').addEventListener('keydown', (e) => this.getCaretPosition(e))
     document.querySelector('#phonemesInput').addEventListener('mouseup', (e) => this.getCaretPosition(e))
+    this.caretPosition = {
+      start: document.querySelector('#phonemesInput').value.length,
+      end: document.querySelector('#phonemesInput').value.length
+    }
   },
   methods: {
     getCaretPosition(event) {
@@ -141,6 +161,11 @@ export default {
         this.caretPosition.start -= 1
         this.caretPosition.end -= 1
       }
+
+      if (event.key === ' ') {
+        this.caretPosition.start += 1
+        this.caretPosition.end += 1
+      }
     },
     addPhoneme(phoneme) {
       const value = document.querySelector('#phonemesInput').value
@@ -149,12 +174,21 @@ export default {
         start: this.caretPosition.start + 1,
         end: this.caretPosition.end + 1
       }
+      this.$refs.phonemesInput.focus()
+      document.querySelector('#phonemesInput').selectionStart = this.caretPosition.start
+      document.querySelector('#phonemesInput').selectionEnd = this.caretPosition.end
     },
     reset() {
       document.querySelector('#phonemesInput').value = this.phonemes
     },
-    modify() {
-      this.$emit('modified', document.querySelector('#phonemesInput').value)
+    async modify() {
+      try {
+        const response = await window.axios.get(`/api/encode?phonemes=${document.querySelector('#phonemesInput').value.split(' ').join('')}&library_id=${this.selectedLibrary}`)
+        this.$emit('modified', response.data.lpcKeys, document.querySelector('#phonemesInput').value.split(' ').join(''))
+        window.$('#phonemesModal').modal('hide')
+      } catch (error) {
+        this.error = err.response !== undefined ? err.response.data.message : err
+      }
     }
   }
 }
@@ -162,6 +196,21 @@ export default {
 
 <style lang="scss" scoped>
   textarea {
-    font-size: 20px;
+    font-size: 24px;
+    letter-spacing: 3px;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: center;
+
+    .row-footer {
+      width: 100%;
+
+      .error-message {
+        vertical-align: middle;
+        color: red;
+      }
+    }
   }
 </style>

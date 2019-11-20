@@ -28,6 +28,7 @@
           <select
             v-model="selectedLibrary"
             class="custom-select"
+            @change="this.modalKey += 1"
           >
             <option
               v-for="library in JSON.parse(libraries)"
@@ -64,6 +65,20 @@
               <span class="sr-only">Loading...</span>
             </div>
           </button>
+        </div>
+      </div>
+      <div
+        v-if="lpcKeys.length > 0"
+        class="row justify-content-center mt-3 text-center mx-auto"
+      >
+        <div class="col-md-4 col-sm-12">
+          <phonemes-modal
+            :key="modalKey"
+            :phonemes="allPhonemes"
+            :loading="loading"
+            :selected-library="selectedLibrary"
+            @modified="checkModified"
+          />
         </div>
       </div>
     </div>
@@ -123,7 +138,7 @@
       v-if="lpcKeys.length > 0 && view === 'carousel'"
       class="container mt-5"
     >
-      <div class="row justify-content-center text-center mx-auto">
+      <div class="row justify-content-center text-center mx-auto mt-4">
         <div
           class="col-md-6"
         >
@@ -159,7 +174,7 @@
       v-if="lpcKeys.length > 0 && view === 'grid'"
       class="container-fluid mt-5"
     >
-      <div class="row justify-content-center text-center mx-auto">
+      <div class="row justify-content-center text-center mx-auto mt-4">
         <div
           v-for="(lpcKey, index) in lpcKeys"
           :key="index"
@@ -190,7 +205,7 @@
         <a
           role="button"
           class="btn btn-primary"
-          :href="`/print?sentence=${printSentence}&library_id=${selectedLibrary}`"
+          :href="printSentence !== '' ? `/print?sentence=${printSentence}&library_id=${selectedLibrary}` : `/print?phonemes=${printPhonemes}&library_id=${selectedLibrary}`"
           target="_blank"
         >Imprimer</a>
       </div>
@@ -220,14 +235,20 @@
 <script>
 import Carousel from '../components/Carousel'
 import CardImage from '../components/CardImage'
+import PhonemesModal from '../components/PhonemesModal'
 
 export default {
     components: {
         Carousel,
         CardImage,
+        PhonemesModal
     },
     props: {
         sentence: {
+          default: '',
+          type: String
+        },
+        phonemes: {
           default: '',
           type: String
         },
@@ -244,13 +265,16 @@ export default {
             mediaQuery: window.matchMedia('(max-width: 600px)'),
             carouselUpdate: 0,
             printSentence: '',
+            printPhonemes: '',
             carouselPhonemeUpdate: 2,
             phonemeCheck: true,
             phoneticCheck: false,
             view: 'carousel',
             loading: false,
             location: new URL(window.location.href),
-            error: ""
+            error: "",
+            allPhonemes: this.phonemes !== '' ? decodeURI(this.phonemes) : '',
+            modalKey: 0
         }
     },
     computed: {
@@ -261,32 +285,40 @@ export default {
     async created() {
         if (this.sentence !== '') {
             this.userSentence = decodeURI(this.sentence)
-            await this.getLPCKeys()
+            if (this.phonemes === '') {
+              await this.getLPCKeys()
+            }
+        }
+        if (this.phonemes !== '') {
+          await this.checkModified(null, decodeURI(this.phonemes));
+        }
 
-            if (this.location.searchParams.has('view')) {
-              if (this.location.searchParams.get('view') === 'carousel' || this.location.searchParams.get('view') === 'grid') {
-                this.changeView(this.location.searchParams.get('view'))
-              }
-            }
-            if (this.location.searchParams.has('displayPhonemes') && !this.location.searchParams.has('displayPhonetics')) {
-              this.phoneticCheck = false
-              if (this.location.searchParams.get('displayPhonemes') === 'true') {
-                this.phonemeCheck = true
-              } else if (this.location.searchParams.get('displayPhonemes') === 'false') {
-                this.phonemeCheck = false
-              }
-            } else if (!this.location.searchParams.has('displayPhonemes') && this.location.searchParams.has('displayPhonetics')) {
-              this.phonemeCheck = false
-              if (this.location.searchParams.get('displayPhonetics') === 'true') {
-                this.phoneticCheck = true
-              } else if (this.location.searchParams.get('displayPhonetics') === 'false') {
-                this.phoneticCheck = false
-              }
-            }
+        if (this.location.searchParams.has('view')) {
+          if (this.location.searchParams.get('view') === 'carousel' || this.location.searchParams.get('view') === 'grid') {
+            this.changeView(this.location.searchParams.get('view'))
+          }
+        }
+        if (this.location.searchParams.has('displayPhonemes') && !this.location.searchParams.has('displayPhonetics')) {
+          this.phoneticCheck = false
+          if (this.location.searchParams.get('displayPhonemes') === 'true') {
+            this.phonemeCheck = true
+          } else if (this.location.searchParams.get('displayPhonemes') === 'false') {
+            this.phonemeCheck = false
+          }
+        } else if (!this.location.searchParams.has('displayPhonemes') && this.location.searchParams.has('displayPhonetics')) {
+          this.phonemeCheck = false
+          if (this.location.searchParams.get('displayPhonetics') === 'true') {
+            this.phoneticCheck = true
+          } else if (this.location.searchParams.get('displayPhonetics') === 'false') {
+            this.phoneticCheck = false
+          }
         }
     },
     methods: {
         async getLPCKeys() {
+          if (this.location.searchParams.has('phonemes')) {
+            this.location.searchParams.delete('phonemes')
+          }
           if (this.location.searchParams.has('sentence')) {
             this.location.searchParams.set('sentence', this.userSentence)
           } else {
@@ -297,9 +329,12 @@ export default {
             this.loading = true
             const response = await window.axios.get(`/api/encode?sentence=${this.userSentence}&library_id=${this.selectedLibrary}`)
             this.lpcKeys = response.data.lpcKeys
+            this.allPhonemes = this.lpcKeys.map(lpcKey => lpcKey.phoneme).join('')
+            this.modalKey += 1
             this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
             this.loading = false
             this.printSentence = this.userSentence
+            this.printPhonemes = ''
             this.$ga(`Encodage de la phrase : ${this.userSentence}`, `/?sentence=${this.userSentence}`)
           } catch (err) {
             this.loading = false
@@ -371,6 +406,31 @@ export default {
             }
           }
           history.pushState({}, null, this.location.href)
+        },
+        async checkModified(newKeys, newPhonemes) {
+          try {
+            this.error = ""
+            this.loading = true
+            if (newKeys) {
+              this.lpcKeys = newKeys
+            } else {
+              const response = await window.axios.get(`/api/encode?phonemes=${newPhonemes}&library_id=${this.selectedLibrary}`)
+              this.lpcKeys = response.data.lpcKeys
+            }
+            this.phonemeCheck || this.phoneticCheck ? (this.carouselPhonemeUpdate === 0 ? this.carouselPhonemeUpdate = 1 : this.carouselPhonemeUpdate = 0) : (this.carouselUpdate === 0 ? this.carouselUpdate = 1 : this.carouselUpdate = 0)
+            if (this.location.searchParams.has('phonemes')) {
+              this.location.searchParams.set('phonemes', newPhonemes)
+            } else {
+              this.location.searchParams.append('phonemes', newPhonemes)
+            }
+            this.printPhonemes = newPhonemes
+            this.printSentence = ''
+            this.loading = false
+            history.pushState({}, null, this.location.href)
+          } catch (err) {
+            this.loading = false
+            this.error = err.response !== undefined ? err.response.data.message : err
+          }
         }
     }
 }

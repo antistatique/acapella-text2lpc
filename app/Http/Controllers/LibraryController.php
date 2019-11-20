@@ -116,15 +116,6 @@ class LibraryController extends Controller
 
         $public = Library::find($validated['libraryId'])->public;
 
-        foreach ($validated['imagesInfos'] as $testImage) {
-            $imagePathValidated = basename($testImage['imagePath']);
-            try {
-                ImageManagerStatic::make(storage_path('app/temp_images/').$imagePathValidated);
-            } catch (\Exception $e) {
-                return response()->json(['message' => 'Une erreur est survenue durant la sauvegarde des images'], 403);
-            }
-        }
-
         // Get all the images in the temporary folder that were stored by the user with the API
         foreach ($validated['imagesInfos'] as $imageInfos) {
             $imagePathValidated = basename($imageInfos['imagePath']);
@@ -167,16 +158,6 @@ class LibraryController extends Controller
         $validated = $request->validated();
 
         if (Auth::user()->can('update')) {
-            // Test if the images exist and if they're truly images
-            foreach ($validated['imagesInfos'] as $testImage) {
-                $imagePathValidated = basename($testImage['imagePath']);
-                try {
-                    ImageManagerStatic::make(storage_path('app/temp_images/').$imagePathValidated);
-                } catch (\Exception $e) {
-                    return response()->json(['message' => 'Une erreur est survenue durant la sauvegarde des images']);
-                }
-            }
-
             foreach ($validated['imagesInfos'] as $imageInfos) {
                 $imagePathValidated = basename($imageInfos['imagePath']);
 

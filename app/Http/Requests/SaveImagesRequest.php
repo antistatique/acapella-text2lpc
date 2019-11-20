@@ -27,6 +27,9 @@ class SaveImagesRequest extends FormRequest
         return [
             'libraryId'   => 'required|integer',
             'imagesInfos' => 'required|array|size:40',
+            'imagesInfos.*.key' => 'required',
+            'imagesInfos.*.position' => 'required',
+            'imagesInfos.*.imagePath' => 'required|temp_imageable'
         ];
     }
 }

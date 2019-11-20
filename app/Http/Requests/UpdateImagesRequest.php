@@ -27,6 +27,9 @@ class UpdateImagesRequest extends FormRequest
         return [
             'libraryId'   => 'required|integer',
             'imagesInfos' => 'array',
+            'imagesInfos.*.key' => 'required',
+            'imagesInfos.*.position' => 'required',
+            'imagesInfos.*.imagePath' => 'required|temp_imageable'
         ];
     }
 }

@@ -56,7 +56,7 @@ class LPCController extends Controller
                 } else {
                     $pdf = PDF::loadView('print_formats.default', ['images' => $images]);
                 }
-                return $pdf->stream();
+                return $pdf->download($library->name.'_étiquettes.pdf');
             }
         }
     }

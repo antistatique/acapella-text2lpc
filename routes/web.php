@@ -21,4 +21,6 @@ Route::get('login', function () {
 Route::post('login', 'LoginController@login')->middleware('guest');
 Route::get('library/create', 'LibraryController@create')->middleware('auth');
 Route::get('private/files/{keyId}/{fileName}', 'LibraryController@getPrivateImage')->middleware('auth');
+Route::get('library/delete/{id}', 'LibraryController@destroy')->middleware('auth');
+Route::get('library/edit/{id}', 'LibraryController@edit')->middleware('auth');
 Route::get('libraries', 'LibraryController@index')->middleware('auth');

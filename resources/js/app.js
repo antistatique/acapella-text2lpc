@@ -66,6 +66,7 @@ Vue.component('footer-component', require('./components/Footer.vue').default);
 Vue.component('home', require('./views/Home.vue').default);
 Vue.component('login', require('./views/Login.vue').default);
 Vue.component('add-library', require('./views/AddLibrary.vue').default);
+Vue.component('edit-library', require('./views/EditLibrary.vue').default);
 Vue.component('libraries', require('./views/Libraries.vue').default)
 
 /**

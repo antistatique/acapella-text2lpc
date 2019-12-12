@@ -17,5 +17,7 @@ Route::group(['api', 'auth'], function () {
     Route::post('/library/store', 'LibraryController@store');
     Route::post('/upload_image', 'LibraryController@uploadImage');
     Route::post('/library/create', 'LibraryController@saveImages');
+    Route::put('/library/updateImages', 'LibraryController@updateImages');
+    Route::put('/library/update', 'LibraryController@update');
     Route::delete('/library/delete/{id}', 'LibraryController@destroy');
 });

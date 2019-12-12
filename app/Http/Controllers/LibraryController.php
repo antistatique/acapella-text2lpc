@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveImagesRequest;
 use App\Http\Requests\StoreLibraryRequest;
 use App\Http\Requests\UploadImageRequest;
+use App\Http\Requests\UpdateImagesRequest;
+use App\Http\Requests\UpdateLibraryRequest;
 use App\Key;
 use App\Library;
 use File;
@@ -54,6 +56,40 @@ class LibraryController extends Controller
     }
 
     /**
+     * Method to return the view to edit a library
+     */
+    public function edit($id)
+    {
+        $library = Library::find($id);
+        if (Auth::user()->can('edit'))
+            return view('edit_library', ['library' => $library->with('keys')->first()]);
+
+        return redirect('/');
+    }
+
+    /**
+     * Update a library
+     * For now, only the name can be updated
+     * Changing the public value would require way more time due to the images
+     * 
+     * @TODO : Make it possible to update the public column
+     */
+    public function update(UpdateLibraryRequest $request)
+    {
+        $validated = $request->validated();
+
+        $library = Library::find($validated['libraryId']);
+        if (Auth::user()->can('update')) {
+            $library->name = $validated['name'];
+            $library->save();
+
+            return response()->json(['library' => $library]);
+        }
+
+        return response()->json(['message' => 'Vous n\'êtes pas authorisé à éditer cette bibliothèque'], 403);
+    }
+
+    /**
      * Method to upload an image to temporary folder.
      */
     public function uploadImage(UploadImageRequest $request)
@@ -79,15 +115,6 @@ class LibraryController extends Controller
         $validated = $request->validated();
 
         $public = Library::find($validated['libraryId'])->public;
-
-        foreach ($validated['imagesInfos'] as $testImage) {
-            $imagePathValidated = basename($testImage['imagePath']);
-            try {
-                ImageManagerStatic::make(storage_path('app/temp_images/').$imagePathValidated);
-            } catch (\Exception $e) {
-                return response()->json(['message' => 'Une erreur est survenue durant la sauvegarde des images']);
-            }
-        }
 
         // Get all the images in the temporary folder that were stored by the user with the API
         foreach ($validated['imagesInfos'] as $imageInfos) {
@@ -119,6 +146,44 @@ class LibraryController extends Controller
 
         Library::find($validated['libraryId'])->completed = true;
         Library::find($validated['libraryId'])->save();
+    }
+
+    /**
+     * Method to update the images of a library
+     * Just like the saveImages method, it will move the images from the temp folder to the storage folder
+     * It will delete the previous images that were updated
+     */
+    public function updateImages(UpdateImagesRequest $request)
+    {
+        $validated = $request->validated();
+
+        if (Auth::user()->can('update')) {
+            foreach ($validated['imagesInfos'] as $imageInfos) {
+                $imagePathValidated = basename($imageInfos['imagePath']);
+
+                $key = Key::where(['key' => $imageInfos['key'], 'position' => $imageInfos['position'], 'library_id' => $validated['libraryId']])->first();
+
+                if (Library::find($validated['libraryId'])->public) {
+                    $imagePath = storage_path('app/public/').$imagePathValidated;
+                    $key->image = '/storage/'.$imagePathValidated;
+                    // Delete the previous image for the key
+                    File::delete($imagePath);
+                } else {
+                    $imagePath = storage_path('app/private/').$imagePathValidated;
+                    $key->image = '/private/files/'.(string) $key->id.'/'.$imagePathValidated;
+                    // Delete the previous image for the key
+                    File::delete($imagePath);
+                }
+
+                File::move(storage_path('app/temp_images/').$imagePathValidated, $imagePath);
+
+                $key->save();
+            }
+
+            return response()->json(['message' => 'Success'], 200);
+        }
+
+        return response()->json(['message' => 'Vous n\'êtes pas authorisé à éditer cette bibliothèque'], 403);
     }
 
     /**

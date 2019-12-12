@@ -2,6 +2,12 @@
 
 Every changes made to the project will be documented here.
 
+## [1.0.0] - 12-12-2019
+## Added
+ - Edit a Library
+ - View library list
+ - Phoneme editor
+
 ## [0.5.0] - 13-06-2019
 ## Added
  - Print functionnality

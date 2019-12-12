@@ -29,6 +29,6 @@ class Key extends Model
      */
     public function library()
     {
-        return $this->hasOne('App\Library');
+        return $this->belongsTo('App\Library');
     }
 }

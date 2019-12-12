@@ -31,5 +31,14 @@ class AppServiceProvider extends ServiceProvider
                 return false;
             }
         });
+        Validator::extend('temp_imageable', function ($attribute, $value, $params, $validator) {
+            try {
+                ImageManagerStatic::make(storage_path('app/temp_images/').$value);
+
+                return true;
+            } catch (\Exception $e) {
+                return false;
+            }
+        });
     }
 }

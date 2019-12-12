@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class SaveImagesRequest extends FormRequest
+class UpdateLibraryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,8 @@ class SaveImagesRequest extends FormRequest
     public function rules()
     {
         return [
-            'libraryId'   => 'required|integer',
-            'imagesInfos' => 'required|array|size:40',
-            'imagesInfos.*.key' => 'required',
-            'imagesInfos.*.position' => 'required',
-            'imagesInfos.*.imagePath' => 'required|temp_imageable'
+            'name'      => 'required|min:2',
+            'libraryId' => 'required|integer'
         ];
     }
 }

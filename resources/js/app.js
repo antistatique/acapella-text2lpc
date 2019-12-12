@@ -20,7 +20,8 @@ import {
     faArrowLeft,
     faArrowRight,
     faRedo,
-    faTimes
+    faTimes,
+    faCog
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add([
@@ -30,7 +31,8 @@ library.add([
     faArrowLeft,
     faArrowRight,
     faRedo,
-    faTimes
+    faTimes,
+    faCog
 ])
 
 Vue.use(VeeValidate)
@@ -64,6 +66,8 @@ Vue.component('footer-component', require('./components/Footer.vue').default);
 Vue.component('home', require('./views/Home.vue').default);
 Vue.component('login', require('./views/Login.vue').default);
 Vue.component('add-library', require('./views/AddLibrary.vue').default);
+Vue.component('edit-library', require('./views/EditLibrary.vue').default);
+Vue.component('libraries', require('./views/Libraries.vue').default)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
